@@ -4,6 +4,9 @@ body {
   color: gray;
   font-weight: 300;
   font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 ::-moz-selection {
@@ -878,6 +881,32 @@ h5,
   font-size: 1.1rem;
 }
 
+.intro-section-becas {
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+}
+.intro-section-becas,
+.intro-section-becas .container > .row {
+  height: auto;
+  min-height: 600px;
+}
+.intro-section-becas.single-cover,
+.intro-section-becas.single-cover .container > .row {
+  height: 50vh;
+  min-height: 400px;
+}
+.intro-section-becas h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.intro-section-becas p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+}
+
 .img-absolute {
   position: absolute;
   right: 10%;
@@ -1363,7 +1392,7 @@ h5,
 .course .course-price {
   position: absolute;
   padding: 10px 15px;
-  background: #050f45;
+  background: #a00f0f;
   color: #fff;
   top: -20px;
   right: 0;
@@ -1490,4 +1519,316 @@ h5,
 .comment-list li .comment-body .reply:hover {
   color: #000;
   background: #e3e3e3;
+}
+
+/*BECAS*/
+#becas-container {
+  min-height: 400px;
+  width: 100%;
+  overflow: visible;
+  padding-top: 120px;
+}
+
+/* FILTER */
+.filter-container {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  margin-top: 120px;
+  border-radius: 10px;
+}
+
+.filter-container h4 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-inline: 20px;
+  color: #050f45;
+  font-weight: bold;
+}
+
+.filter-divider {
+  border: none;
+  height: 0.5px;
+  background: #050f45;
+  opacity: 0.8;
+  width: 90%;
+}
+
+.PB-range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 5px;
+  background: #d5dbe1;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.PB-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #050f45;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.PB-range-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.16);
+  transition: 0.3s ease-in-out;
+}
+
+.PB-range-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #050f45;
+  cursor: pointer;
+}
+
+.PB-range-slider-div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-inline: 20px;
+}
+
+.PB-range-slidervalue {
+  color: #050f45 !important;
+  min-width: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.PB-range-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.check {
+  cursor: pointer;
+  position: relative;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+}
+
+.check:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(34, 50, 84, 0.03);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.check svg {
+  position: relative;
+  z-index: 1;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #c8ccd4;
+  stroke-width: 1.5;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+}
+
+.check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+.check svg polyline {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 66;
+}
+
+.check:hover:before {
+  opacity: 1;
+}
+
+.check:hover svg {
+  stroke: #050f45;
+}
+
+.custom-checkbox:checked + .check svg {
+  stroke: #050f45;
+}
+
+.custom-checkbox:checked + .check svg path {
+  stroke-dashoffset: 60;
+  transition: all 0.3s linear;
+}
+
+.custom-checkbox:checked + .check svg polyline {
+  stroke-dashoffset: 42;
+  transition: all 0.2s linear;
+  transition-delay: 0.15s;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dropdown-container {
+  padding-bottom: 20px;
+  padding-inline: 20px;
+}
+
+.selected-items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  background: #a00f0f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.badge-item .delete-btn {
+  background: transparent;
+  color: white;
+  border: none;
+  margin-left: 8px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.badge-item .delete-btn:hover {
+  color: #050f45;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 5px 0;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  min-width: 200px;
+}
+
+.contenedor-bloqueado {
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+.bloqueado {
+  color: #aaa;
+  font-style: italic;
+}
+
+/*LOGIN*/
+.dropdown-menu.login {
+  z-index: 1100;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 100% !important;
+  max-height: max-content;
+  min-width: fit-content;
+}
+
+.dropdown-menu-auto {
+  width: auto;
+  min-width: unset;
+}
+
+/* REGISTER */
+.intro-section-register {
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+}
+.intro-section-register,
+.intro-section-register .container > .row {
+  height: auto;
+  min-height: 100vh;
+}
+.intro-section-register.single-cover,
+.intro-section-register.single-cover .container > .row {
+  height: 50vh;
+  min-height: 400px;
+}
+.intro-section-register h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.intro-section-register p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+}
+
+.register-card {
+  padding-top: 100px;
+  padding-bottom: 20px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
+  transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.toggle-password.active {
+  color: #050f45;
+}
+
+/* PROFILE */
+.profile-card {
+  padding-top: 100px;
+  padding-bottom: 20px;
+  width: 100%;
 }

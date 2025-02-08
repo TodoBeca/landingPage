@@ -68,9 +68,7 @@
                       >Sobre Nosotros</a
                     >
                   </li>
-                  <li>
-                    <a href="/catalogo.html" class="nav-link">Catálogo</a>
-                  </li>
+
                   <li>
                     <a href="#contact-section" class="nav-link">Contacto</a>
                   </li>
@@ -83,249 +81,331 @@
         </div>
       </header>
 
-      <div class="intro-section" id="home-section">
+      <div class="intro-section-becas" id="home-section">
         <div
           class="slide-1"
           style="background-image: url('images/hero_1.jpg')"
           data-stellar-background-ratio="0.5"
         >
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-12">
-                <div class="row align-items-center">
-                  <div class="col-lg-6 mb-4">
-                    <h1 data-aos="fade-up" data-aos-delay="100">
-                      Encontrá la beca que buscas
-                    </h1>
-                    <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                      Explora oportunidades académicas únicas diseñadas para
-                      potenciar tu futuro. Nuestro equipo te guiará en cada paso
-                      para que encuentres la beca perfecta y logres tus metas.
-                    </p>
-                    <p data-aos="fade-up" data-aos-delay="300">
-                      <a href="#" class="btn btn-primary py-3 px-5 btn-pill"
-                        >Buscar Becas</a
+          <div class="row p-0">
+            <div class="col-9">
+              <div class="row">
+                <div class="w-100 px-4">
+                  <div id="becas-container"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="filter-container">
+                <h4 class="">Filtrar Busqueda</h4>
+
+                <div class="dropdown-container">
+                  <div class="dropdown">
+                    <label for="select-region">Filtrar por región</label>
+
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                       >
-                    </p>
-                  </div>
+                        Seleccionar región
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownRegion"
+                        aria-labelledby="dropdownMenuButton"
+                      ></div>
+                    </div>
 
-                  <div
-                    class="col-lg-5 ml-auto"
-                    data-aos="fade-up"
-                    data-aos-delay="500"
+                    <div
+                      id="selected-region"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+                </div>
+
+                <hr class="filter-divider" />
+
+                <div class="dropdown-container">
+                  <div class="dropdown">
+                    <label for="select-pais">Filtrar por paises</label>
+
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Seleccionar país
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownPaises"
+                        aria-labelledby="dropdownMenuButton"
+                      ></div>
+                    </div>
+
+                    <div
+                      id="selected-paises"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+                </div>
+
+                <hr class="filter-divider" />
+
+                <div class="dropdown-container">
+                  <div class="dropdown">
+                    <label for="select-nacPostulante"
+                      >Filtrar por nacionalidad del postulante</label
+                    >
+
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Seleccionar nacionalidad
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownNacPostulante"
+                        aria-labelledby="dropdownMenuButton"
+                      ></div>
+                    </div>
+
+                    <div
+                      id="selected-nacPostulante"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+                </div>
+
+                <hr class="filter-divider" />
+
+                <div class="dropdown-container">
+                  <div class="dropdown">
+                    <label for="select-area">Filtrar por area de estudio</label>
+
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Seleccionar nacionalidad
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownArea"
+                        aria-labelledby="dropdownMenuButton"
+                      ></div>
+                    </div>
+
+                    <div
+                      id="selected-area"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+                </div>
+
+                <hr class="filter-divider" />
+
+                <div class="dropdown-container">
+                  <div class="dropdown">
+                    <label for="select-pais">Filtrar por tipo de beca</label>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButtonTipoBeca"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Seleccionar tipo de beca
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownTipoBeca"
+                        aria-labelledby="dropdownMenuButtonTipoBeca"
+                      ></div>
+                    </div>
+
+                    <div
+                      id="selected-tipo-beca"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+                </div>
+
+                <hr class="filter-divider" />
+
+                <div class="dropdown-container">
+                  <label for="filtroFecha"
+                    >Filtrar por fecha de inscripción</label
                   >
-                    <form action="" method="post" class="form-box">
-                      <h3 class="h4 text-black mb-4">Registráte</h3>
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Correo Electrónico"
-                        />
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="filtroFecha"
+                    onchange="filtrarBecas()"
+                  />
+                </div>
+
+                <div id="logedUser">
+                  <hr class="filter-divider" />
+
+                  <div class="dropdown-container">
+                    <div class="dropdown">
+                      <label for="select-pais">Filtrar por universidades</label>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-primary dropdown-toggle w-100"
+                          type="button"
+                          id="dropdownMenuButtonUniversidades"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Seleccionar universidad
+                        </button>
+                        <div
+                          class="dropdown-menu"
+                          id="dropdownUniversidades"
+                          aria-labelledby="dropdownMenuButtonUniversidades"
+                        ></div>
                       </div>
-                      <div class="form-group">
+
+                      <div
+                        id="selected-universidades"
+                        class="selected-items-container"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider" />
+
+                  <div class="dropdown-container">
+                    <div class="dropdown">
+                      <label for="select-pais">Filtrar por idiomas</label>
+                      <button
+                        class="btn btn-primary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButtonIdiomas"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Seleccionar idioma
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdownIdiomas"
+                        aria-labelledby="dropdownMenuButtonIdiomas"
+                      ></div>
+                    </div>
+
+                    <div
+                      id="selected-idiomas"
+                      class="selected-items-container"
+                    ></div>
+                  </div>
+
+                  <hr class="filter-divider" />
+
+                  <div>
+                    <div class="PB-range-slider-div">
+                      <label for="rCupos">Filtrar por cupos máximos:</label>
+                      <div class="PB-range-slider-container">
                         <input
-                          type="password"
-                          class="form-control"
-                          placeholder="Contraseña"
+                          type="range"
+                          min="0"
+                          max="100"
+                          value="0"
+                          class="PB-range-slider"
+                          id="rCupos"
                         />
+                        <p class="PB-range-slidervalue" id="rangeCupos">0</p>
                       </div>
-                      <div class="form-group mb-4">
+                    </div>
+
+                    <hr class="filter-divider" />
+
+                    <div class="PB-range-slider-div">
+                      <label for="rEdad">Filtrar por edad máxima:</label>
+                      <div class="PB-range-slider-container">
                         <input
-                          type="password"
-                          class="form-control"
-                          placeholder="Re-escribir Constraseña"
+                          type="range"
+                          min="0"
+                          max="100"
+                          value="0"
+                          class="PB-range-slider"
+                          id="rEdad"
                         />
+                        <p class="PB-range-slidervalue" id="rangeEdad">0</p>
                       </div>
-                      <div class="form-group">
+                    </div>
+
+                    <hr class="filter-divider" />
+
+                    <div class="PB-range-slider-div">
+                      <label for="rPromedio"
+                        >Filtrar por promedio mínimo:</label
+                      >
+                      <div class="PB-range-slider-container">
                         <input
-                          type="submit"
-                          class="btn btn-primary btn-pill"
-                          value="Registrarse"
+                          type="range"
+                          min="0"
+                          max="100"
+                          value="0"
+                          class="PB-range-slider"
+                          id="rPromedio"
                         />
+                        <p class="PB-range-slidervalue" id="rangePromedio">0</p>
                       </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                    </div>
 
-      <div class="site-section courses-title" id="courses-section">
-        <div class="container">
-          <div class="row mb-5 justify-content-center">
-            <div
-              class="col-lg-7 text-center"
-              data-aos="fade-up"
-              data-aos-delay=""
-            >
-              <h2 class="section-title">Becas Destacadas</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="site-section courses-entry-wrap"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="owl-carousel col-12 nonloop-block-14">
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_1.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">Alemania</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>1 a 2 años
-                  </div>
-                  <h3>
-                    <a href="#">Beca para asistir al One Young World Summit</a>
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 560 cupos
-                  </div>
-                </div>
-              </div>
+                    <hr class="filter-divider" />
 
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_2.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">Australia</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>3 a 4 años
-                  </div>
-                  <h3>
-                    <a href="#"
-                      >Becas del Gobierno de Australia para Doctorado</a
-                    >
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 324 cupos
+                    <div class="PB-range-slider-div pb-4">
+                      <label for="rDuracion"
+                        >Filtrar por duración máxima:</label
+                      >
+                      <div class="PB-range-slider-container">
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          value="0"
+                          class="PB-range-slider"
+                          id="rDuracion"
+                        />
+                        <p class="PB-range-slidervalue" id="rangeDuracion">0</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_3.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">Canada</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>1 a 2 años
-                  </div>
-                  <h3>
-                    <a href="#"
-                      >Programa de becarios residentes de derechos humanos
-                      O’Brien</a
-                    >
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 50 cupos
-                  </div>
+                <div id="unloged" class="dropdown-container">
+                  <span class="text-danger"
+                    >Para acceder a más filtros, inicie sesión</span
+                  >
                 </div>
               </div>
-
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_4.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">China</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>2 a 4 años
-                  </div>
-                  <h3><a href="#">Programa Youth of Excellence Scheme</a></h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 200 cupos
-                  </div>
-                </div>
-              </div>
-
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_5.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">Corea del Sur</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>8 semanas
-                  </div>
-                  <h3>
-                    <a href="#"
-                      >Becas KOICA para estudios de posgrado en Corea del Sur</a
-                    >
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 365 cupos
-                  </div>
-                </div>
-              </div>
-
-              <div class="course bg-white h-100 align-self-stretch">
-                <figure class="m-0">
-                  <a href="course-single.html"
-                    ><img src="images/img_6.jpg" alt="Image" class="img-fluid"
-                  /></a>
-                </figure>
-                <div class="course-inner-text py-4 px-4">
-                  <span class="course-price">Costa Rica</span>
-                  <div class="meta">
-                    <span class="icon-clock-o"></span>18 a 40 meses
-                  </div>
-                  <h3>
-                    <a href="#"
-                      >Becas para Maestria en Resolución de Conflictos...</a
-                    >
-                  </h3>
-                  <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit.</p>
-                </div>
-                <div class="d-flex border-top stats">
-                  <div class="py-3 px-4">
-                    <span class="icon-users"></span> 4 cupos
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-7 text-center">
-              <button class="customPrevBtn btn btn-primary m-1">
-                Anterior
-              </button>
-              <button class="customNextBtn btn btn-primary m-1">Próximo</button>
             </div>
           </div>
         </div>
@@ -765,7 +845,11 @@
     <script src="js/aos.js"></script>
     <script src="js/jquery.fancybox.min.js"></script>
     <script src="js/jquery.sticky.js"></script>
+    <script src="config.js"></script>
+    <script src="js/fetchBecas.js"></script>
+    <script src="js/fetchParams.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/logFilter.js"></script>
     <script src="js/auth.js"></script>
   </body>
 </html>
