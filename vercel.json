@@ -1,0 +1,15 @@
+{
+  "build": {
+    "env": {
+      "API_URL_GET_BECAS": "@api_url_get_becas",
+      "API_URL_GET_PARAMETROS": "@api_url_get_parametros",
+      "API_URL_POST_USUARIO": "@api_url_post_usuario",
+      "API_URL_POST_LOGIN": "@api_url_post_login",
+      "API_URL_GET_USER": "@api_url_get_user",
+      "API_URL_UPDATE_USER": "@api_url_update_user"
+    },
+    "scripts": {
+      "build": "node generate-config.js"
+    }
+  }
+}
