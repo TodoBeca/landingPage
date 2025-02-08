@@ -404,7 +404,7 @@ function filtrarBecas() {
 // Función principal para obtener y mostrar las becas
 async function fetchBecas() {
   try {
-    const response = await fetch(CONFIG.API_URL_GET_BECAS);
+    const response = await fetch(API_URL_GET_BECAS);
 
     if (!response.ok) {
       throw new Error(`Error en la petición: ${response.status}`);
