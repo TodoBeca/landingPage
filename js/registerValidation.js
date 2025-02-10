@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordError = document.getElementById("passwordError");
   const emailError = document.getElementById("emailError");
   const togglePasswordIcons = document.querySelectorAll(".toggle-password");
+  const registerButton = form.querySelector("button[type='submit']");
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -34,6 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isValid) {
       return;
     }
+
+    // **Deshabilitar botón y mostrar loading**
+    registerButton.disabled = true;
+    registerButton.innerHTML =
+      '<span class="spinner-border spinner-border-sm"></span> Registrando...';
 
     const formData = new FormData(form);
 
@@ -109,9 +115,14 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       console.error("Error en la solicitud:", error);
       alert("Hubo un problema al registrar el usuario");
+    } finally {
+      // **Restaurar botón después de la respuesta**
+      registerButton.disabled = false;
+      registerButton.innerHTML = "Registrar";
     }
   });
 
+  // **Mostrar/Ocultar contraseña**
   togglePasswordIcons.forEach((icon) => {
     icon.addEventListener("click", function () {
       const targetId = this.getAttribute("data-target");
@@ -125,8 +136,5 @@ document.addEventListener("DOMContentLoaded", function () {
         this.classList.remove("active");
       }
     });
-
-    const targetId = icon.getAttribute("data-target");
-    const passwordField = document.getElementById(targetId);
   });
 });

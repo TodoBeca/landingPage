@@ -1,5 +1,15 @@
 let becas = [];
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll(".dropdown-menu").forEach((item) => {
+  item.addEventListener("click", function () {
+    setTimeout(scrollToTop, 700);
+  });
+});
+
 const usuario =
   JSON.parse(localStorage.getItem("usuario")) ||
   JSON.parse(sessionStorage.getItem("usuario"));
@@ -644,9 +654,11 @@ async function fetchBecas() {
         })
         .filter((v) => v !== null);
 
+      const minValue = values.length > 0 ? Math.min(...values) : 0; // Calcular el valor mínimo
       const maxValue = values.length > 0 ? Math.max(...values) : defaultValue;
 
       if (slider && range) {
+        slider.min = minValue; // Establecer el valor mínimo
         slider.max = maxValue;
         slider.value = maxValue;
         range.textContent = maxValue;

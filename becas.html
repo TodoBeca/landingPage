@@ -102,7 +102,6 @@
                 <div class="dropdown-container">
                   <div class="dropdown">
                     <label for="select-region">Filtrar por región</label>
-
                     <div class="dropdown">
                       <button
                         class="btn btn-primary dropdown-toggle w-100"
@@ -118,9 +117,9 @@
                         class="dropdown-menu"
                         id="dropdownRegion"
                         aria-labelledby="dropdownMenuButton"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-region"
                       class="selected-items-container"
@@ -133,7 +132,6 @@
                 <div class="dropdown-container">
                   <div class="dropdown">
                     <label for="select-pais">Filtrar por paises</label>
-
                     <div class="dropdown">
                       <button
                         class="btn btn-primary dropdown-toggle w-100"
@@ -149,9 +147,9 @@
                         class="dropdown-menu"
                         id="dropdownPaises"
                         aria-labelledby="dropdownMenuButton"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-paises"
                       class="selected-items-container"
@@ -182,9 +180,9 @@
                         class="dropdown-menu"
                         id="dropdownNacPostulante"
                         aria-labelledby="dropdownMenuButton"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-nacPostulante"
                       class="selected-items-container"
@@ -196,7 +194,7 @@
 
                 <div class="dropdown-container">
                   <div class="dropdown">
-                    <label for="select-area">Filtrar por area de estudio</label>
+                    <label for="select-area">Filtrar por área de estudio</label>
 
                     <div class="dropdown">
                       <button
@@ -207,15 +205,15 @@
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        Seleccionar nacionalidad
+                        Seleccionar área de estudio
                       </button>
                       <div
                         class="dropdown-menu"
                         id="dropdownArea"
                         aria-labelledby="dropdownMenuButton"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-area"
                       class="selected-items-container"
@@ -243,9 +241,9 @@
                         class="dropdown-menu"
                         id="dropdownTipoBeca"
                         aria-labelledby="dropdownMenuButtonTipoBeca"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-tipo-beca"
                       class="selected-items-container"
@@ -263,7 +261,7 @@
                     type="date"
                     class="form-control"
                     id="filtroFecha"
-                    onchange="filtrarBecas()"
+                    onchange="scrollToTop()"
                   />
                 </div>
 
@@ -288,9 +286,9 @@
                           class="dropdown-menu"
                           id="dropdownUniversidades"
                           aria-labelledby="dropdownMenuButtonUniversidades"
+                          onchange="scrollToTop()"
                         ></div>
                       </div>
-
                       <div
                         id="selected-universidades"
                         class="selected-items-container"
@@ -317,9 +315,9 @@
                         class="dropdown-menu"
                         id="dropdownIdiomas"
                         aria-labelledby="dropdownMenuButtonIdiomas"
+                        onchange="scrollToTop()"
                       ></div>
                     </div>
-
                     <div
                       id="selected-idiomas"
                       class="selected-items-container"
@@ -339,6 +337,7 @@
                           value="0"
                           class="PB-range-slider"
                           id="rCupos"
+                          onchange="scrollToTop()"
                         />
                         <p class="PB-range-slidervalue" id="rangeCupos">0</p>
                       </div>
@@ -356,6 +355,7 @@
                           value="0"
                           class="PB-range-slider"
                           id="rEdad"
+                          onchange="scrollToTop()"
                         />
                         <p class="PB-range-slidervalue" id="rangeEdad">0</p>
                       </div>
@@ -375,6 +375,7 @@
                           value="0"
                           class="PB-range-slider"
                           id="rPromedio"
+                          onchange="scrollToTop()"
                         />
                         <p class="PB-range-slidervalue" id="rangePromedio">0</p>
                       </div>
@@ -394,6 +395,7 @@
                           value="0"
                           class="PB-range-slider"
                           id="rDuracion"
+                          onchange="scrollToTop()"
                         />
                         <p class="PB-range-slidervalue" id="rangeDuracion">0</p>
                       </div>

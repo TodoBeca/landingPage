@@ -6,6 +6,7 @@ AOS.init({
 
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginFormOne");
+  const loginButton = loginForm?.querySelector("button[type='submit']"); // Botón de login
 
   if (loginForm) {
     loginForm.addEventListener("submit", async function (event) {
@@ -18,6 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Por favor, completa todos los campos.");
         return;
       }
+
+      // **Deshabilitar botón y mostrar loading**
+      loginButton.disabled = true;
+      loginButton.innerHTML =
+        '<span class="spinner-border spinner-border-sm"></span> Iniciando sesión...';
 
       try {
         // Enviar solicitud de inicio de sesión
@@ -76,6 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
       } catch (error) {
         console.error("Error:", error);
         alert("Error al conectar con el servidor.");
+      } finally {
+        // **Restaurar botón después de la respuesta**
+        loginButton.disabled = false;
+        loginButton.innerHTML = "Iniciar Sesión";
       }
     });
   }
