@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // Guardar los datos en localStorage o sessionStorage
           const usuarioData = {
-            id: userData._id,
+            _id: userData._id,
             email: userData.email,
             emailVerified: userData.emailVerified,
             role: userData.role,
