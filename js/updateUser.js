@@ -5,6 +5,19 @@ document.addEventListener("DOMContentLoaded", function () {
     saveButton.addEventListener("click", async function (event) {
       event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
 
+      // Obtener el spinner y el mensaje
+      const loadingSpinner = document.getElementById("loadingSpinner");
+
+      // Mostrar el spinner y el mensaje
+      if (loadingSpinner) {
+        loadingSpinner.style.display = "block";
+      }
+
+      // Deshabilitar el botón para evitar múltiples clics
+      saveButton.disabled = true;
+      saveButton.innerHTML =
+        '<span class="spinner-border spinner-border-sm"></span> Guardando cambios...';
+
       // Obtener el usuario actual desde localStorage o sessionStorage
       const usuario =
         JSON.parse(localStorage.getItem("usuario")) ||
@@ -12,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!usuario || !usuario._id) {
         alert("Usuario no autenticado o ID no disponible");
+        if (loadingSpinner) loadingSpinner.style.display = "none"; // Ocultar el spinner
+        saveButton.disabled = false; // Habilitar el botón
         return;
       }
 
@@ -89,9 +104,16 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("usuario", JSON.stringify(updatedUser));
 
         alert("Perfil actualizado correctamente");
+
+        // Recargar la página después de guardar los cambios
+        window.location.reload();
       } catch (error) {
         console.error("Error al actualizar el perfil:", error);
         alert(error.message || "Hubo un error al actualizar el perfil");
+      } finally {
+        // Ocultar el spinner y habilitar el botón
+        if (loadingSpinner) loadingSpinner.style.display = "none";
+        saveButton.disabled = false;
       }
     });
   }
