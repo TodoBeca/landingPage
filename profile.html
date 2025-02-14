@@ -76,12 +76,12 @@
                           width="150px"
                           src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                         />
-                        <span class="font-weight-bold">Edogaru</span>
-                        <span class="text-black-50">edogaru@mail.com.my</span>
+                        <span class="font-weight-bold" id="userFullName"></span>
+                        <span class="text-black-50" id="userEmail"></span>
                       </div>
                     </div>
                     <div class="col-md-9 border-right">
-                      <div class="p-3 py-5">
+                      <div class="p-3">
                         <div
                           class="d-flex justify-content-between align-items-center mb-3"
                         >
@@ -124,12 +124,15 @@
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Género</label>
-                            <input
-                              type="text"
+                            <select
                               class="form-control"
-                              placeholder="Género"
                               name="personalData.gender"
-                            />
+                            >
+                              <option value="">Selecciona tu género</option>
+                              <option value="M">Masculino</option>
+                              <option value="F">Femenino</option>
+                              <option value="O">Otro</option>
+                            </select>
                           </div>
                         </div>
                         <div class="row mt-3">
@@ -179,16 +182,144 @@
                           class="d-flex justify-content-between align-items-center mt-2"
                         >
                           <h5 class="text-right mb-0">Educación</h5>
-                          <span class="icon-plus"></span>
+                          <span class="icon-plus" id="openModal"></span>
+
+                          <div id="educationModal" class="modal">
+                            <div class="modal-content">
+                              <div class="row justify-content-between px-3">
+                                <h2 class="text-primary">Añadir educación</h2>
+                                <span class="close" id="closeModal"
+                                  >&times;</span
+                                >
+                              </div>
+                              <form>
+                                <label
+                                  for="institution"
+                                  class="labels mb-0 mt-1"
+                                  >Institución educativa*</label
+                                >
+                                <input
+                                  type="text"
+                                  id="institution"
+                                  class="form-control"
+                                  placeholder="P. ej. Universidad de Salamanca"
+                                  required
+                                />
+
+                                <label for="title" class="labels mb-0 mt-2"
+                                  >Título</label
+                                >
+                                <input
+                                  type="text"
+                                  id="title"
+                                  class="form-control"
+                                  placeholder="P. ej. Grado"
+                                />
+
+                                <label for="discipline" class="labels mb-0 mt-2"
+                                  >Disciplina académica</label
+                                >
+                                <input
+                                  type="text"
+                                  id="discipline"
+                                  class="form-control"
+                                  placeholder="P. ej. Empresariales"
+                                />
+
+                                <label for="start-date" class="labels mb-0 mt-2"
+                                  >Fecha de inicio</label
+                                >
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <select
+                                      id="start-month"
+                                      class="form-control"
+                                    >
+                                      <option value="">Mes</option>
+                                      <option value="1">Enero</option>
+                                      <option value="2">Febrero</option>
+                                      <option value="3">Marzo</option>
+                                      <option value="4">Abril</option>
+                                      <option value="5">Mayo</option>
+                                      <option value="6">Junio</option>
+                                      <option value="7">Julio</option>
+                                      <option value="8">Agosto</option>
+                                      <option value="9">Septiembre</option>
+                                      <option value="10">Octubre</option>
+                                      <option value="11">Noviembre</option>
+                                      <option value="12">Diciembre</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <select
+                                      id="start-year"
+                                      class="form-control"
+                                    >
+                                      <option value="">Año</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <label for="end-date" class="labels mb-0 mt-2"
+                                  >Fecha de finalización (o fecha
+                                  prevista)</label
+                                >
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <select id="end-month" class="form-control">
+                                      <option value="">Mes</option>
+                                      <option value="1">Enero</option>
+                                      <option value="2">Febrero</option>
+                                      <option value="3">Marzo</option>
+                                      <option value="4">Abril</option>
+                                      <option value="5">Mayo</option>
+                                      <option value="6">Junio</option>
+                                      <option value="7">Julio</option>
+                                      <option value="8">Agosto</option>
+                                      <option value="9">Septiembre</option>
+                                      <option value="10">Octubre</option>
+                                      <option value="11">Noviembre</option>
+                                      <option value="12">Diciembre</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <select id="end-year" class="form-control">
+                                      <option value="">Año</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <label for="note" class="labels mb-0 mt-2"
+                                  >Nota</label
+                                >
+                                <input
+                                  type="text"
+                                  id="note"
+                                  placeholder="Opcional"
+                                  class="form-control"
+                                />
+
+                                <div class="mt-2 text-center">
+                                  <button
+                                    class="btn btn-primary profile-button"
+                                    type="submit"
+                                  >
+                                    Guardar
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
                         </div>
                         <div id="educacion"></div>
 
                         <div class="mt-5 text-center">
                           <button
+                            id="profile-button"
                             class="btn btn-primary profile-button"
                             type="submit"
                           >
-                            Save Profile
+                            Guardar cambios
                           </button>
                         </div>
                       </div>
@@ -219,5 +350,6 @@
     <script src="js/login.js"></script>
     <script src="js/fetchUserProfile.js"></script>
     <script src="js/updateUser.js"></script>
+    <script src="js/modal.js"></script>
   </body>
 </html>

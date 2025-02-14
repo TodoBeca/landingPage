@@ -1,19 +1,45 @@
 let becas = [];
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll(".dropdown-menu").forEach((item) => {
+  item.addEventListener("click", function () {
+    setTimeout(scrollToTop, 700);
+  });
+});
+
 const usuario =
   JSON.parse(localStorage.getItem("usuario")) ||
   JSON.parse(sessionStorage.getItem("usuario"));
 
 // Función para calcular la duración de la beca
 function calcularDuracion(duracion) {
+  const unidad = duracion.duracionUnidad || "años";
+  const mesesPorAnio = 12;
+
+  // Función para convertir a meses
+  const convertirAMeses = (valor, unidad) => {
+    if (unidad.toLowerCase().includes("año")) {
+      return valor * mesesPorAnio;
+    } else if (unidad.toLowerCase().includes("mes")) {
+      return valor;
+    } else {
+      return valor;
+    }
+  };
+
   if (duracion.duracionMinima && duracion.duracionMaxima) {
-    return `${duracion.duracionMinima} a ${duracion.duracionMaxima} ${
-      duracion.duracionUnidad || "años"
-    }`;
+    const minMeses = convertirAMeses(duracion.duracionMinima, unidad);
+    const maxMeses = convertirAMeses(duracion.duracionMaxima, unidad);
+    return `${minMeses} a ${maxMeses} meses`;
   } else if (duracion.duracionMinima) {
-    return `${duracion.duracionMinima} ${duracion.duracionUnidad || "años"}`;
+    const minMeses = convertirAMeses(duracion.duracionMinima, unidad);
+    return `${minMeses} meses`;
   } else if (duracion.duracionMaxima) {
-    return `${duracion.duracionMaxima} ${duracion.duracionUnidad || "años"}`;
+    const maxMeses = convertirAMeses(duracion.duracionMaxima, unidad);
+    return `${maxMeses} meses`;
   } else {
     return "Duración no disponible";
   }
@@ -98,9 +124,9 @@ function mostrarBecasFiltradas(filteredBecas) {
 
     card.innerHTML = `
     <div class="course-inner-text py-4 px-4">
-    <span class="course-price mt-4">${beca.paisOrigen || "Sin país"} - ${
-      beca.regionOrigen
-    }</span>
+    <span class="course-price mt-4"><strong>Destino: </strong>${
+      beca.paisOrigen || "Sin país"
+    } - ${beca.regionOrigen}</span>
     <h3 class="text-primary font-weight-bold"><a>${beca.nombreBeca}</a></h3>
     <h6><a>${beca.entidadBecaria}</a></h6>
 
@@ -261,17 +287,11 @@ function filtrarBecas() {
     document.querySelectorAll("#selected-area .badge-item")
   ).map((badge) => badge.getAttribute("data-area"));
 
-  const selectedUniversidades = Array.from(
-    document.querySelectorAll("#selected-universidades .badge-item")
-  ).map((badge) => badge.getAttribute("data-universidad"));
-
   const selectedTiposBeca = Array.from(
     document.querySelectorAll("#selected-tipo-beca .badge-item")
   ).map((badge) => badge.getAttribute("data-tipo-beca"));
 
-  const cuposValue = parseInt(document.getElementById("rCupos").value);
   const edadValue = parseInt(document.getElementById("rEdad").value);
-  const promedioValue = parseInt(document.getElementById("rPromedio").value);
   const duracionValue = parseInt(document.getElementById("rDuracion").value);
 
   // Obtener la fecha seleccionada en el input
@@ -333,14 +353,6 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtro por universidad
-    if (
-      selectedUniversidades.length > 0 &&
-      !selectedUniversidades.includes(beca.institucionPublicadora)
-    ) {
-      return false;
-    }
-
     // Filtro por tipo de beca
     if (
       selectedTiposBeca.length > 0 &&
@@ -369,30 +381,23 @@ function filtrarBecas() {
       }
     }
 
-    // Filtro por cupos
-    if (beca.cantCupos && beca.cantCupos > cuposValue) {
-      return false;
-    }
-
     // Filtro por edad máxima
     if (beca.requisitos?.edadMax && beca.requisitos.edadMax > edadValue) {
       return false;
     }
 
-    // Filtro por promedio mínimo
-    if (
-      beca.requisitos?.promedioMin &&
-      beca.requisitos.promedioMin > promedioValue
-    ) {
-      return false;
-    }
-
     // Filtro por duración máxima
-    if (
-      beca.duración?.duracionMaxima &&
-      beca.duración.duracionMaxima > duracionValue
-    ) {
-      return false;
+    if (beca.duración?.duracionMaxima) {
+      // Convertir duración máxima de la beca a meses si está en años
+      const duracionMaxBeca = beca.duración.duracionUnidad
+        ?.toLowerCase()
+        .includes("año")
+        ? beca.duración.duracionMaxima * 12 // Convertir años a meses
+        : beca.duración.duracionMaxima; // Ya está en meses
+
+      if (duracionMaxBeca > duracionValue) {
+        return false;
+      }
     }
 
     return true;
@@ -411,7 +416,27 @@ async function fetchBecas() {
     }
 
     // Asignar los datos de las becas a la variable global `becas`
-    becas = await response.json();
+    rawBecas = await response.json();
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const fechaActual = new Date().toISOString().split("T")[0];
+
+    // Filtrar las becas vigentes
+    becas = rawBecas.filter((beca) => {
+      const fechaFinInscripcion = beca.fechaFinAplicacion
+        ? new Date(beca.fechaFinAplicacion).toISOString().split("T")[0]
+        : null;
+
+      // Si no hay fecha final de inscripción, se considera vigente
+      if (!fechaFinInscripcion) return true;
+
+      // Mantener solo las becas cuya fecha final de inscripción sea mayor o igual a la fecha actual
+      return fechaFinInscripcion >= fechaActual;
+    });
+
+    // Asignar las becas filtradas a la variable global `becas`
+    window.becas = becas;
+
     const container = document.getElementById("becas-container");
     const dropdownIdiomas = document.getElementById("dropdownIdiomas");
     const selectedIdiomasContainer =
@@ -428,12 +453,7 @@ async function fetchBecas() {
     );
     const dropdownArea = document.getElementById("dropdownArea");
     const selectedAreaContainer = document.getElementById("selected-area");
-    const dropdownUniversidades = document.getElementById(
-      "dropdownUniversidades"
-    );
-    const selectedUniversidadesContainer = document.getElementById(
-      "selected-universidades"
-    );
+
     const dropdownTipoBeca = document.getElementById("dropdownTipoBeca");
     const selectedTipoBecaContainer =
       document.getElementById("selected-tipo-beca");
@@ -449,8 +469,6 @@ async function fetchBecas() {
     selectedNacPostulanteContainer.innerHTML = "";
     dropdownArea.innerHTML = "";
     selectedAreaContainer.innerHTML = "";
-    dropdownUniversidades.innerHTML = "";
-    selectedUniversidadesContainer.innerHTML = "";
     dropdownTipoBeca.innerHTML = "";
     selectedTipoBecaContainer.innerHTML = "";
 
@@ -496,13 +514,6 @@ async function fetchBecas() {
     // Obtener areas de estudio únicos
     const Areas = [
       ...new Set(becas.map((beca) => beca.areaEstudio).filter(Boolean)),
-    ];
-
-    // Obtener universidades únicas
-    const universidades = [
-      ...new Set(
-        becas.map((beca) => beca.institucionPublicadora).filter(Boolean)
-      ),
     ];
 
     // Obtener tipos de beca únicos
@@ -589,25 +600,6 @@ async function fetchBecas() {
       dropdownArea.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de universidades
-    universidades.forEach((universidad) => {
-      const dropdownItem = document.createElement("a");
-      dropdownItem.classList.add("dropdown-item");
-      dropdownItem.href = "#";
-      dropdownItem.textContent = universidad;
-
-      dropdownItem.addEventListener("click", function (e) {
-        e.preventDefault();
-        agregarBadge(
-          universidad,
-          selectedUniversidadesContainer,
-          "universidad"
-        );
-      });
-
-      dropdownUniversidades.appendChild(dropdownItem);
-    });
-
     // Generar dropdown de tipo de beca
     tiposBeca.forEach((tipo) => {
       const dropdownItem = document.createElement("a");
@@ -624,14 +616,18 @@ async function fetchBecas() {
     });
 
     // Configurar los sliders
+    // Configurar los sliders para que muestren valores en meses
     const configSliders = [
-      { id: "rCupos", prop: "cantCupos", default: 100 },
       { id: "rEdad", prop: "requisitos.edadMax", default: 100 },
-      { id: "rPromedio", prop: "requisitos.promedioMin", default: 10 },
-      { id: "rDuracion", prop: "duración.duracionMaxima", default: 10 },
+      {
+        id: "rDuracion",
+        prop: "duración.duracionMaxima",
+        default: 10,
+        toMonths: true,
+      }, // Convierte a meses
     ];
 
-    configSliders.forEach(({ id, prop, default: defaultValue }) => {
+    configSliders.forEach(({ id, prop, default: defaultValue, toMonths }) => {
       const slider = document.getElementById(id);
       const range = document.getElementById(
         `range${id.charAt(1).toUpperCase() + id.slice(2)}`
@@ -639,21 +635,27 @@ async function fetchBecas() {
 
       const values = becas
         .map((beca) => {
-          const value = eval(`beca.${prop}`);
+          let value = eval(`beca.${prop}`);
           return value !== null && value !== undefined ? value : null;
         })
-        .filter((v) => v !== null);
+        .filter((v) => v !== null)
+        .map((v) => (toMonths ? v * 12 : v)); // Si es duración, convertir a meses
 
-      const maxValue = values.length > 0 ? Math.max(...values) : defaultValue;
+      const minValue = values.length > 0 ? Math.min(...values) : 0;
+      const maxValue =
+        values.length > 0
+          ? Math.max(...values)
+          : defaultValue * (toMonths ? 12 : 1); // Convertir el default a meses si es necesario
 
       if (slider && range) {
+        slider.min = minValue;
         slider.max = maxValue;
         slider.value = maxValue;
-        range.textContent = maxValue;
+        range.textContent = `${maxValue} `;
 
         slider.oninput = function () {
-          range.textContent = this.value;
-          filtrarBecas(); // Filtrar al cambiar el valor del slider
+          range.textContent = `${this.value}`; // Mostrar siempre en meses
+          filtrarBecas();
         };
       }
     });
