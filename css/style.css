@@ -1785,7 +1785,12 @@ h5,
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.modal-content {
+
+.modal-content-educacion {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
   background-color: white;
   margin: 10% auto;
   padding: 1rem;
@@ -1793,6 +1798,20 @@ h5,
   width: 50%;
   border-radius: 5px;
 }
+
+.modal-content-language {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background-color: white;
+  margin: 10% auto;
+  padding: 1rem;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 5px;
+}
+
 .close {
   color: #aaa;
   float: right;
@@ -1804,4 +1823,26 @@ h5,
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Contenedor del dropdown */
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  display: none; /* Oculto por defecto */
+}
+
+/* Ítems dentro del dropdown */
+.dropdown-item {
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
 }

@@ -124,38 +124,38 @@ function mostrarBecasFiltradas(filteredBecas) {
 
     card.innerHTML = `
     <div class="course-inner-text py-4 px-4">
-    <span class="course-price mt-4"><strong>Destino: </strong>${
-      beca.paisOrigen || "Sin país"
-    } - ${beca.regionOrigen}</span>
-    <h3 class="text-primary font-weight-bold"><a>${beca.nombreBeca}</a></h3>
-    <h6><a>${beca.entidadBecaria}</a></h6>
+      <span class="course-price mt-4"><strong>Destino: </strong>${
+        beca.paisOrigen || "Sin país"
+      } - ${beca.regionOrigen}</span>
+      <h3 class="text-primary font-weight-bold"><a>${beca.nombreBeca}</a></h3>
+      <h6><a>${beca.entidadBecaria}</a></h6>
 
-    <div class="meta">
-      <h6 class="font-weight-bold">Características</h6>
-      <div>
-        <span class="icon-flag"></span>Países Postulantes: ${
-          Array.isArray(beca.paisPostulante) && beca.paisPostulante.length > 0
-            ? beca.paisPostulante.join(", ")
-            : "No especificado"
-        } 
-        &nbsp;
-        <span>-</span>
-        <span class="icon-book"></span>Área de estudio: ${
-          beca.areaEstudio || "No especificado"
-        }
-        &nbsp;
-        <span>-</span>
-        <span class="icon-certificate"></span>Tipo de Beca: ${beca.tipoBeca}
-        &nbsp;
-        <span>-</span>
-        <span class="icon-calendar"></span>Inscripciones: ${inscripciones}
+      <div class="meta">
+        <h6 class="font-weight-bold">Características</h6>
+        <div>
+          <span class="icon-flag"></span>Países Postulantes: ${
+            Array.isArray(beca.paisPostulante) && beca.paisPostulante.length > 0
+              ? beca.paisPostulante.join(", ")
+              : "No especificado"
+          } 
+          &nbsp;
+          <span>-</span>
+          <span class="icon-book"></span>Área de estudio: ${
+            beca.areaEstudio || "No especificado"
+          }
+          &nbsp;
+          <span>-</span>
+          <span class="icon-certificate"></span>Tipo de Beca: ${beca.tipoBeca}
+          &nbsp;
+          <span>-</span>
+          <span class="icon-calendar"></span>Inscripciones: ${inscripciones}
+        </div>
       </div>
-    </div>
 
-    <div class="meta">
-      ${
-        usuario
-          ? `
+      <div class="meta">
+        ${
+          usuario
+            ? `
           <h6 class="font-weight-bold">Detalles Adicionales</h6>
           <div>
             <span class="icon-clock-o"></span>Duración: ${duracionCalculada} 
@@ -166,7 +166,7 @@ function mostrarBecasFiltradas(filteredBecas) {
             }
           </div>
           `
-          : `
+            : `
           <div>
             <span class="icon-clock-o"></span>Duración: **** 
             &nbsp;
@@ -174,47 +174,47 @@ function mostrarBecasFiltradas(filteredBecas) {
             <span class="icon-users"></span>Cant. Cupos: ****
           </div>
           `
-      }
-    </div>
+        }
+      </div>
 
-    <div class="meta">
-      <h6 class="font-weight-bold">Requisitos</h6>
-      <span class="icon-book"></span>Nivel Académico: ${
-        usuario
-          ? beca.requisitos.nivelAcademicoMin || "No especificado"
-          : "****"
-      }
-      &nbsp;
-      <span>-</span>
-      <span class="icon-comment"></span>Idioma Requerido: ${
-        usuario
-          ? beca.requisitos.idiomasRequeridos
+      <div class="meta">
+        <h6 class="font-weight-bold">Requisitos</h6>
+        <span class="icon-book"></span>Nivel Académico: ${
+          usuario
+            ? beca.requisitos.nivelAcademicoMin || "No especificado"
+            : "****"
+        }
+        &nbsp;
+        <span>-</span>
+        <span class="icon-comment"></span>Idioma Requerido: ${
+          usuario
             ? beca.requisitos.idiomasRequeridos
-                .map((idioma) => `${idioma.idioma} (${idioma.nivelIdioma})`)
-                .join(", ")
-            : "No especificado"
-          : "****"
-      }
-      &nbsp;
-      <span>-</span>
-      <span class="icon-user"></span>Edad Máxima: ${
-        usuario ? beca.requisitos.edadMax || "No especificado" : "****"
-      } años
-      &nbsp;
-      <span>-</span>
-      <span class="icon-bar-chart"></span> Promedio Min.: ${
-        usuario ? beca.requisitos.promedioMin || "No especificado" : "****"
-      }
-    ${
-      usuario
-        ? ""
-        : `
+              ? beca.requisitos.idiomasRequeridos
+                  .map((idioma) => `${idioma.idioma} (${idioma.nivelIdioma})`)
+                  .join(", ")
+              : "No especificado"
+            : "****"
+        }
+        &nbsp;
+        <span>-</span>
+        <span class="icon-user"></span>Edad Máxima: ${
+          usuario ? beca.requisitos.edadMax || "No especificado" : "****"
+        } años
+        &nbsp;
+        <span>-</span>
+        <span class="icon-bar-chart"></span> Promedio Min.: ${
+          usuario ? beca.requisitos.promedioMin || "No especificado" : "****"
+        }
+      ${
+        usuario
+          ? ""
+          : `
           <div>
             <span class="text-danger">Para ver más características, inicie sesión</span>
           </div>
         `
-    }
-  </div>
+      }
+    </div>
 `;
 
     container.appendChild(card);

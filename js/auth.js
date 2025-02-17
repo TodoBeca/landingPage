@@ -1,9 +1,13 @@
 function cerrarSesion() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("usuario");
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("usuario");
+  localStorage.clear();
+  sessionStorage.clear();
   window.location.reload();
+}
+
+function cerrarSesionProfile() {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = "index.html";
 }
 
 function actualizarUI() {

@@ -43,9 +43,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const userFullNameElement = document.getElementById("userFullName");
     const userEmailElement = document.getElementById("userEmail");
 
-    console.log("Elemento del nombre completo:", userFullNameElement);
-    console.log("Elemento del correo electrónico:", userEmailElement);
-
     if (userFullNameElement && userEmailElement) {
       // Concatenar el nombre y el apellido
       const fullName = `${userData.personalData.firstName} ${userData.personalData.lastName}`;
@@ -98,93 +95,110 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Rellenar los campos de educación (si existen)
     const educacionDiv = document.getElementById("educacion");
-    if (
-      educacionDiv &&
-      userData.academicData &&
-      userData.academicData.length > 0
-    ) {
-      userData.academicData.forEach((academicRecord, index) => {
-        const academicHTML = `
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <label class="labels">Institución</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Institución"
-                name="academicData[${index}].institution"
-                value="${academicRecord.institution || ""}"
-              />
+    if (educacionDiv) {
+      educacionDiv.innerHTML = ""; // Limpiar el contenedor antes de renderizar las tarjetas nuevas
+
+      if (userData.academicData && userData.academicData.length > 0) {
+        userData.academicData.forEach((academicRecord, index) => {
+          // Formatear las fechas (si es necesario)
+          const startDateFormatted = academicRecord.startYear
+            ? `${academicRecord.startMonth.toString().padStart(2, "0")}/${
+                academicRecord.startYear
+              }`
+            : "Fecha no especificada";
+
+          const endDateFormatted = academicRecord.endYear
+            ? `${academicRecord.endMonth.toString().padStart(2, "0")}/${
+                academicRecord.endYear
+              }`
+            : "Fecha no especificada";
+
+          // Crear la tarjeta de educación
+          const academicHTML = `
+      <div class="card mt-2">
+        <div class="card-body">
+        
+        <div class="row align-items-center justify-content-between px-2">
+        <div>
+          <h5 class="text-primary">${
+            academicRecord.institution || "Institución no especificada"
+          }</h5>
+          <span class="text-secunday">
+             Título de <strong>${
+               academicRecord.degree || "Disciplina no especificada"
+             }</strong> en <strong>${
+            academicRecord.discipline || "Disciplina no especificada"
+          }</strong><br>
+            ${startDateFormatted} - ${endDateFormatted}<br>
+          </span></div>
+          <div class="">
+            <span class="icon-edit" onclick="editEducation(${index})"></span>
+            <span class="icon-delete" onclick="deleteEducation(${index})"></span>
+          </div></div>
+        </div>
+      </div>
+      `;
+
+          // Insertar la tarjeta en el contenedor
+          educacionDiv.insertAdjacentHTML("beforeend", academicHTML);
+        });
+      }
+    }
+
+    // Rellenar los campos de idiomas (si existen)
+
+    const idiomaMap = {
+      es: "Español",
+      zh: "Chino Mandarín",
+      en: "Inglés",
+      hi: "Hindi",
+      bn: "Bengalí",
+      pt: "Portugués",
+      ru: "Ruso",
+      ja: "Japonés",
+      de: "Alemán",
+      fr: "Francés",
+      it: "Italiano",
+      tr: "Turco",
+      ar: "Árabe",
+      ur: "Urdu",
+      pa: "Panyabí",
+      nl: "Neerlandés",
+      ko: "Coreano",
+      vi: "Vietnamita",
+      ta: "Tamil",
+      fa: "Persa (Farsi)",
+    };
+
+    const languageDiv = document.getElementById("language");
+
+    if (languageDiv) {
+      languageDiv.innerHTML = ""; // Limpiar el contenedor antes de renderizar las tarjetas nuevas
+
+      if (userData.languages && userData.languages.length > 0) {
+        userData.languages.forEach((languageRecord) => {
+          // Obtener el nombre del idioma en español
+          const languageName =
+            idiomaMap[languageRecord.language] ||
+            languageRecord.language ||
+            "Idioma no especificado";
+
+          // Crear la tarjeta de idioma
+          const languageHTML = `
+            <div class="card mt-2">
+              <div class="card-body row align-items-center">
+                <h5 class="text-primary m-0 ml-2">${languageName}</h5>
+                <span class="text-secondary">
+                  &nbsp;- (${languageRecord.level || "Nivel no especificado"})
+                </span>
+              </div>
             </div>
-            <div class="col-md-6">
-              <label class="labels">Título</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Título"
-                name="academicData[${index}].degree"
-                value="${academicRecord.degree || ""}"
-              />
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <label class="labels">Disciplina</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Disciplina"
-                name="academicData[${index}].discipline"
-                value="${academicRecord.discipline || ""}"
-              />
-            </div>
-            <div class="col-md-6">
-              <label class="labels">Fecha de Inicio</label>
-              <input
-                type="date"
-                class="form-control"
-                name="academicData[${index}].startDate"
-                value="${
-                  academicRecord.startDate
-                    ? new Date(academicRecord.startDate)
-                        .toISOString()
-                        .split("T")[0]
-                    : ""
-                }"
-              />
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <label class="labels">Fecha de Fin</label>
-              <input
-                type="date"
-                class="form-control"
-                name="academicData[${index}].endDate"
-                value="${
-                  academicRecord.endDate
-                    ? new Date(academicRecord.endDate)
-                        .toISOString()
-                        .split("T")[0]
-                    : ""
-                }"
-              />
-            </div>
-            <div class="col-md-6">
-              <label class="labels">Promedio</label>
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Promedio"
-                name="academicData[${index}].gpa"
-                value="${academicRecord.gpa || ""}"
-              />
-            </div>
-          </div>
-          <hr class="filter-divider w-100" />
-        `;
-        educacionDiv.insertAdjacentHTML("beforeend", academicHTML);
-      });
+          `;
+
+          // Agregar la tarjeta al contenedor
+          languageDiv.insertAdjacentHTML("beforeend", languageHTML);
+        });
+      }
     }
   } catch (error) {
     console.error("Error al cargar los datos del usuario:", error);

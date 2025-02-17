@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     saveButton.addEventListener("click", async function (event) {
       event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
 
-      // Obtener el spinner y el mensaje
       const loadingSpinner = document.getElementById("loadingSpinner");
 
       // Mostrar el spinner y el mensaje
@@ -56,24 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
             'input[name="personalData.additionalCitizenship"]'
           ).value,
         },
-        academicData: [], // Inicializar como array vacío
+        academicData: window.getEducationData(), // Obtener los datos de educación desde modal.js
+        languages: window.getlanguageData(), // Obtener los datos de idiomas desde modal.js
       };
-
-      // Capturar los datos de educación (academicData)
-      const academicRecords = document.querySelectorAll(
-        'input[name^="academicData"]'
-      );
-      for (let i = 0; i < academicRecords.length; i += 6) {
-        const academicRecord = {
-          institution: academicRecords[i].value,
-          degree: academicRecords[i + 1].value,
-          discipline: academicRecords[i + 2].value,
-          startDate: academicRecords[i + 3].value,
-          endDate: academicRecords[i + 4].value,
-          gpa: academicRecords[i + 5]?.value || null, // Usar operador opcional para evitar errores
-        };
-        updatedData.academicData.push(academicRecord);
-      }
 
       try {
         // Construir la URL con el ID del usuario

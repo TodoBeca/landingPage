@@ -54,19 +54,39 @@ document.addEventListener("DOMContentLoaded", function () {
             _id: userData._id,
             email: userData.email,
             emailVerified: userData.emailVerified,
-            role: userData.role,
             personalData: userData.personalData,
-            scholarshipProfile: userData.scholarshipProfile,
+            academicData: userData.academicData,
+            workData: userData.workData,
+            hobbies: userData.hobbies,
             languages: userData.languages,
+            socialMedia: userData.socialMedia,
+            scholarshipProfile: userData.scholarshipProfile,
+            role: userData.role,
           };
 
           const rememberMe = document.getElementById("rememberMe");
           if (rememberMe && rememberMe.checked) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("usuario", JSON.stringify(usuarioData));
+            localStorage.setItem(
+              "academicData",
+              JSON.stringify(usuarioData.academicData)
+            );
+            localStorage.setItem(
+              "languages",
+              JSON.stringify(usuarioData.languages)
+            );
           } else {
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("usuario", JSON.stringify(usuarioData));
+            sessionStorage.setItem(
+              "academicData",
+              JSON.stringify(usuarioData.academicData)
+            );
+            sessionStorage.setItem(
+              "languages",
+              JSON.stringify(usuarioData.languages)
+            );
           }
 
           // Redirigir a la página anterior o a index si no hay referencia
