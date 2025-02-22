@@ -70,6 +70,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       additionalCitizenship: document.querySelector(
         'input[name="personalData.additionalCitizenship"]'
       ),
+      instagram: document.querySelector('input[name="socialMedia.instagram"]'),
+      twitter: document.querySelector('input[name="socialMedia.twitter"]'),
+      linkedin: document.querySelector('input[name="socialMedia.linkedin"]'),
     };
 
     // Asignar valores a los campos
@@ -91,6 +94,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (fields.additionalCitizenship) {
       fields.additionalCitizenship.value =
         userData.personalData.additionalCitizenship || "";
+    }
+
+    //Rellenar los campos de redes sociales (si existen)
+    if (fields.instagram) {
+      fields.instagram.value = userData.socialMedia.instagram || "";
+    }
+    if (fields.twitter) {
+      fields.twitter.value = userData.socialMedia.twitter || "";
+    }
+    if (fields.linkedin) {
+      fields.linkedin.value = userData.socialMedia.linkedin || "";
     }
 
     // Rellenar los campos de educación (si existen)
@@ -115,29 +129,31 @@ document.addEventListener("DOMContentLoaded", async function () {
 
           // Crear la tarjeta de educación
           const academicHTML = `
-      <div class="card mt-2">
-        <div class="card-body">
-        
-        <div class="row align-items-center justify-content-between px-2">
-        <div>
-          <h5 class="text-primary">${
-            academicRecord.institution || "Institución no especificada"
-          }</h5>
-          <span class="text-secunday">
-             Título de <strong>${
-               academicRecord.degree || "Disciplina no especificada"
-             }</strong> en <strong>${
+            <div class="card mt-2">
+              <div class="card-body">
+                <div class="row align-items-center justify-content-between px-2">
+                  <div>
+                    <h5 class="text-primary">${
+                      academicRecord.institution ||
+                      "Institución no especificada"
+                    }
+                    </h5>
+                    <span class="text-secunday">
+                      Título de <strong>${
+                        academicRecord.degree || "Disciplina no especificada"
+                      }</strong> en <strong>${
             academicRecord.discipline || "Disciplina no especificada"
           }</strong><br>
-            ${startDateFormatted} - ${endDateFormatted}<br>
-          </span></div>
-          <div class="">
-            <span class="icon-edit" onclick="editEducation(${index})"></span>
-            <span class="icon-delete" onclick="deleteEducation(${index})"></span>
-          </div></div>
-        </div>
-      </div>
-      `;
+                      ${startDateFormatted} - ${endDateFormatted}<br>
+                    </span>
+                  </div>
+                  <div>
+                    <span class="icon-pencil fs-3 ms-3" onclick="editEducation(${index})"></span>
+                    <span class="icon-close fs-3 ms-3" onclick="deleteEducation(${index})"></span>
+                  </div>
+              </div>
+            </div>
+            `;
 
           // Insertar la tarjeta en el contenedor
           educacionDiv.insertAdjacentHTML("beforeend", academicHTML);
@@ -191,6 +207,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <span class="text-secondary">
                   &nbsp;- (${languageRecord.level || "Nivel no especificado"})
                 </span>
+                
               </div>
             </div>
           `;

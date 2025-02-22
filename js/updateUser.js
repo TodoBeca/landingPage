@@ -57,6 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         academicData: window.getEducationData(), // Obtener los datos de educación desde modal.js
         languages: window.getlanguageData(), // Obtener los datos de idiomas desde modal.js
+        socialMedia: {
+          instagram: document.querySelector(
+            'input[name="socialMedia.instagram"]'
+          ).value,
+          twitter: document.querySelector('input[name="socialMedia.twitter"]')
+            .value,
+          linkedin: document.querySelector('input[name="socialMedia.linkedin"]')
+            .value,
+        },
       };
 
       try {

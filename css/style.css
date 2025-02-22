@@ -1825,7 +1825,6 @@ h5,
   cursor: pointer;
 }
 
-/* Contenedor del dropdown */
 .dropdown-menu {
   max-height: 200px;
   overflow-y: auto;
@@ -1833,10 +1832,9 @@ h5,
   border: 1px solid #ccc;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  display: none; /* Oculto por defecto */
+  display: none;
 }
 
-/* Ítems dentro del dropdown */
 .dropdown-item {
   cursor: pointer;
   padding: 10px;
@@ -1845,4 +1843,17 @@ h5,
 
 .dropdown-item:hover {
   background-color: #f0f0f0;
+}
+
+.icon-pencil,
+.icon-close {
+  font-size: 24px;
+  margin-left: 15px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon-pencil:hover,
+.icon-close:hover {
+  transform: scale(1.2);
 }
