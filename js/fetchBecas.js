@@ -111,6 +111,10 @@ function mostrarBecasFiltradas(filteredBecas) {
       beca.fechaFinAplicacion
     );
 
+    // Calcular el porcentaje de match para el usuario
+    const ReqMeet = cumpleRequisitos(usuario, beca);
+    console.log("cumple?:", ReqMeet);
+
     card.classList.add(
       "course",
       "bg-white",
@@ -205,6 +209,18 @@ function mostrarBecasFiltradas(filteredBecas) {
         <span class="icon-bar-chart"></span> Promedio Min.: ${
           usuario ? beca.requisitos.promedioMin || "No especificado" : "****"
         }
+
+        <div>
+          
+            ${
+              usuario
+                ? ReqMeet
+                  ? `<div style="display: flex; align-items: center;"><span class="icon-check"></span><span style="color: green;">Cumple con los requisitos</span></div>`
+                  : `<div style="display: flex; align-items: center;"><span class="icon-times"></span><span style="color: red;">No cumple con los requisitos</span></div>`
+                : "****"
+            }
+        </div>
+      </div>
       ${
         usuario
           ? ""

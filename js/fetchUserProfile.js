@@ -161,31 +161,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }
 
-    // Rellenar los campos de idiomas (si existen)
-
-    const idiomaMap = {
-      es: "Español",
-      zh: "Chino Mandarín",
-      en: "Inglés",
-      hi: "Hindi",
-      bn: "Bengalí",
-      pt: "Portugués",
-      ru: "Ruso",
-      ja: "Japonés",
-      de: "Alemán",
-      fr: "Francés",
-      it: "Italiano",
-      tr: "Turco",
-      ar: "Árabe",
-      ur: "Urdu",
-      pa: "Panyabí",
-      nl: "Neerlandés",
-      ko: "Coreano",
-      vi: "Vietnamita",
-      ta: "Tamil",
-      fa: "Persa (Farsi)",
-    };
-
     const languageDiv = document.getElementById("language");
 
     if (languageDiv) {
@@ -193,17 +168,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       if (userData.languages && userData.languages.length > 0) {
         userData.languages.forEach((languageRecord) => {
-          // Obtener el nombre del idioma en español
-          const languageName =
-            idiomaMap[languageRecord.language] ||
-            languageRecord.language ||
-            "Idioma no especificado";
-
           // Crear la tarjeta de idioma
           const languageHTML = `
             <div class="card mt-2">
               <div class="card-body row align-items-center">
-                <h5 class="text-primary m-0 ml-2">${languageName}</h5>
+                <h5 class="text-primary m-0 ml-2">${
+                  languageRecord.language
+                }</h5>
                 <span class="text-secondary">
                   &nbsp;- (${languageRecord.level || "Nivel no especificado"})
                 </span>
