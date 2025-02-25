@@ -29,6 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
+      const languageData = window.getlanguageData();
+
+      // Si no se han agregado idiomas nuevos, se preservan los existentes del usuario
+      const updatedLanguages =
+        languageData && languageData.length > 0
+          ? languageData
+          : usuario.languages;
+
       // Capturar los datos del formulario
       const updatedData = {
         personalData: {
@@ -49,14 +57,14 @@ document.addEventListener("DOMContentLoaded", function () {
             'input[name="personalData.currentCity"]'
           ).value,
           nationality: document.querySelector(
-            'input[name="personalData.nationality"]'
+            'select[name="personalData.nationality"]'
           ).value,
           additionalCitizenship: document.querySelector(
-            'input[name="personalData.additionalCitizenship"]'
+            'select[name="personalData.additionalCitizenship"]'
           ).value,
         },
         academicData: window.getEducationData(), // Obtener los datos de educación desde modal.js
-        languages: window.getlanguageData(), // Obtener los datos de idiomas desde modal.js
+        languages: updatedLanguages,
         socialMedia: {
           instagram: document.querySelector(
             'input[name="socialMedia.instagram"]'

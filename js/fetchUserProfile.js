@@ -65,10 +65,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         'input[name="personalData.currentCity"]'
       ),
       nationality: document.querySelector(
-        'input[name="personalData.nationality"]'
+        'select[name="personalData.nationality"]'
       ),
       additionalCitizenship: document.querySelector(
-        'input[name="personalData.additionalCitizenship"]'
+        'select[name="personalData.additionalCitizenship"]'
       ),
       instagram: document.querySelector('input[name="socialMedia.instagram"]'),
       twitter: document.querySelector('input[name="socialMedia.twitter"]'),

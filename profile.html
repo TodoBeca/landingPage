@@ -166,21 +166,24 @@
                         <div class="row mt-3">
                           <div class="col-md-6">
                             <label class="labels">Nacionalidad</label>
-                            <input
-                              type="text"
+                            <select
+                              id="nationalitySelect"
                               class="form-control"
-                              placeholder="Nacionalidad"
                               name="personalData.nationality"
-                            />
+                            >
+                              <!-- Las opciones se cargarán dinámicamente -->
+                            </select>
                           </div>
+
                           <div class="col-md-6">
-                            <label class="labels">Ciudadanía Adicional</label>
-                            <input
-                              type="text"
+                            <label class="labels">Nacionalidad Adicional</label>
+                            <select
+                              id="additionalCitizenshipSelect"
                               class="form-control"
-                              placeholder="Ciudadanía Adicional"
                               name="personalData.additionalCitizenship"
-                            />
+                            >
+                              <!-- Las opciones se cargarán dinámicamente -->
+                            </select>
                           </div>
                         </div>
 
@@ -465,5 +468,6 @@
     <script src="js/updateUser.js"></script>
     <script src="js/academicModal.js"></script>
     <script src="js/languageModal.js"></script>
+    <script src="js/nationalities.js"></script>
   </body>
 </html>

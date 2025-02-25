@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  sessionStorage.removeItem("languageData");
   // Cargar datos previos desde localStorage si existen
-  let languageData = JSON.parse(sessionStorage.getItem("languageData")) || [];
+  let languageData = JSON.parse(sessionStorage.getItem("languages")) || [];
 
   // Elementos del DOM
   const openModalButton = document.getElementById("openLanguageModal");
@@ -76,38 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const idiomaMap = {
-    es: "Español",
-    zh: "Chino Mandarín",
-    en: "Inglés",
-    hi: "Hindi",
-    bn: "Bengalí",
-    pt: "Portugués",
-    ru: "Ruso",
-    ja: "Japonés",
-    de: "Alemán",
-    fr: "Francés",
-    it: "Italiano",
-    tr: "Turco",
-    ar: "Árabe",
-    ur: "Urdu",
-    pa: "Panyabí",
-    nl: "Neerlandés",
-    ko: "Coreano",
-    vi: "Vietnamita",
-    ta: "Tamil",
-    fa: "Persa (Farsi)",
-  };
-
   // Función para renderizar una tarjeta de educación
   function renderLanguageCard(record) {
-    const languageName = idiomaMap[record.language] || "Idioma no especificado";
-
     const cardHTML = `
         <div class="card mt-2">
           <div class="card-body">
             <h5 class="text-primary">${
-              languageName || "Institución no especificada"
+              record.language || "Institución no especificada"
             }</h5>
             <span class="text-secondary">
               ${record.level || "Disciplina no especificada"}
