@@ -68,25 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
           if (rememberMe && rememberMe.checked) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("usuario", JSON.stringify(usuarioData));
-            localStorage.setItem(
-              "academicData",
-              JSON.stringify(usuarioData.academicData)
-            );
-            localStorage.setItem(
-              "languages",
-              JSON.stringify(usuarioData.languages)
-            );
           } else {
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("usuario", JSON.stringify(usuarioData));
-            sessionStorage.setItem(
-              "academicData",
-              JSON.stringify(usuarioData.academicData)
-            );
-            sessionStorage.setItem(
-              "languages",
-              JSON.stringify(usuarioData.languages)
-            );
           }
 
           // Redirigir a la página anterior o a index si no hay referencia
