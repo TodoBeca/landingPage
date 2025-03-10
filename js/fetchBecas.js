@@ -20,6 +20,26 @@ const usuario =
   JSON.parse(localStorage.getItem("usuario")) ||
   JSON.parse(sessionStorage.getItem("usuario"));
 
+function aplicarFiltroDesdeSessionStorage() {
+  const paisSeleccionado = sessionStorage.getItem("paisSeleccionado");
+
+  if (paisSeleccionado) {
+    console.log(`Aplicando filtro por país: ${paisSeleccionado}`);
+
+    agregarBadge(
+      paisSeleccionado,
+      document.getElementById("selected-paises"),
+      "pais"
+    );
+
+    // Eliminar el dato para que no persista en futuras búsquedas
+    sessionStorage.removeItem("paisSeleccionado");
+
+    // Aplicar los filtros después de agregar el país
+    filtrarBecas();
+  }
+}
+
 // Función para calcular la duracion de la beca
 function calcularDuracion(duracion) {
   const unidad = duracion.duracionUnidad || "años";
@@ -292,6 +312,20 @@ function actualizarDropdownPaises(paises) {
 
 // Función para filtrar las becas
 function filtrarBecas() {
+  const paisSeleccionado = sessionStorage.getItem("paisSeleccionado");
+
+  if (paisSeleccionado) {
+    // Agregar el país como un badge en el contenedor de países seleccionados
+    agregarBadge(
+      paisSeleccionado,
+      document.getElementById("selected-paises"),
+      "pais"
+    );
+
+    // Eliminar el valor de sessionStorage para que no persista en futuras búsquedas
+    sessionStorage.removeItem("paisSeleccionado");
+  }
+
   const selectedRegion = Array.from(
     document.querySelectorAll("#selected-region .badge-item")
   ).map((badge) => badge.getAttribute("data-region"));
@@ -687,6 +721,8 @@ async function fetchBecas() {
 
     // Mostrar todas las becas al cargar la página
     mostrarBecasFiltradas(becas);
+
+    aplicarFiltroInicial();
   } catch (error) {
     console.error("Error al obtener becas:", error);
     document.getElementById("becas-container").innerHTML =

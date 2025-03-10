@@ -257,39 +257,55 @@ function formatearFecha(fecha) {
 }
 
 // Función para obtener las coordenadas de un país usando Nominatim (OpenStreetMap)
+// Función para obtener coordenadas de un país desde locations.js o OpenStreetMap
 async function obtenerCoordenadas(pais) {
-  const response = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${pais}`
+  // Si el país está en locations.js, usar sus coordenadas
+  if (coordenadasPredefinidas[pais]) {
+    return coordenadasPredefinidas[pais];
+  }
+
+  // Si no está en la base local, buscarlo en OpenStreetMap
+  console.warn(
+    `Coordenadas de ${pais} no encontradas en locations.js, buscando en OSM...`
   );
-  const data = await response.json();
-  if (data.length > 0) {
-    return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        pais
+      )}`
+    );
+    const data = await response.json();
+    if (data.length > 0) {
+      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    }
+  } catch (error) {
+    console.error(`Error obteniendo coordenadas de ${pais} desde OSM:`, error);
   }
   return null;
 }
 
+// Función para inicializar el mapa con los países postulantes y el país destino
 async function initMap(paisesPostulantes, paisDestino) {
-  // Crear el mapa
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 3, // Nivel de zoom inicial (se ajustará automáticamente)
     center: { lat: 0, lng: 0 }, // Centro inicial (se ajustará automáticamente)
+    mapTypeId: "hybrid", // 🛰️ Híbrido = Satélite + Etiquetas
   });
 
-  // Crear un objeto LatLngBounds para ajustar el mapa
   const bounds = new google.maps.LatLngBounds();
 
   // Iconos personalizados
   const iconoPostulante = {
     url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Icono rojo
-    scaledSize: new google.maps.Size(32, 32), // Tamaño del icono
+    scaledSize: new google.maps.Size(32, 32),
   };
 
   const iconoDestino = {
     url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Icono azul
-    scaledSize: new google.maps.Size(32, 32), // Tamaño del icono
+    scaledSize: new google.maps.Size(32, 32),
   };
 
-  // Agregar marcador para el país de destino (azul)
+  // 📌 Agregar marcador para el país de destino (azul)
   if (paisDestino) {
     const coordenadasDestino = await obtenerCoordenadas(paisDestino);
     if (coordenadasDestino) {
@@ -297,15 +313,14 @@ async function initMap(paisesPostulantes, paisDestino) {
         position: coordenadasDestino,
         map: map,
         title: `Destino: ${paisDestino}`,
-        icon: iconoDestino, // Icono azul
+        icon: iconoDestino,
       });
 
-      // Extender los límites del mapa para incluir este marcador
       bounds.extend(coordenadasDestino);
     }
   }
 
-  // Agregar marcadores para los países postulantes (rojo)
+  // 📍 Agregar marcadores para los países postulantes (rojo)
   if (Array.isArray(paisesPostulantes)) {
     for (const pais of paisesPostulantes) {
       const coordenadas = await obtenerCoordenadas(pais);
@@ -314,23 +329,22 @@ async function initMap(paisesPostulantes, paisDestino) {
           position: coordenadas,
           map: map,
           title: `Postulante: ${pais}`,
-          icon: iconoPostulante, // Icono rojo
+          icon: iconoPostulante,
         });
 
-        // Extender los límites del mapa para incluir este marcador
         bounds.extend(coordenadas);
       }
     }
   }
 
-  // Ajustar el mapa para que todos los marcadores sean visibles
+  // 🔄 Ajustar el mapa para que todos los marcadores sean visibles
   if (!bounds.isEmpty()) {
     map.fitBounds(bounds);
 
     // Opcional: Establecer un nivel de zoom máximo para evitar que el zoom sea demasiado alejado
     google.maps.event.addListenerOnce(map, "bounds_changed", function () {
       if (map.getZoom() > 4) {
-        map.setZoom(4); // Ajusta este valor según sea necesario
+        map.setZoom(4);
       }
     });
   }
