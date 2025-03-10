@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TodoBeca.com &mdash; Encontrá la beca que buscas</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
+
+    <link rel="stylesheet" href="css/aos.css" />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <div class="site-wrap">
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+      <header
+        class="site-navbar py-4 js-sticky-header site-navbar-target"
+        role="banner"
+      >
+        <div class="container-fluid">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto w-25">
+              <a href="index.html">TodoBeca.com</a>
+            </div>
+
+            <div class="mx-auto text-center">
+              <nav
+                class="site-navigation position-relative text-right"
+                role="navigation"
+              >
+                <ul
+                  class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
+                >
+                  <li><a href="#home-section" class="nav-link">Inicio</a></li>
+                  <li>
+                    <a href="/becas.html" class="nav-link">Becas</a>
+                  </li>
+                  <li>
+                    <a href="#programs-section" class="nav-link"
+                      >Sobre Nosotros</a
+                    >
+                  </li>
+
+                  <li>
+                    <a href="#contact-section" class="nav-link">Contacto</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <div id="authContainer" class="ml-auto w-25 text-right"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="intro-section-becas" id="home-section">
+        <div
+          class="slide-1"
+          style="background-image: url('images/hero_1.jpg')"
+          data-stellar-background-ratio="0.5"
+        >
+          <div
+            class="row align-items-center justify-content-center profile-card w-100"
+            id="becas-detail-section"
+          >
+            <div class="col-md-11" data-aos="fade-up" data-aos-delay="500">
+              <div class="card shadow-lg bg-white rounded">
+                <div class="rounded bg-white pt-5">
+                  <div class="col-md-12 mb-5">
+                    <div class="col-md-12">
+                      <h1 class="text-primary col-lg-12" id="beca-nombre"></h1>
+                    </div>
+                    <div class="d-flex col-lg-12">
+                      <div class="col-lg-6">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Destino:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="beca-pais-destino"></p>
+                          &nbsp;
+                          <p class="text-secondary">-</p>
+                          &nbsp;
+                          <p
+                            class="text-secondary"
+                            id="beca-region-destino"
+                          ></p>
+                          <img
+                            src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                            alt="Destino"
+                            style="width: 16px; height: 16px; margin-right: 5px"
+                          />
+                        </div>
+
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Paises aplicantes:
+                          </p>
+                          &nbsp;
+                          <p
+                            class="text-secondary"
+                            id="beca-paises-aplicantes"
+                          ></p>
+                          <img
+                            src="https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                            alt="Aplicantes"
+                            style="width: 16px; height: 16px; margin-right: 5px"
+                          />
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Tipo de beca:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="beca-tipo"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Area de estudio:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="beca-area-estudio"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Fecha límite para enviar la solicitud:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="beca-fecha-limite"></p>
+                        </div>
+                        <div>
+                          <div
+                            id="leyenda-resumen"
+                            class="leyenda-fuera-de-foco-resumen"
+                          >
+                            <p class="text-danger">
+                              Para acceder a más información, por favor, inicie
+                              sesión
+                            </p>
+                          </div>
+
+                          <div id="resumen" class="fuera-de-foco">
+                            <div class="d-flex">
+                              <p class="text-secondary font-weight-bold">
+                                Entidad becaria:
+                              </p>
+                              &nbsp;
+                              <p class="text-secondary" id="beca-entidad"></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary font-weight-bold">
+                                Universidad de destino:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary"
+                                id="beca-universidad-destino"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary font-weight-bold">
+                                Duración:
+                              </p>
+                              &nbsp;
+                              <p class="text-secondary" id="beca-duracion"></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary font-weight-bold">
+                                Nivel académico mínimo:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary"
+                                id="beca-nivel-minimo"
+                              ></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div class="row mb-5">
+                          <div class="col-lg-12">
+                            <div
+                              class="rounded"
+                              id="map"
+                              style="height: 400px; width: 100%"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="filter-divider w-100" />
+
+                    <div class="d-flex col-lg-12">
+                      <div class="col-lg-12">
+                        <h4 class="text-primary font-weight-bold">
+                          Descripición
+                        </h4>
+                        <div
+                          id="leyenda-descripcion"
+                          class="leyenda-fuera-de-foco"
+                        >
+                          <p class="text-danger">
+                            Para acceder a más información, por favor, inicie
+                            sesión
+                          </p>
+                        </div>
+                        <div id="descripcion">
+                          <p class="text-secondary" id="beca-descripcion"></p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="filter-divider w-100" />
+
+                    <div class="d-flex col-lg-12">
+                      <div class="col-lg-12">
+                        <h4 class="text-primary font-weight-bold">
+                          Requisitos
+                        </h4>
+                        <div
+                          id="leyenda-requisitos"
+                          class="leyenda-fuera-de-foco"
+                        >
+                          <p class="text-danger">
+                            Para acceder a más información, por favor, inicie
+                            sesión
+                          </p>
+                        </div>
+                        <div class="row" id="requisitos">
+                          <div class="col-lg-6">
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Nivel académico mínimo:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-nivel-minimo-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Promedio mínimo:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-promedio-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Idiomas requeridos:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-idiomas-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Edad máxima:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-edad-req"
+                              ></p>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Carta de recomendación:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-carta-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Aval de la universidad de procedencia:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-avalProc-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Aval de la universidad de destino:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-avalDest-req"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Exámenes requeridos:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-examenes-req"
+                              ></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr class="filter-divider w-100" />
+
+                    <div class="d-flex col-lg-12">
+                      <div class="col-lg-12">
+                        <h4 class="text-primary font-weight-bold">Cobertura</h4>
+                        <div
+                          id="leyenda-cobertura"
+                          class="leyenda-fuera-de-foco"
+                        >
+                          <p class="text-danger">
+                            Para acceder a más información, por favor, inicie
+                            sesión
+                          </p>
+                        </div>
+                        <div class="row" id="cobertura">
+                          <div class="col-lg-6">
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Matricula:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-matricula"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Estipendio:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-estipendio"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Pasajes:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-pasajes"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Seguro médico:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-seguro"
+                              ></p>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Alojamiento:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-alojamiento"
+                              ></p>
+                            </div>
+                            <div class="d-flex">
+                              <p class="text-secondary m-0 font-weight-bold">
+                                Monto mensual:
+                              </p>
+                              &nbsp;
+                              <p
+                                class="text-secondary m-0"
+                                id="beca-cobertura-monto"
+                              ></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-section bg-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <h3>Sobre TodoBeca.com</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
+                consectetur ut hic ipsum et veritatis corrupti. Itaque eius
+                soluta optio dolorum temporibus in, atque, quos fugit sunt sit
+                quaerat dicta.
+              </p>
+            </div>
+
+            <div class="col-md-3 ml-auto">
+              <h3>Links</h3>
+              <ul class="list-unstyled footer-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Becas</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <h3>Subscribite</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Nesciunt incidunt iure iusto architecto? Numquam, natus?
+              </p>
+              <form action="#" class="footer-subscribe">
+                <div class="d-flex mb-5">
+                  <input
+                    type="text"
+                    class="form-control rounded-0"
+                    placeholder="Correo Electrónico"
+                  />
+                  <input
+                    type="submit"
+                    class="btn btn-primary rounded-0"
+                    value="Subscribe"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+                <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  Todos los derechos reservados | TodoBeca.com
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- .site-wrap -->
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="config.js"></script>
+    <script src="js/becasDetails.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABO0Gvhjp_M92xa5heT1dTnKEhB7GXqHM&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>

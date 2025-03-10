@@ -1857,3 +1857,47 @@ h5,
 .icon-close:hover {
   transform: scale(1.2);
 }
+
+/* TEMPLATE BECA */
+.fuera-de-foco {
+  filter: blur(5px);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.normal {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.leyenda-fuera-de-foco {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.leyenda-fuera-de-foco-resumen {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.leyenda-card {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+}
