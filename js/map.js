@@ -12,7 +12,24 @@ async function obtenerBecas() {
 async function obtenerCantBecas() {
   const becas = await obtenerBecas();
 
-  return becas.reduce((contador, beca) => {
+  // Obtener la fecha actual en formato YYYY-MM-DD
+  const fechaActual = new Date().toISOString().split("T")[0];
+
+  // Filtrar becas vigentes
+  const becasVigentes = becas.filter((beca) => {
+    const fechaFinInscripcion = beca.fechaFinAplicacion
+      ? new Date(beca.fechaFinAplicacion).toISOString().split("T")[0]
+      : null;
+
+    // Si no hay fecha final de inscripción, se considera vigente
+    if (!fechaFinInscripcion) return true;
+
+    // Mantener solo las becas cuya fecha final de inscripción sea mayor o igual a la fecha actual
+    return fechaFinInscripcion >= fechaActual;
+  });
+
+  // Contar becas por país
+  return becasVigentes.reduce((contador, beca) => {
     const pais = beca.paisDestino;
     if (pais) {
       contador[pais] = (contador[pais] || 0) + 1;
