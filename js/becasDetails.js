@@ -94,9 +94,9 @@ async function fetchBecaDetails(becaId) {
 
     // Mostrar los detalles de la beca siempre
     document.getElementById("beca-nombre").textContent = beca.nombreBeca;
-    document.getElementById("beca-pais-destino").textContent = beca.paisOrigen;
+    document.getElementById("beca-pais-destino").textContent = beca.paisDestino;
     document.getElementById("beca-region-destino").textContent =
-      beca.regionOrigen;
+      beca.regionDestino;
     document.getElementById("beca-area-estudio").textContent = beca.areaEstudio;
     document.getElementById("beca-fecha-limite").textContent = formatearFecha(
       beca.fechaFinAplicacion
@@ -196,7 +196,7 @@ async function fetchBecaDetails(becaId) {
     document.getElementById("beca-idiomas-req").textContent = idiomasRequeridos;
 
     // Inicializar el mapa con los países aplicantes
-    initMap(beca.paisPostulante, beca.paisOrigen);
+    initMap(beca.paisPostulante, beca.paisDestino);
   } catch (error) {
     console.error("Error al obtener los detalles de la beca:", error);
     document.getElementById("beca-details-section").innerHTML =

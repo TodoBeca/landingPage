@@ -137,8 +137,8 @@ function mostrarBecasFiltradas(filteredBecas) {
   }" class="d-block text-decoration-none text-dark">
     <div class="course-inner-text py-4 px-4">
       <span class="course-price mt-4"><strong>Destino: </strong>${
-        beca.paisOrigen || "Sin país"
-      } - ${beca.regionOrigen}</span>
+        beca.paisDestino || "Sin país"
+      } - ${beca.regionDestino}</span>
       <h3 class="text-primary font-weight-bold">${beca.nombreBeca}</h3>
       <h6>${beca.entidadBecaria}</h6>
 
@@ -326,9 +326,9 @@ function filtrarBecas() {
   becas.forEach((beca) => {
     if (
       selectedRegion.length === 0 ||
-      selectedRegion.includes(beca.regionOrigen)
+      selectedRegion.includes(beca.regionDestino)
     ) {
-      paisesDisponibles.add(beca.paisOrigen);
+      paisesDisponibles.add(beca.paisDestino);
     }
   });
 
@@ -348,7 +348,7 @@ function filtrarBecas() {
     // Filtro por región
     if (
       selectedRegion.length > 0 &&
-      !selectedRegion.includes(beca.regionOrigen)
+      !selectedRegion.includes(beca.regionDestino)
     ) {
       return false;
     }
@@ -356,7 +356,7 @@ function filtrarBecas() {
     // Filtro por país
     if (
       selectedPaises.length > 0 &&
-      !selectedPaises.includes(beca.paisOrigen)
+      !selectedPaises.includes(beca.paisDestino)
     ) {
       return false;
     }
@@ -515,12 +515,12 @@ async function fetchBecas() {
 
     // Obtener regiones únicos
     const regiones = [
-      ...new Set(becas.map((beca) => beca.regionOrigen).filter(Boolean)),
+      ...new Set(becas.map((beca) => beca.regionDestino).filter(Boolean)),
     ];
 
     // Obtener países únicos
     const paises = [
-      ...new Set(becas.map((beca) => beca.paisOrigen).filter(Boolean)),
+      ...new Set(becas.map((beca) => beca.paisDestino).filter(Boolean)),
     ];
 
     // Obtener nacionalidades únicas sin repetir
