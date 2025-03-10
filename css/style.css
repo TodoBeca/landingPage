@@ -907,6 +907,12 @@ h5,
   font-size: 1.1rem;
 }
 
+.map-section {
+  height: 100vh;
+  min-height: 700px;
+  padding: 0;
+}
+
 .img-absolute {
   position: absolute;
   right: 10%;
