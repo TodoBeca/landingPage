@@ -545,6 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderAllEducationCards(updatedUser);
         educationModal.style.display = "none";
         educationForm.reset();
+        clearEducationForm();
       } catch (error) {
         console.error("Error al guardar los datos de educación:", error);
         Swal.fire(
@@ -556,9 +557,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function clearEducationForm() {
+    document.getElementById("institution").value = "";
+    document.getElementById("degree").value = "";
+    document.getElementById("discipline").value = "";
+    document.getElementById("start-month").value = "";
+    document.getElementById("start-year").value = "";
+    document.getElementById("end-month").value = "";
+    document.getElementById("end-year").value = "";
+  }
+
   const closeModalButton = document.getElementById("closeEducationModal");
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
+      clearEducationForm();
       educationModal.style.display = "none";
       educationModal.removeAttribute("data-edit-index");
     });
@@ -615,6 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderAllLanguageCards(updatedUser);
         languageModal.style.display = "none";
         languageForm.reset();
+        clearLanguageForm();
       } catch (error) {
         console.error("Error al guardar los datos de idioma:", error);
         Swal.fire(
@@ -626,9 +639,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function clearLanguageForm() {
+    document.getElementById("languageValue").value = "";
+    document.getElementById("level").value = "";
+  }
+
   const closeModalButton = document.getElementById("closeLanguageModal");
   if (closeModalButton) {
     closeModalButton.addEventListener("click", function () {
+      clearLanguageForm();
       languageModal.style.display = "none";
       languageModal.removeAttribute("data-edit-index");
     });
@@ -639,5 +658,77 @@ document.addEventListener("DOMContentLoaded", function () {
     openModalButton.addEventListener("click", function () {
       languageModal.style.display = "block";
     });
+  }
+});
+
+// Obtener referencias a los elementos del DOM
+const institutionInput = document.getElementById("institution");
+const suggestionsContainer = document.getElementById("suggestionsContainer");
+
+// Función para obtener sugerencias de universidades
+async function searchUniversities(query) {
+  try {
+    const response = await fetch(`${CONFIG.API_URL_UNIVERSITIES}`);
+    if (!response.ok) {
+      throw new Error("Error al cargar los datos de universidades");
+    }
+
+    const universities = await response.json();
+
+    const filteredUniversities = universities.filter((uni) =>
+      uni.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    console.log("Universidades encontradas:", filteredUniversities);
+    return filteredUniversities;
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+}
+
+// Función para mostrar sugerencias en la lista tipo dropdown
+function showSuggestions(universities) {
+  suggestionsContainer.innerHTML = "";
+  if (universities.length === 0) {
+    suggestionsContainer.style.display = "none";
+    return;
+  }
+
+  universities.forEach((uni) => {
+    const item = document.createElement("a");
+    item.classList.add("dropdown-item");
+    item.textContent = uni.name;
+    item.href = "#";
+
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+      institutionInput.value = uni.name;
+      suggestionsContainer.style.display = "none";
+    });
+
+    suggestionsContainer.appendChild(item);
+  });
+
+  suggestionsContainer.style.display = "block";
+}
+
+// Evento para capturar la entrada del usuario
+institutionInput.addEventListener("input", function () {
+  const query = institutionInput.value.trim();
+  if (query.length < 2) {
+    suggestionsContainer.style.display = "none";
+    return;
+  }
+
+  searchUniversities(query)
+    .then((results) => showSuggestions(results))
+    .catch((error) => console.error("Error:", error));
+});
+
+// Ocultar sugerencias al hacer clic fuera del contenedor
+document.addEventListener("click", function (event) {
+  if (!suggestionsContainer.contains(event.target)) {
+    suggestionsContainer.style.display = "none";
   }
 });

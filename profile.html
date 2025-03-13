@@ -304,8 +304,8 @@
             <div id="suggestionsContainer" class="dropdown-menu"></div>
           </div>
 
-          <label for="degree" class="labels mb-0">Título</label>
-          <select id="degree" class="form-control">
+          <label for="degree" class="labels mb-0">Título*</label>
+          <select id="degree" class="form-control" required>
             <option value="">Tipo de título</option>
             <option value="Doctorado">Doctorado</option>
             <option value="Grado">Grado</option>
@@ -315,21 +315,22 @@
           </select>
 
           <label for="discipline" class="labels mb-0 mt-2"
-            >Disciplina académica</label
+            >Disciplina académica*</label
           >
           <input
             type="text"
             id="discipline"
             class="form-control"
+            required
             placeholder="P. ej. Empresariales"
           />
 
           <label for="start-date" class="labels mb-0 mt-2"
-            >Fecha de inicio</label
+            >Fecha de inicio*</label
           >
           <div class="row">
             <div class="col-md-6">
-              <select id="start-month" class="form-control">
+              <select id="start-month" class="form-control" required>
                 <option value="">Mes</option>
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
@@ -346,18 +347,18 @@
               </select>
             </div>
             <div class="col-md-6">
-              <select id="start-year" class="form-control">
+              <select id="start-year" class="form-control" required>
                 <option value="">Año</option>
               </select>
             </div>
           </div>
 
           <label for="end-date" class="labels mb-0 mt-2"
-            >Fecha de finalización (o fecha prevista)</label
+            >Fecha de finalización (o fecha prevista)*</label
           >
           <div class="row">
             <div class="col-md-6">
-              <select id="end-month" class="form-control">
+              <select id="end-month" class="form-control" required>
                 <option value="">Mes</option>
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
@@ -374,7 +375,7 @@
               </select>
             </div>
             <div class="col-md-6">
-              <select id="end-year" class="form-control">
+              <select id="end-year" class="form-control" required>
                 <option value="">Año</option>
               </select>
             </div>
@@ -398,7 +399,7 @@
         </div>
         <form>
           <label for="languageValue" class="labels mb-0 mt-1">Idioma*</label>
-          <select id="languageValue" class="form-control">
+          <select id="languageValue" class="form-control" required>
             <option value="">Selecciona un idioma</option>
             <option value="Español">Español</option>
             <option value="Chino Mandarín">Chino Mandarín</option>
@@ -422,8 +423,8 @@
             <option value="Persa">Persa (Farsi)</option>
           </select>
 
-          <label for="level" class="labels mb-0 mt-2">Competencia</label>
-          <select id="level" class="form-control">
+          <label for="level" class="labels mb-0 mt-2">Competencia*</label>
+          <select id="level" class="form-control" required>
             <option value="">Nivel de competencia</option>
             <option value="A1">A1 (Principiante)</option>
             <option value="A2">A2 (Elemental)</option>

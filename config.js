@@ -9,4 +9,6 @@ const CONFIG = {
   API_URL_UPDATE_USER: "https://backend-8vsm.onrender.com/auth/updateUser",
   API_URL_DELETE_EDUCATION:
     "https://backend-8vsm.onrender.com/auth/deleteEducationRecord",
+  API_URL_UNIVERSITIES:
+    "https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json",
 };

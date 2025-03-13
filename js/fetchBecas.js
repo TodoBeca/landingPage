@@ -10,6 +10,18 @@ document.querySelectorAll(".dropdown-menu").forEach((item) => {
   });
 });
 
+document.querySelectorAll(".switch").forEach((item) => {
+  item.addEventListener("click", function () {
+    setTimeout(scrollToTop, 700);
+  });
+});
+
+document.querySelectorAll(".PB-range-slider-container").forEach((item) => {
+  item.addEventListener("click", function () {
+    setTimeout(scrollToTop, 700);
+  });
+});
+
 function estaLogueado() {
   return (
     localStorage.getItem("token") || sessionStorage.getItem("token") !== null
@@ -32,20 +44,16 @@ function aplicarFiltroDesdeSessionStorage() {
       "pais"
     );
 
-    // Eliminar el dato para que no persista en futuras búsquedas
     sessionStorage.removeItem("paisSeleccionado");
 
-    // Aplicar los filtros después de agregar el país
     filtrarBecas();
   }
 }
 
-// Función para calcular la duracion de la beca
 function calcularDuracion(duracion) {
   const unidad = duracion.duracionUnidad || "años";
   const mesesPorAnio = 12;
 
-  // Función para convertir a meses
   const convertirAMeses = (valor, unidad) => {
     if (unidad.toLowerCase().includes("año")) {
       return valor * mesesPorAnio;
@@ -79,7 +87,6 @@ function formatearFecha(fecha) {
   return `${dia}/${mes}/${anio}`;
 }
 
-// Función para calcular el período de inscripción
 function calcularInscripcion(fechaInicioAplicacion, fechaFinAplicacion) {
   if (fechaInicioAplicacion && fechaFinAplicacion === "Todo el año") {
     return "Todo el año";
@@ -96,7 +103,6 @@ function calcularInscripcion(fechaInicioAplicacion, fechaFinAplicacion) {
   }
 }
 
-// Función para agregar badges (etiquetas) de filtros seleccionados
 function agregarBadge(text, container, type) {
   if (document.querySelector(`[data-${type}="${text}"]`)) return;
 
@@ -110,14 +116,13 @@ function agregarBadge(text, container, type) {
 
   badge.querySelector(".delete-btn").addEventListener("click", function () {
     badge.remove();
-    filtrarBecas(); // Vuelve a filtrar cuando se elimina un badge
+    filtrarBecas();
   });
 
   container.appendChild(badge);
-  filtrarBecas(); // Filtra automáticamente al agregar un badge
+  filtrarBecas();
 }
 
-// Función para mostrar las becas filtradas
 function mostrarBecasFiltradas(filteredBecas) {
   const container = document.getElementById("becas-container");
   container.innerHTML = "";
@@ -137,7 +142,6 @@ function mostrarBecasFiltradas(filteredBecas) {
       beca.fechaFinAplicacion
     );
 
-    // Calcular el porcentaje de match para el usuario
     const ReqMeet = usuario ? cumpleRequisitos(usuario, beca) : null;
 
     card.classList.add(
@@ -167,8 +171,8 @@ function mostrarBecasFiltradas(filteredBecas) {
       <div class="d-flex flex-wrap align-items-center">
         <span class="icon-flag"></span>Países Postulantes: ${
           Array.isArray(beca.paisPostulante) && beca.paisPostulante.length > 0
-            ? beca.paisPostulante.join(", ") // Unir los países con comas
-            : "No especificado" // Mostrar un mensaje si no hay países
+            ? beca.paisPostulante.join(", ")
+            : "No especificado"
         } 
         &nbsp;
         <span>-</span>
@@ -252,7 +256,7 @@ function mostrarBecasFiltradas(filteredBecas) {
         div.classList.add("normal");
       });
       leyendaCard.forEach((leyenda) => {
-        leyenda.style.display = "none"; // Ocultar todas las leyendas
+        leyenda.style.display = "none";
       });
     } else {
       adicionalesDivs.forEach((div) => {
@@ -260,34 +264,15 @@ function mostrarBecasFiltradas(filteredBecas) {
         div.classList.add("fuera-de-foco");
       });
       leyendaCard.forEach((leyenda) => {
-        leyenda.style.display = "block"; // Mostrar todas las leyendas
+        leyenda.style.display = "block";
       });
     }
   });
 }
 
-const filteredBecas = becas.filter((beca) => {
-  if (!filtroFecha) return true; // Si no se seleccionó ninguna fecha, no filtrar por fecha
-
-  // Convertir las fechas de inscripción de la beca a formato YYYY-MM-DD
-  const fechaInicio = beca.fechaInicioAplicacion
-    ? new Date(beca.fechaInicioAplicacion).toISOString().slice(0, 10)
-    : null;
-
-  const fechaFin = beca.fechaFinAplicacion
-    ? new Date(beca.fechaFinAplicacion).toISOString().slice(0, 10)
-    : null;
-
-  // Si la beca no tiene fechas de inscripción, descartarla
-  if (!fechaInicio || !fechaFin) return false;
-
-  // Verificar si la fecha seleccionada está dentro del rango de inscripción
-  return filtroFecha >= fechaInicio && filtroFecha <= fechaFin;
-});
-
 function actualizarDropdownPaises(paises) {
   const dropdownPaises = document.getElementById("dropdownPaises");
-  dropdownPaises.innerHTML = ""; // Limpiar el dropdown antes de agregar nuevos países
+  dropdownPaises.innerHTML = "";
 
   if (paises.length === 0) {
     dropdownPaises.innerHTML =
@@ -310,19 +295,15 @@ function actualizarDropdownPaises(paises) {
   });
 }
 
-// Función para filtrar las becas
 function filtrarBecas() {
   const paisSeleccionado = sessionStorage.getItem("paisSeleccionado");
 
   if (paisSeleccionado) {
-    // Agregar el país como un badge en el contenedor de países seleccionados
     agregarBadge(
       paisSeleccionado,
       document.getElementById("selected-paises"),
       "pais"
     );
-
-    // Eliminar el valor de sessionStorage para que no persista en futuras búsquedas
     sessionStorage.removeItem("paisSeleccionado");
   }
 
@@ -353,8 +334,11 @@ function filtrarBecas() {
   const edadValue = parseInt(document.getElementById("rEdad").value);
   const duracionValue = parseInt(document.getElementById("rDuracion").value);
 
-  // Obtener la fecha seleccionada en el input
   const filtroFecha = document.getElementById("filtroFecha").value;
+
+  const filtroCumpleRequisitos = document.getElementById(
+    "filtroCumpleRequisitos"
+  ).checked;
 
   const paisesDisponibles = new Set();
   becas.forEach((beca) => {
@@ -369,7 +353,6 @@ function filtrarBecas() {
   actualizarDropdownPaises([...paisesDisponibles]);
 
   const filteredBecas = becas.filter((beca) => {
-    // Filtro por idioma
     if (
       selectedIdiomas.length > 0 &&
       !selectedIdiomas.some((idioma) =>
@@ -379,7 +362,6 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtro por región
     if (
       selectedRegion.length > 0 &&
       !selectedRegion.includes(beca.regionDestino)
@@ -387,7 +369,6 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtro por país
     if (
       selectedPaises.length > 0 &&
       !selectedPaises.includes(beca.paisDestino)
@@ -395,7 +376,6 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtro por nacionalidad del postulante
     if (
       selectedNacPostulante.length > 0 &&
       !selectedNacPostulante.some((nac) =>
@@ -407,12 +387,10 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtro por area de estudio
     if (selectedArea.length > 0 && !selectedArea.includes(beca.areaEstudio)) {
       return false;
     }
 
-    // Filtro por tipo de beca
     if (
       selectedTiposBeca.length > 0 &&
       !selectedTiposBeca.includes(beca.tipoBeca)
@@ -420,7 +398,6 @@ function filtrarBecas() {
       return false;
     }
 
-    // Filtrar por fecha de inscripción
     if (filtroFecha) {
       const fechaInicio = beca.fechaInicioAplicacion
         ? new Date(beca.fechaInicioAplicacion).toISOString().split("T")[0]
@@ -431,30 +408,31 @@ function filtrarBecas() {
 
       if (!fechaInicio || !fechaFin) return false;
 
-      // Convertir la fecha de filtro a formato YYYY-MM-DD
       const fechaFiltro = new Date(filtroFecha).toISOString().split("T")[0];
 
-      // Verificar si la fecha de filtro está dentro del rango de inscripción
       if (fechaFiltro < fechaInicio || fechaFiltro > fechaFin) {
         return false;
       }
     }
 
-    // Filtro por edad máxima
     if (beca.requisitos?.edadMax && beca.requisitos.edadMax > edadValue) {
       return false;
     }
 
-    // Filtro por duracion máxima
     if (beca.duracion?.duracionMaxima) {
-      // Convertir duracion máxima de la beca a meses si está en años
       const duracionMaxBeca = beca.duracion.duracionUnidad
         ?.toLowerCase()
         .includes("año")
-        ? beca.duracion.duracionMaxima * 12 // Convertir años a meses
-        : beca.duracion.duracionMaxima; // Ya está en meses
+        ? beca.duracion.duracionMaxima * 12
+        : beca.duracion.duracionMaxima;
 
       if (duracionMaxBeca > duracionValue) {
+        return false;
+      }
+    }
+
+    if (filtroCumpleRequisitos && usuario) {
+      if (!cumpleRequisitos(usuario, beca)) {
         return false;
       }
     }
@@ -465,7 +443,6 @@ function filtrarBecas() {
   mostrarBecasFiltradas(filteredBecas);
 }
 
-// Función principal para obtener y mostrar las becas
 async function fetchBecas() {
   try {
     const response = await fetch(CONFIG.API_URL_GET_BECAS);
@@ -474,26 +451,20 @@ async function fetchBecas() {
       throw new Error(`Error en la petición: ${response.status}`);
     }
 
-    // Asignar los datos de las becas a la variable global `becas`
-    rawBecas = await response.json();
+    const rawBecas = await response.json();
 
-    // Obtener la fecha actual en formato YYYY-MM-DD
     const fechaActual = new Date().toISOString().split("T")[0];
 
-    // Filtrar las becas vigentes
     becas = rawBecas.filter((beca) => {
       const fechaFinInscripcion = beca.fechaFinAplicacion
         ? new Date(beca.fechaFinAplicacion).toISOString().split("T")[0]
         : null;
 
-      // Si no hay fecha final de inscripción, se considera vigente
       if (!fechaFinInscripcion) return true;
 
-      // Mantener solo las becas cuya fecha final de inscripción sea mayor o igual a la fecha actual
       return fechaFinInscripcion >= fechaActual;
     });
 
-    // Asignar las becas filtradas a la variable global `becas`
     window.becas = becas;
 
     const container = document.getElementById("becas-container");
@@ -536,7 +507,6 @@ async function fetchBecas() {
       return;
     }
 
-    // Obtener idiomas únicos
     const idiomas = [
       ...new Set(
         becas
@@ -547,17 +517,14 @@ async function fetchBecas() {
       ),
     ];
 
-    // Obtener regiones únicos
     const regiones = [
       ...new Set(becas.map((beca) => beca.regionDestino).filter(Boolean)),
     ];
 
-    // Obtener países únicos
     const paises = [
       ...new Set(becas.map((beca) => beca.paisDestino).filter(Boolean)),
     ];
 
-    // Obtener nacionalidades únicas sin repetir
     const nacionalidades = [
       ...new Set(
         becas
@@ -570,17 +537,14 @@ async function fetchBecas() {
       ),
     ];
 
-    // Obtener areas de estudio únicos
     const Areas = [
       ...new Set(becas.map((beca) => beca.areaEstudio).filter(Boolean)),
     ];
 
-    // Obtener tipos de beca únicos
     const tiposBeca = [
       ...new Set(becas.map((beca) => beca.tipoBeca).filter(Boolean)),
     ];
 
-    // Generar dropdown de idiomas
     idiomas.forEach((idioma) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -595,7 +559,6 @@ async function fetchBecas() {
       dropdownIdiomas.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de regiones
     regiones.forEach((region) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -610,7 +573,6 @@ async function fetchBecas() {
       dropdownRegion.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de países
     paises.forEach((pais) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -625,7 +587,6 @@ async function fetchBecas() {
       dropdownPaises.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de nacionalidades
     nacionalidades.forEach((nacionalidad) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -644,7 +605,6 @@ async function fetchBecas() {
       dropdownNacPostulante.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de areas de estudio
     Areas.forEach((area) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -659,7 +619,6 @@ async function fetchBecas() {
       dropdownArea.appendChild(dropdownItem);
     });
 
-    // Generar dropdown de tipo de beca
     tiposBeca.forEach((tipo) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -674,8 +633,6 @@ async function fetchBecas() {
       dropdownTipoBeca.appendChild(dropdownItem);
     });
 
-    // Configurar los sliders
-    // Configurar los sliders para que muestren valores en meses
     const configSliders = [
       { id: "rEdad", prop: "requisitos.edadMax", default: 100 },
       {
@@ -683,7 +640,7 @@ async function fetchBecas() {
         prop: "duracion.duracionMaxima",
         default: 10,
         toMonths: true,
-      }, // Convierte a meses
+      },
     ];
 
     configSliders.forEach(({ id, prop, default: defaultValue, toMonths }) => {
@@ -698,13 +655,13 @@ async function fetchBecas() {
           return value !== null && value !== undefined ? value : null;
         })
         .filter((v) => v !== null)
-        .map((v) => (toMonths ? v * 12 : v)); // Si es duracion, convertir a meses
+        .map((v) => (toMonths ? v * 12 : v));
 
       const minValue = values.length > 0 ? Math.min(...values) : 0;
       const maxValue =
         values.length > 0
           ? Math.max(...values)
-          : defaultValue * (toMonths ? 12 : 1); // Convertir el default a meses si es necesario
+          : defaultValue * (toMonths ? 12 : 1);
 
       if (slider && range) {
         slider.min = minValue;
@@ -713,13 +670,12 @@ async function fetchBecas() {
         range.textContent = `${maxValue} `;
 
         slider.oninput = function () {
-          range.textContent = `${this.value}`; // Mostrar siempre en meses
+          range.textContent = `${this.value}`;
           filtrarBecas();
         };
       }
     });
 
-    // Mostrar todas las becas al cargar la página
     mostrarBecasFiltradas(becas);
 
     aplicarFiltroInicial();
@@ -730,5 +686,10 @@ async function fetchBecas() {
   }
 }
 
-// Llamar a la función al cargar la página
 document.addEventListener("DOMContentLoaded", fetchBecas);
+
+document
+  .getElementById("filtroCumpleRequisitos")
+  .addEventListener("change", function () {
+    filtrarBecas();
+  });
