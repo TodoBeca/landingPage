@@ -352,6 +352,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       lastName: document.querySelector('input[name="personalData.lastName"]'),
       birthDate: document.querySelector('input[name="personalData.birthDate"]'),
       gender: document.querySelector('select[name="personalData.gender"]'),
+      paisCode: document.querySelector('select[name="personalData.paisCode"]'),
       phone: document.querySelector('input[name="personalData.phone"]'),
       currentCity: document.querySelector(
         'input[name="personalData.currentCity"]'
@@ -377,6 +378,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         : "";
     if (fields.gender) fields.gender.value = usuario.personalData.gender || "";
     if (fields.phone) fields.phone.value = usuario.personalData.phone || "";
+    if (fields.paisCode)
+      fields.paisCode.value = usuario.personalData.paisCode || "+0";
     if (fields.currentCity)
       fields.currentCity.value = usuario.personalData.currentCity || "";
     if (fields.nationality)
@@ -436,6 +439,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .value,
           phone: document.querySelector('input[name="personalData.phone"]')
             .value,
+          paisCode: document.querySelector(
+            'select[name="personalData.paisCode"]'
+          ).value,
           currentCity: document.querySelector(
             'input[name="personalData.currentCity"]'
           ).value,
@@ -456,6 +462,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .value,
         },
       };
+
+      console.log("data", updatedData);
 
       try {
         const updatedUser = await updateUser(updatedData);

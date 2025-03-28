@@ -1,3 +1,4 @@
+// Función para obtener las becas desde la API
 async function obtenerBecas() {
   try {
     const response = await fetch(CONFIG.API_URL_GET_BECAS);
@@ -9,6 +10,7 @@ async function obtenerBecas() {
   }
 }
 
+// Función para contar las becas por país
 async function obtenerCantBecas() {
   const becas = await obtenerBecas();
 
@@ -38,18 +40,17 @@ async function obtenerCantBecas() {
   }, {});
 }
 
+// Función para obtener coordenadas de un país
 async function obtenerCoordenadas(pais) {
+  // Si el país está en locations.js, usar sus coordenadas
   if (coordenadasPredefinidas[pais]) {
     return coordenadasPredefinidas[pais];
   }
 
+  // Si no está en la base local, buscarlo en OpenStreetMap
   console.warn(
     `Coordenadas de ${pais} no encontradas en locations.js, buscando en OSM...`
   );
-  return await obtenerCoordenadasDesdeAPI(pais);
-}
-
-async function obtenerCoordenadasDesdeAPI(pais) {
   try {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -57,7 +58,6 @@ async function obtenerCoordenadasDesdeAPI(pais) {
       )}`
     );
     const data = await response.json();
-
     if (data.length > 0) {
       return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
     }
@@ -67,6 +67,7 @@ async function obtenerCoordenadasDesdeAPI(pais) {
   return null;
 }
 
+// Función para obtener destinos con coordenadas
 async function obtenerDestinosConCoordenadas() {
   const becasPorPais = await obtenerCantBecas();
 
@@ -80,76 +81,73 @@ async function obtenerDestinosConCoordenadas() {
   return (await Promise.all(coordenadasPromises)).filter(Boolean);
 }
 
+// Función para inicializar el mapa con Leaflet
 async function initMap() {
-  console.log("Inicializando mapa...");
-
   const destinos = await obtenerDestinosConCoordenadas();
-  console.log("Destinos obtenidos:", destinos);
 
   if (destinos.length === 0) {
     console.warn("No hay destinos con coordenadas disponibles.");
     return;
   }
 
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 2,
-    center: { lat: 20, lng: 0 },
-    mapTypeId: "hybrid",
-  });
+  // Crear el mapa
+  const map = L.map("map", {
+    scrollWheelZoom: false,
+  }).setView([20, 0], 2); // Centro inicial y nivel de zoom
 
-  const bounds = new google.maps.LatLngBounds();
-  const infoWindow = new google.maps.InfoWindow();
+  // Usar un tile layer alternativo (OpenStreetMap)
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
 
+  // Crear un objeto LatLngBounds para ajustar el mapa
+  const bounds = new L.LatLngBounds();
+
+  // Agregar marcadores para cada destino
   destinos.forEach((destino) => {
-    console.log(`Agregando marcador para ${destino.nombre}`, destino);
-
-    const marker = new google.maps.Marker({
-      position: { lat: destino.lat, lng: destino.lng },
-      map: map,
+    const marker = L.marker([destino.lat, destino.lng], {
       title: `Destino: ${destino.nombre}`,
-      icon: {
-        url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-        scaledSize: new google.maps.Size(32, 32),
-      },
     });
 
-    bounds.extend(marker.position);
-
-    const infoContent = `
+    // Crear el contenido del popup
+    const popupContent = `
       <div style="padding: 0px; text-align: center; font-family: Arial, sans-serif;">
-        <h4 style="margin: 0; color: #333;">${destino.nombre}</h4>
+        <h6 style="margin: 0; color: #333;">${destino.nombre}</h6>
         <p style="margin: 0px 0; color: #333;">🎓 Becas Disponibles: <strong>${destino.becas}</strong></p>
       </div>
     `;
 
-    marker.addListener("mouseover", () => {
-      infoWindow.setContent(infoContent);
-      infoWindow.open(map, marker);
+    // Asignar el popup al marcador
+    marker.bindPopup(popupContent, { closeButton: false });
 
-      setTimeout(() => {
-        document.querySelector(".gm-style-iw button")?.remove();
-      }, 0);
+    // Mostrar el popup al pasar el cursor sobre el marcador
+    marker.on("mouseover", function () {
+      marker.openPopup();
     });
 
-    marker.addListener("mouseout", () => {
-      infoWindow.close();
+    // Ocultar el popup al quitar el cursor del marcador
+    marker.on("mouseout", function () {
+      marker.closePopup();
     });
 
-    marker.addListener("click", () => {
-      sessionStorage.setItem("paisSeleccionado", destino.nombre);
-      window.location.href = `/becas.html`;
+    // Filtrar becas al hacer clic en el marcador
+    marker.on("click", function () {
+      filtrarPorPaisDesdeMapa(destino.nombre);
     });
+
+    // Agregar el marcador al mapa
+    marker.addTo(map);
+
+    // Extender los límites del mapa para incluir este marcador
+    bounds.extend(marker.getLatLng());
   });
 
+  // Ajustar el mapa para que todos los marcadores sean visibles
   if (!bounds.isEmpty()) {
     map.fitBounds(bounds);
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof google !== "undefined") {
-    initMap();
-  } else {
-    console.error("Google Maps no está cargado correctamente.");
-  }
-});
+// Llamar a la función al cargar la página
+document.addEventListener("DOMContentLoaded", initMap);

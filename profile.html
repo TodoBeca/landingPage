@@ -63,11 +63,14 @@
       </header>
 
       <div class="intro-section-register" id="home-section">
-        <div
-          class="slide-1"
-          style="background-image: url('images/hero_1.jpg')"
-          data-stellar-background-ratio="0.5"
-        >
+        <div class="future-blobs">
+          <div class="blob_2">
+            <img src="images/blob_2.svg" alt="Image" />
+          </div>
+          <div class="blob_1">
+            <img src="images/blob_1.svg" alt="Image" />
+          </div>
+        </div>
           <div
             class="row align-items-center justify-content-center profile-card w-100"
           >
@@ -146,12 +149,27 @@
                         <div class="row mt-3">
                           <div class="col-md-6">
                             <label class="labels">Número de Teléfono</label>
-                            <input
-                              type="number"
-                              class="form-control"
-                              placeholder="Número de Teléfono"
-                              name="personalData.phone"
-                            />
+                            <div class="d-flex">
+                              <!-- Campo para el código de país -->
+                              <div class="col-3 p-0">
+                                <select
+                                  class="form-control"
+                                  name="personalData.paisCode"
+                                  id="paisCode"
+                                >
+                                  <option value="">+0</option>
+                                </select>
+                              </div>
+                              <!-- Campo para el número de teléfono -->
+                              <div class="col-9 p-0">
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  placeholder="Número de Teléfono"
+                                  name="personalData.phone"
+                                />
+                              </div>
+                            </div>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Ciudad de Residencia</label>
@@ -188,7 +206,7 @@
                         </div>
 
                         <!-- INFO ACADEMICA -->
-                        <hr class="filter-divider w-100" />
+                        <hr class="filter-divider w-100 my-4" />
 
                         <div
                           class="d-flex justify-content-between align-items-center mt-2"
@@ -202,7 +220,7 @@
                         <div id="educacion"></div>
 
                         <!-- IDIOMAS -->
-                        <hr class="filter-divider w-100" />
+                        <hr class="filter-divider w-100 my-4" />
 
                         <div
                           class="d-flex justify-content-between align-items-center mt-2"
@@ -213,7 +231,7 @@
                         <div id="language"></div>
 
                         <!-- REDES SOCIALES -->
-                        <hr class="filter-divider w-100" />
+                        <hr class="filter-divider w-100 my-4" />
 
                         <div
                           class="d-flex justify-content-between align-items-center mt-2"
@@ -461,6 +479,7 @@
     <script src="js/login.js"></script>
     <script src="js/userProfile.js"></script>
     <script src="js/nationalities.js"></script>
+    <script src="js/codigoPaises.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

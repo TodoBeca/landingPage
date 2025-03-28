@@ -116,8 +116,4 @@ document.addEventListener("DOMContentLoaded", function () {
       "Selecciona tu ciudadanía adicional"
     );
   }
-
-  console.log(
-    "Listado de nacionalidades cargado correctamente en ambos selects."
-  );
 });

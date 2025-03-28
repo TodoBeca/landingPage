@@ -10,6 +10,26 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+function obtenerDescripcionDificultad(dificultad) {
+  if (!dificultad || dificultad < 1 || dificultad > 5) {
+    return {
+      texto: "No especificado",
+      iconos: "",
+      clase: "difficulty-unknown",
+    };
+  }
+
+  const niveles = [
+    { texto: "Muy baja", iconos: "🟢", clase: "difficulty-very-easy" },
+    { texto: "Baja", iconos: "🟢🟢", clase: "difficulty-easy" },
+    { texto: "Media", iconos: "🟡🟡🟡", clase: "difficulty-medium" },
+    { texto: "Alta", iconos: "🔴🔴🔴🔴", clase: "difficulty-hard" },
+    { texto: "Muy alta", iconos: "🔴🔴🔴🔴🔴", clase: "difficulty-very-hard" },
+  ];
+
+  return niveles[dificultad - 1];
+}
+
 function estaLogueado() {
   return (
     localStorage.getItem("token") || sessionStorage.getItem("token") !== null
@@ -72,6 +92,7 @@ async function fetchBecaDetails(becaId) {
     }
 
     const beca = await response.json();
+    const dificultadInfo = obtenerDescripcionDificultad(beca.dificultad);
 
     // Formatear la fecha
     function formatearFecha(fecha) {
@@ -94,6 +115,23 @@ async function fetchBecaDetails(becaId) {
 
     // Mostrar los detalles de la beca siempre
     document.getElementById("beca-nombre").textContent = beca.nombreBeca;
+    document.getElementById("beca-imagen").textContent = beca.imagen;
+    const dificultadElement = document.getElementById("beca-dificultad");
+    dificultadElement.innerHTML = `
+      <div class="d-flex align-items-center ${dificultadInfo.clase}">
+        <span class="difficulty-text">${dificultadInfo.texto}</span>
+        <span class="difficulty-icons me-2">${dificultadInfo.iconos}</span>
+      </div>
+    `;
+    if (beca.destacada) {
+      document.getElementById("beca-destacada").innerHTML = `
+        <div class="d-flex align-items-center mb-3">
+          <span class="badge bg-warning text-dark p-2">
+           Beca Destacada
+          </span>
+        </div>
+      `;
+    }
     document.getElementById("beca-pais-destino").textContent = beca.paisDestino;
     document.getElementById("beca-region-destino").textContent =
       beca.regionDestino;
@@ -289,7 +327,6 @@ async function initMap(paisesPostulantes, paisDestino) {
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 3, // Nivel de zoom inicial (se ajustará automáticamente)
     center: { lat: 0, lng: 0 }, // Centro inicial (se ajustará automáticamente)
-    mapTypeId: "hybrid", // 🛰️ Híbrido = Satélite + Etiquetas
   });
 
   const bounds = new google.maps.LatLngBounds();

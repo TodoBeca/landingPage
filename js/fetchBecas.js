@@ -1,26 +1,14 @@
 let becas = [];
+let becasFiltradas = [];
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+// Estados para el ordenamiento
+let ordenDestacadas = null; // null, "asc", "desc"
+let ordenDificultad = null; // null, "asc", "desc"
+let ordenVencimiento = null; // null, "asc", "desc"
 
-document.querySelectorAll(".dropdown-menu").forEach((item) => {
-  item.addEventListener("click", function () {
-    setTimeout(scrollToTop, 700);
-  });
-});
-
-document.querySelectorAll(".switch").forEach((item) => {
-  item.addEventListener("click", function () {
-    setTimeout(scrollToTop, 700);
-  });
-});
-
-document.querySelectorAll(".PB-range-slider-container").forEach((item) => {
-  item.addEventListener("click", function () {
-    setTimeout(scrollToTop, 700);
-  });
-});
+// Variables para paginación
+let paginaActual = 1;
+const becasPorPagina = 6;
 
 function estaLogueado() {
   return (
@@ -50,33 +38,39 @@ function aplicarFiltroDesdeSessionStorage() {
   }
 }
 
-function calcularDuracion(duracion) {
-  const unidad = duracion.duracionUnidad || "años";
-  const mesesPorAnio = 12;
+// Función para filtrar becas por país desde el mapa
+function filtrarPorPaisDesdeMapa(pais) {
+  // Limpiar filtros previos de país si es necesario
+  const selectedPaises = document.getElementById("selected-paises");
+  selectedPaises.innerHTML = "";
 
-  const convertirAMeses = (valor, unidad) => {
-    if (unidad.toLowerCase().includes("año")) {
-      return valor * mesesPorAnio;
-    } else if (unidad.toLowerCase().includes("mes")) {
-      return valor;
-    } else {
-      return valor;
-    }
-  };
+  // Agregar el país como filtro
+  agregarBadge(pais, selectedPaises, "pais");
 
-  if (duracion.duracionMinima && duracion.duracionMaxima) {
-    const minMeses = convertirAMeses(duracion.duracionMinima, unidad);
-    const maxMeses = convertirAMeses(duracion.duracionMaxima, unidad);
-    return `${minMeses} a ${maxMeses} meses`;
-  } else if (duracion.duracionMinima) {
-    const minMeses = convertirAMeses(duracion.duracionMinima, unidad);
-    return `${minMeses} meses`;
-  } else if (duracion.duracionMaxima) {
-    const maxMeses = convertirAMeses(duracion.duracionMaxima, unidad);
-    return `${maxMeses} meses`;
-  } else {
-    return "duracion no disponible";
-  }
+  // Desplazarse a la sección de resultados
+  setTimeout(() => {
+    const element = document.getElementById("contador-becas");
+    const offset = 100; // Pixeles de espacio adicional
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }, 100);
+}
+
+const leyendaFiltro = document.getElementById("leyenda-filtro");
+const filtro = document.getElementById("filtro");
+if (estaLogueado()) {
+  filtro.classList.remove("fuera-de-foco");
+  filtro.classList.add("normal");
+  leyendaFiltro.style.display = "none";
+} else {
+  filtro.classList.remove("normal");
+  filtro.classList.add("fuera-de-foco");
+  leyendaFiltro.style.display = "block";
 }
 
 function formatearFecha(fecha) {
@@ -85,22 +79,6 @@ function formatearFecha(fecha) {
   const [anio, mes, dia] = fecha.split("-");
 
   return `${dia}/${mes}/${anio}`;
-}
-
-function calcularInscripcion(fechaInicioAplicacion, fechaFinAplicacion) {
-  if (fechaInicioAplicacion && fechaFinAplicacion === "Todo el año") {
-    return "Todo el año";
-  } else if (fechaInicioAplicacion && fechaFinAplicacion) {
-    return `Del ${formatearFecha(fechaInicioAplicacion)} al ${formatearFecha(
-      fechaFinAplicacion
-    )}`;
-  } else if (fechaInicioAplicacion) {
-    return `Inicio: ${formatearFecha(fechaInicioAplicacion)}`;
-  } else if (fechaFinAplicacion) {
-    return `Hasta el ${formatearFecha(fechaFinAplicacion)}`;
-  } else {
-    return "Inscripción no disponible";
-  }
 }
 
 function agregarBadge(text, container, type) {
@@ -123,127 +101,50 @@ function agregarBadge(text, container, type) {
   filtrarBecas();
 }
 
-function mostrarBecasFiltradas(filteredBecas) {
+function mostrarBecasFiltradas() {
   const container = document.getElementById("becas-container");
+  const paginationContainer = document.getElementById("pagination-container");
   container.innerHTML = "";
 
-  if (filteredBecas.length === 0) {
+  if (becasFiltradas.length === 0) {
     container.innerHTML =
       "<p>No se encontraron becas con los filtros aplicados.</p>";
+    paginationContainer.innerHTML = "";
     return;
   }
 
-  filteredBecas.forEach((beca) => {
+  // Calcular el total de páginas
+  const totalPaginas = Math.ceil(becasFiltradas.length / becasPorPagina);
+
+  // Asegurarse de que la página actual esté dentro del rango válido
+  if (paginaActual > totalPaginas) {
+    paginaActual = totalPaginas;
+  }
+  if (paginaActual < 1) {
+    paginaActual = 1;
+  }
+
+  // Calcular índices de las becas a mostrar
+  const inicio = (paginaActual - 1) * becasPorPagina;
+  const fin = inicio + becasPorPagina;
+  const becasPagina = becasFiltradas.slice(inicio, fin);
+
+  // Mostrar las becas de la página actual
+  becasPagina.forEach((beca) => {
     const card = document.createElement("div");
-
-    const duracionCalculada = calcularDuracion(beca.duracion);
-    const inscripciones = calcularInscripcion(
-      beca.fechaInicioAplicacion,
-      beca.fechaFinAplicacion
-    );
-
     const ReqMeet = usuario ? cumpleRequisitos(usuario, beca) : null;
 
     card.classList.add(
       "course",
       "bg-white",
       "h-100",
-      "align-self-stretch",
       "mb-4",
       "w-100",
       "rounded",
-      "ml-2"
+      "ml-4"
     );
 
-    card.innerHTML = `
-  <a href="templateBeca.html?id=${
-    beca._id
-  }" class="d-block text-decoration-none text-dark">
-    <div class="course-inner-text py-4 px-4">
-      <span class="course-price mt-4"><strong>Destino: </strong>${
-        beca.paisDestino || "Sin país"
-      } - ${beca.regionDestino}</span>
-      <h3 class="text-primary font-weight-bold">${beca.nombreBeca}</h3>
-      <h6>${beca.entidadBecaria}</h6>
-
-    <div class="meta">
-      <h6 class="font-weight-bold">Características</h6>
-      <div class="d-flex flex-wrap align-items-center">
-        <span class="icon-flag"></span>Países Postulantes: ${
-          Array.isArray(beca.paisPostulante) && beca.paisPostulante.length > 0
-            ? beca.paisPostulante.join(", ")
-            : "No especificado"
-        } 
-        &nbsp;
-        <span>-</span>
-        <span class="icon-book"></span>Área de estudio: ${
-          beca.areaEstudio || "No especificado"
-        }
-        &nbsp;
-        <span>-</span>
-        <span class="icon-certificate"></span>Tipo de Beca: ${beca.tipoBeca}
-        &nbsp;
-        <span>-</span>
-        <div>
-          <span class="icon-calendar"></span>Inscripciones: ${inscripciones}</div>
-      </div>
-    </div>
-    <div class="leyenda-card">
-      <p class="text-danger">
-        Para acceder a más información, por favor, inicie
-        sesión
-      </p>
-    </div>
-    <div class="adicionales">
-      <div class="meta" >
-        <h6 class="font-weight-bold">Detalles Adicionales</h6>
-        <div id="detalles-adicionales">
-          <span class="icon-clock-o"></span>Duración: ${duracionCalculada} 
-          &nbsp;
-          <span>-</span>
-          <span class="icon-users"></span>Cant. Cupos: ${
-            beca.cantCupos || "Cupos no disponibles"
-          }
-        </div>
-      </div>
-
-      <div class="meta">
-        <h6 class="font-weight-bold">Requisitos</h6>
-        <span class="icon-book"></span>Nivel Académico: ${
-          beca.requisitos.nivelAcademicoMin || "No especificado"
-        }
-        &nbsp;
-        <span>-</span>
-        <span class="icon-comment"></span>Idioma Requerido: ${
-          beca.requisitos.idiomasRequeridos
-            ? beca.requisitos.idiomasRequeridos
-                .map((idioma) => `${idioma.idioma} (${idioma.nivelIdioma})`)
-                .join(", ")
-            : "No especificado"
-        }
-        &nbsp;
-        <span>-</span>
-        <span class="icon-user"></span>Edad Máxima: ${
-          beca.requisitos.edadMax || "No especificado"
-        } años
-        &nbsp;
-        <span>-</span>
-        <span class="icon-bar-chart"></span> Promedio Min.: ${
-          beca.requisitos.promedioMin || "No especificado"
-        }
-
-        <div>
-          ${
-            ReqMeet
-              ? `<div style="display: flex; align-items: center;"><span class="icon-check"></span><span style="color: green;">Cumple con los requisitos</span></div>`
-              : `<div style="display: flex; align-items: center;"><span class="icon-times"></span><span style="color: red;">No cumple con los requisitos</span></div>`
-          }
-        </div>
-      </div>
-     </div> 
-    </div>
-  </a>
-`;
+    card.innerHTML = cardBeca(beca, ReqMeet);
 
     container.appendChild(card);
 
@@ -268,6 +169,144 @@ function mostrarBecasFiltradas(filteredBecas) {
       });
     }
   });
+
+  // Mostrar controles de paginación
+  mostrarControlesPaginacion(totalPaginas, becasFiltradas.length);
+}
+
+function mostrarControlesPaginacion(totalPaginas, totalBecas) {
+  const paginationContainer = document.getElementById("pagination-container");
+  paginationContainer.innerHTML = "";
+
+  const pagination = document.createElement("div");
+  pagination.classList.add("pagination");
+
+  // Botón Anterior
+  const prevButton = document.createElement("button");
+  prevButton.innerHTML = "&laquo;";
+  prevButton.disabled = paginaActual === 1;
+  prevButton.addEventListener("click", () => {
+    if (paginaActual > 1) {
+      paginaActual--;
+      mostrarBecasFiltradas();
+    }
+  });
+  pagination.appendChild(prevButton);
+
+  // Números de página
+  const maxPaginasVisibles = 5;
+  let inicioPagina = Math.max(
+    1,
+    paginaActual - Math.floor(maxPaginasVisibles / 2)
+  );
+  let finPagina = Math.min(totalPaginas, inicioPagina + maxPaginasVisibles - 1);
+
+  // Ajustar si estamos cerca del final
+  if (finPagina - inicioPagina + 1 < maxPaginasVisibles) {
+    inicioPagina = Math.max(1, finPagina - maxPaginasVisibles + 1);
+  }
+
+  // Mostrar el primer número con "..." si es necesario
+  if (inicioPagina > 1) {
+    const firstPageButton = document.createElement("button");
+    firstPageButton.textContent = "1";
+    firstPageButton.addEventListener("click", () => {
+      paginaActual = 1;
+      mostrarBecasFiltradas();
+    });
+    pagination.appendChild(firstPageButton);
+
+    if (inicioPagina > 2) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "...";
+      pagination.appendChild(ellipsis);
+    }
+  }
+
+  // Botones de páginas numeradas
+  for (let i = inicioPagina; i <= finPagina; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i;
+    pageButton.classList.toggle("active", i === paginaActual);
+    pageButton.addEventListener("click", () => {
+      paginaActual = i;
+      mostrarBecasFiltradas();
+    });
+    pagination.appendChild(pageButton);
+  }
+
+  // Mostrar el último número con "..." si es necesario
+  if (finPagina < totalPaginas) {
+    if (finPagina < totalPaginas - 1) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "...";
+      pagination.appendChild(ellipsis);
+    }
+
+    const lastPageButton = document.createElement("button");
+    lastPageButton.textContent = totalPaginas;
+    lastPageButton.addEventListener("click", () => {
+      paginaActual = totalPaginas;
+      mostrarBecasFiltradas();
+    });
+    pagination.appendChild(lastPageButton);
+  }
+
+  // Botón Siguiente
+  const nextButton = document.createElement("button");
+  nextButton.innerHTML = "&raquo;";
+  nextButton.disabled = paginaActual === totalPaginas;
+  nextButton.addEventListener("click", () => {
+    if (paginaActual < totalPaginas) {
+      paginaActual++;
+      mostrarBecasFiltradas();
+    }
+  });
+  pagination.appendChild(nextButton);
+
+  // Contador de resultados
+  const resultsCounter = document.createElement("div");
+  resultsCounter.classList.add("results-counter");
+  const inicioResultados = (paginaActual - 1) * becasPorPagina + 1;
+  const finResultados = Math.min(paginaActual * becasPorPagina, totalBecas);
+  resultsCounter.textContent = `Mostrando ${inicioResultados}-${finResultados} de ${totalBecas} becas`;
+
+  paginationContainer.appendChild(resultsCounter);
+  paginationContainer.appendChild(pagination);
+}
+
+function toggleInteraccionFiltros(habilitar) {
+  const elementosFiltro = document.querySelectorAll(
+    "#filtro input, #filtro select, #filtro button, #filtro .dropdown-item"
+  );
+  elementosFiltro.forEach((elemento) => {
+    if (
+      elemento.tagName === "INPUT" ||
+      elemento.tagName === "SELECT" ||
+      elemento.tagName === "BUTTON"
+    ) {
+      elemento.disabled = !habilitar;
+    } else {
+      elemento.style.pointerEvents = habilitar ? "auto" : "none";
+    }
+  });
+
+  const badges = document.querySelectorAll(".badge-item .delete-btn");
+  badges.forEach((badge) => {
+    badge.disabled = !habilitar;
+    badge.style.pointerEvents = habilitar ? "auto" : "none";
+  });
+
+  const dropdownItems = document.querySelectorAll(".dropdown-item");
+  dropdownItems.forEach((item) => {
+    item.style.pointerEvents = habilitar ? "auto" : "none";
+  });
+}
+
+if (estaLogueado()) {
+  toggleInteraccionFiltros(true);
+} else {
+  toggleInteraccionFiltros(false);
 }
 
 function actualizarDropdownPaises(paises) {
@@ -296,16 +335,7 @@ function actualizarDropdownPaises(paises) {
 }
 
 function filtrarBecas() {
-  const paisSeleccionado = sessionStorage.getItem("paisSeleccionado");
-
-  if (paisSeleccionado) {
-    agregarBadge(
-      paisSeleccionado,
-      document.getElementById("selected-paises"),
-      "pais"
-    );
-    sessionStorage.removeItem("paisSeleccionado");
-  }
+  paginaActual = 1;
 
   const selectedRegion = Array.from(
     document.querySelectorAll("#selected-region .badge-item")
@@ -315,10 +345,6 @@ function filtrarBecas() {
     document.querySelectorAll("#selected-paises .badge-item")
   ).map((badge) => badge.getAttribute("data-pais"));
 
-  const selectedIdiomas = Array.from(
-    document.querySelectorAll("#selected-idiomas .badge-item")
-  ).map((badge) => badge.getAttribute("data-idioma"));
-
   const selectedNacPostulante = Array.from(
     document.querySelectorAll("#selected-nacPostulante .badge-item")
   ).map((badge) => badge.getAttribute("data-nacionalidad"));
@@ -326,15 +352,6 @@ function filtrarBecas() {
   const selectedArea = Array.from(
     document.querySelectorAll("#selected-area .badge-item")
   ).map((badge) => badge.getAttribute("data-area"));
-
-  const selectedTiposBeca = Array.from(
-    document.querySelectorAll("#selected-tipo-beca .badge-item")
-  ).map((badge) => badge.getAttribute("data-tipo-beca"));
-
-  const edadValue = parseInt(document.getElementById("rEdad").value);
-  const duracionValue = parseInt(document.getElementById("rDuracion").value);
-
-  const filtroFecha = document.getElementById("filtroFecha").value;
 
   const filtroCumpleRequisitos = document.getElementById(
     "filtroCumpleRequisitos"
@@ -352,16 +369,7 @@ function filtrarBecas() {
 
   actualizarDropdownPaises([...paisesDisponibles]);
 
-  const filteredBecas = becas.filter((beca) => {
-    if (
-      selectedIdiomas.length > 0 &&
-      !selectedIdiomas.some((idioma) =>
-        beca.requisitos.idiomasRequeridos.some((req) => req.idioma === idioma)
-      )
-    ) {
-      return false;
-    }
-
+  becasFiltradas = becas.filter((beca) => {
     if (
       selectedRegion.length > 0 &&
       !selectedRegion.includes(beca.regionDestino)
@@ -391,46 +399,6 @@ function filtrarBecas() {
       return false;
     }
 
-    if (
-      selectedTiposBeca.length > 0 &&
-      !selectedTiposBeca.includes(beca.tipoBeca)
-    ) {
-      return false;
-    }
-
-    if (filtroFecha) {
-      const fechaInicio = beca.fechaInicioAplicacion
-        ? new Date(beca.fechaInicioAplicacion).toISOString().split("T")[0]
-        : null;
-      const fechaFin = beca.fechaFinAplicacion
-        ? new Date(beca.fechaFinAplicacion).toISOString().split("T")[0]
-        : null;
-
-      if (!fechaInicio || !fechaFin) return false;
-
-      const fechaFiltro = new Date(filtroFecha).toISOString().split("T")[0];
-
-      if (fechaFiltro < fechaInicio || fechaFiltro > fechaFin) {
-        return false;
-      }
-    }
-
-    if (beca.requisitos?.edadMax && beca.requisitos.edadMax > edadValue) {
-      return false;
-    }
-
-    if (beca.duracion?.duracionMaxima) {
-      const duracionMaxBeca = beca.duracion.duracionUnidad
-        ?.toLowerCase()
-        .includes("año")
-        ? beca.duracion.duracionMaxima * 12
-        : beca.duracion.duracionMaxima;
-
-      if (duracionMaxBeca > duracionValue) {
-        return false;
-      }
-    }
-
     if (filtroCumpleRequisitos && usuario) {
       if (!cumpleRequisitos(usuario, beca)) {
         return false;
@@ -440,7 +408,72 @@ function filtrarBecas() {
     return true;
   });
 
-  mostrarBecasFiltradas(filteredBecas);
+  // Aplicar ordenamientos
+  becasFiltradas.sort((a, b) => {
+    if (ordenDestacadas === "asc") {
+      if (a.destacada && !b.destacada) return -1;
+      if (!a.destacada && b.destacada) return 1;
+    } else if (ordenDestacadas === "desc") {
+      if (a.destacada && !b.destacada) return 1;
+      if (!a.destacada && b.destacada) return -1;
+    }
+
+    if (ordenDificultad === "asc") {
+      if (a.dificultad !== b.dificultad) return a.dificultad - b.dificultad;
+    } else if (ordenDificultad === "desc") {
+      if (a.dificultad !== b.dificultad) return b.dificultad - a.dificultad;
+    }
+
+    if (ordenVencimiento === "asc") {
+      const fechaA = new Date(a.fechaFinAplicacion);
+      const fechaB = new Date(b.fechaFinAplicacion);
+      if (fechaA !== fechaB) return fechaA - fechaB;
+    } else if (ordenVencimiento === "desc") {
+      const fechaA = new Date(a.fechaFinAplicacion);
+      const fechaB = new Date(b.fechaFinAplicacion);
+      if (fechaA !== fechaB) return fechaB - fechaA;
+    }
+
+    return 0;
+  });
+
+  actualizarContadorBecas(becasFiltradas.length);
+  mostrarBecasFiltradas();
+}
+
+function alternarOrden(boton, criterio) {
+  const flecha = boton.querySelector(".flecha");
+
+  if (criterio === "destacadas") {
+    ordenDestacadas = ordenDestacadas === "asc" ? "desc" : "asc";
+    flecha.classList.toggle("icon-arrow-down", ordenDestacadas === "desc");
+    flecha.classList.toggle("icon-arrow-up", ordenDestacadas === "asc");
+  } else if (criterio === "dificultad") {
+    ordenDificultad = ordenDificultad === "asc" ? "desc" : "asc";
+    flecha.classList.toggle("icon-arrow-down", ordenDificultad === "desc");
+    flecha.classList.toggle("icon-arrow-up", ordenDificultad === "asc");
+  } else if (criterio === "vencimiento") {
+    ordenVencimiento = ordenVencimiento === "asc" ? "desc" : "asc";
+    flecha.classList.toggle("icon-arrow-down", ordenVencimiento === "desc");
+    flecha.classList.toggle("icon-arrow-up", ordenVencimiento === "asc");
+  }
+  filtrarBecas();
+}
+
+document.getElementById("btnOrdenDestacadas").addEventListener("click", () => {
+  alternarOrden(document.getElementById("btnOrdenDestacadas"), "destacadas");
+});
+
+document.getElementById("btnOrdenDificultad").addEventListener("click", () => {
+  alternarOrden(document.getElementById("btnOrdenDificultad"), "dificultad");
+});
+
+document.getElementById("btnOrdenVencimiento").addEventListener("click", () => {
+  alternarOrden(document.getElementById("btnOrdenVencimiento"), "vencimiento");
+});
+
+function actualizarContadorBecas(total) {
+  document.getElementById("total-becas").textContent = total;
 }
 
 async function fetchBecas() {
@@ -465,12 +498,11 @@ async function fetchBecas() {
       return fechaFinInscripcion >= fechaActual;
     });
 
-    window.becas = becas;
+    becasFiltradas = [...becas];
+    actualizarContadorBecas(becasFiltradas.length);
 
     const container = document.getElementById("becas-container");
-    const dropdownIdiomas = document.getElementById("dropdownIdiomas");
-    const selectedIdiomasContainer =
-      document.getElementById("selected-idiomas");
+    document.getElementById("selected-idiomas");
     const dropdownRegion = document.getElementById("dropdownRegion");
     const selectedRegionContainer = document.getElementById("selected-region");
     const dropdownPaises = document.getElementById("dropdownPaises");
@@ -484,13 +516,7 @@ async function fetchBecas() {
     const dropdownArea = document.getElementById("dropdownArea");
     const selectedAreaContainer = document.getElementById("selected-area");
 
-    const dropdownTipoBeca = document.getElementById("dropdownTipoBeca");
-    const selectedTipoBecaContainer =
-      document.getElementById("selected-tipo-beca");
-
     container.innerHTML = "";
-    dropdownIdiomas.innerHTML = "";
-    selectedIdiomasContainer.innerHTML = "";
     dropdownRegion.innerHTML = "";
     selectedRegionContainer.innerHTML = "";
     dropdownPaises.innerHTML = "";
@@ -499,23 +525,11 @@ async function fetchBecas() {
     selectedNacPostulanteContainer.innerHTML = "";
     dropdownArea.innerHTML = "";
     selectedAreaContainer.innerHTML = "";
-    dropdownTipoBeca.innerHTML = "";
-    selectedTipoBecaContainer.innerHTML = "";
 
     if (becas.length === 0) {
       container.innerHTML = "<p>No se encontraron becas.</p>";
       return;
     }
-
-    const idiomas = [
-      ...new Set(
-        becas
-          .flatMap((beca) =>
-            beca.requisitos.idiomasRequeridos.map((req) => req.idioma)
-          )
-          .filter(Boolean)
-      ),
-    ];
 
     const regiones = [
       ...new Set(becas.map((beca) => beca.regionDestino).filter(Boolean)),
@@ -540,24 +554,6 @@ async function fetchBecas() {
     const Areas = [
       ...new Set(becas.map((beca) => beca.areaEstudio).filter(Boolean)),
     ];
-
-    const tiposBeca = [
-      ...new Set(becas.map((beca) => beca.tipoBeca).filter(Boolean)),
-    ];
-
-    idiomas.forEach((idioma) => {
-      const dropdownItem = document.createElement("a");
-      dropdownItem.classList.add("dropdown-item");
-      dropdownItem.href = "#";
-      dropdownItem.textContent = idioma;
-
-      dropdownItem.addEventListener("click", function (e) {
-        e.preventDefault();
-        agregarBadge(idioma, selectedIdiomasContainer, "idioma");
-      });
-
-      dropdownIdiomas.appendChild(dropdownItem);
-    });
 
     regiones.forEach((region) => {
       const dropdownItem = document.createElement("a");
@@ -619,64 +615,7 @@ async function fetchBecas() {
       dropdownArea.appendChild(dropdownItem);
     });
 
-    tiposBeca.forEach((tipo) => {
-      const dropdownItem = document.createElement("a");
-      dropdownItem.classList.add("dropdown-item");
-      dropdownItem.href = "#";
-      dropdownItem.textContent = tipo;
-
-      dropdownItem.addEventListener("click", function (e) {
-        e.preventDefault();
-        agregarBadge(tipo, selectedTipoBecaContainer, "tipo-beca");
-      });
-
-      dropdownTipoBeca.appendChild(dropdownItem);
-    });
-
-    const configSliders = [
-      { id: "rEdad", prop: "requisitos.edadMax", default: 100 },
-      {
-        id: "rDuracion",
-        prop: "duracion.duracionMaxima",
-        default: 10,
-        toMonths: true,
-      },
-    ];
-
-    configSliders.forEach(({ id, prop, default: defaultValue, toMonths }) => {
-      const slider = document.getElementById(id);
-      const range = document.getElementById(
-        `range${id.charAt(1).toUpperCase() + id.slice(2)}`
-      );
-
-      const values = becas
-        .map((beca) => {
-          let value = eval(`beca.${prop}`);
-          return value !== null && value !== undefined ? value : null;
-        })
-        .filter((v) => v !== null)
-        .map((v) => (toMonths ? v * 12 : v));
-
-      const minValue = values.length > 0 ? Math.min(...values) : 0;
-      const maxValue =
-        values.length > 0
-          ? Math.max(...values)
-          : defaultValue * (toMonths ? 12 : 1);
-
-      if (slider && range) {
-        slider.min = minValue;
-        slider.max = maxValue;
-        slider.value = maxValue;
-        range.textContent = `${maxValue} `;
-
-        slider.oninput = function () {
-          range.textContent = `${this.value}`;
-          filtrarBecas();
-        };
-      }
-    });
-
-    mostrarBecasFiltradas(becas);
+    mostrarBecasFiltradas();
 
     aplicarFiltroInicial();
   } catch (error) {
