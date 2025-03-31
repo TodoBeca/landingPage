@@ -11,7 +11,7 @@ async function obtenerBecas() {
 }
 
 const iconoBeca = L.icon({
-  iconUrl: "https://storage.cloud.google.com/imagenes_becas/Logos/Logo.png", // Ruta a tu imagen
+  iconUrl: "images/Logo.png", // Ruta a tu imagen
   iconSize: [55, 50], // Tamaño del ícono en píxeles
   iconAnchor: [16, 40], // Punto del ícono que se posicionará en el punto del marcador (centro inferior)
   popupAnchor: [0, -40], // Punto desde donde se abre el popup (relativo al iconAnchor)
