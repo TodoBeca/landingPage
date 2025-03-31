@@ -115,7 +115,15 @@ async function fetchBecaDetails(becaId) {
 
     // Mostrar los detalles de la beca siempre
     document.getElementById("beca-nombre").textContent = beca.nombreBeca;
-    document.getElementById("beca-imagen").textContent = beca.imagen;
+
+    const imagenElement = document.getElementById("beca-imagen");
+    if (beca.imagen) {
+      imagenElement.innerHTML = `<img src="${beca.imagen}" alt="${beca.nombreBeca}" class="becaTemplate-image">`;
+    } else {
+      imagenElement.innerHTML =
+        '<div class="no-image-placeholder">No hay imagen disponible</div>';
+    }
+
     const dificultadElement = document.getElementById("beca-dificultad");
     dificultadElement.innerHTML = `
       <div class="d-flex align-items-center ${dificultadInfo.clase}">
@@ -294,7 +302,6 @@ function formatearFecha(fecha) {
   return `${dia}/${mes}/${anio}`;
 }
 
-// Función para obtener las coordenadas de un país usando Nominatim (OpenStreetMap)
 // Función para obtener coordenadas de un país desde locations.js o OpenStreetMap
 async function obtenerCoordenadas(pais) {
   // Si el país está en locations.js, usar sus coordenadas

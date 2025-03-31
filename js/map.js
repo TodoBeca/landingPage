@@ -10,6 +10,13 @@ async function obtenerBecas() {
   }
 }
 
+const iconoBeca = L.icon({
+  iconUrl: "images/Logo.png", // Ruta a tu imagen
+  iconSize: [55, 50], // Tamaño del ícono en píxeles
+  iconAnchor: [16, 40], // Punto del ícono que se posicionará en el punto del marcador (centro inferior)
+  popupAnchor: [0, -40], // Punto desde donde se abre el popup (relativo al iconAnchor)
+});
+
 // Función para contar las becas por país
 async function obtenerCantBecas() {
   const becas = await obtenerBecas();
@@ -108,6 +115,7 @@ async function initMap() {
   destinos.forEach((destino) => {
     const marker = L.marker([destino.lat, destino.lng], {
       title: `Destino: ${destino.nombre}`,
+      icon: iconoBeca, // 👈 acá está la clave
     });
 
     // Crear el contenido del popup
