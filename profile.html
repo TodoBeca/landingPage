@@ -48,7 +48,10 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center">
             <div class="site-logo mr-auto w-25">
-              <a href="index.html">TodoBeca.com</a>
+              <a href="index.html"
+                ><img
+                  src="https://res.cloudinary.com/didtocmoz/image/upload/v1743888185/IsoLogoX_fwdgf4.png"
+              /></a>
             </div>
             <div class="ml-auto w-50 text-right">
               <button
@@ -71,222 +74,218 @@
             <img src="images/blob_1.svg" alt="Image" />
           </div>
         </div>
-          <div
-            class="row align-items-center justify-content-center profile-card w-100"
-          >
-            <div class="col-md-10" data-aos="fade-up" data-aos-delay="500">
-              <div class="card shadow-lg bg-white rounded">
-                <div class="container rounded bg-white p-5">
-                  <div class="row">
-                    <div class="col-md-3 border-right">
-                      <div
-                        class="d-flex flex-column align-items-center text-center"
-                      >
-                        <img
-                          class="rounded-circle"
-                          width="150px"
-                          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                        />
-                        <span class="font-weight-bold" id="userFullName"></span>
-                        <span class="text-black-50" id="userEmail"></span>
-                      </div>
+        <div
+          class="row align-items-center justify-content-center profile-card w-100"
+        >
+          <div class="col-md-10" data-aos="fade-up" data-aos-delay="500">
+            <div class="card shadow-lg bg-white rounded">
+              <div class="container rounded bg-white p-5">
+                <div class="row">
+                  <div class="col-md-3 border-right">
+                    <div
+                      class="d-flex flex-column align-items-center text-center"
+                    >
+                      <img
+                        class="rounded-circle"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                      />
+                      <span class="font-weight-bold" id="userFullName"></span>
+                      <span class="text-black-50" id="userEmail"></span>
                     </div>
-                    <div class="col-md-9 border-right">
-                      <div class="p-3">
-                        <div
-                          class="d-flex justify-content-between align-items-center mb-3"
-                        >
-                          <h4 class="text-right">Perfil de Usuario</h4>
-                        </div>
+                  </div>
+                  <div class="col-md-9 border-right">
+                    <div class="p-3">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-3"
+                      >
+                        <h4 class="text-right">Perfil de Usuario</h4>
+                      </div>
 
-                        <div
-                          class="d-flex justify-content-between align-items-center mt-2"
-                        >
-                          <h5 class="text-right">Información Personal</h5>
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-2"
+                      >
+                        <h5 class="text-right">Información Personal</h5>
+                      </div>
+                      <div class="row mt-1">
+                        <div class="col-md-6">
+                          <label class="labels">Nombre</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre"
+                            name="personalData.firstName"
+                          />
                         </div>
-                        <div class="row mt-1">
-                          <div class="col-md-6">
-                            <label class="labels">Nombre</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Nombre"
-                              name="personalData.firstName"
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label class="labels">Apellido</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Apellido"
-                              name="personalData.lastName"
-                            />
-                          </div>
+                        <div class="col-md-6">
+                          <label class="labels">Apellido</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Apellido"
+                            name="personalData.lastName"
+                          />
                         </div>
-                        <div class="row mt-3">
-                          <div class="col-md-6">
-                            <label class="labels">Fecha de Nacimiento</label>
-                            <input
-                              type="date"
-                              class="form-control"
-                              name="personalData.birthDate"
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label class="labels">Género</label>
-                            <select
-                              class="form-control"
-                              name="personalData.gender"
-                            >
-                              <option value="">Selecciona tu género</option>
-                              <option value="M">Masculino</option>
-                              <option value="F">Femenino</option>
-                              <option value="O">Otro</option>
-                            </select>
-                          </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md-6">
+                          <label class="labels">Fecha de Nacimiento</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            name="personalData.birthDate"
+                          />
                         </div>
-                        <div class="row mt-3">
-                          <div class="col-md-6">
-                            <label class="labels">Número de Teléfono</label>
-                            <div class="d-flex">
-                              <!-- Campo para el código de país -->
-                              <div class="col-3 p-0">
-                                <select
-                                  class="form-control"
-                                  name="personalData.paisCode"
-                                  id="paisCode"
-                                >
-                                  <option value="">+0</option>
-                                </select>
-                              </div>
-                              <!-- Campo para el número de teléfono -->
-                              <div class="col-9 p-0">
-                                <input
-                                  type="number"
-                                  class="form-control"
-                                  placeholder="Número de Teléfono"
-                                  name="personalData.phone"
-                                />
-                              </div>
+                        <div class="col-md-6">
+                          <label class="labels">Género</label>
+                          <select
+                            class="form-control"
+                            name="personalData.gender"
+                          >
+                            <option value="">Selecciona tu género</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="O">Otro</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md-6">
+                          <label class="labels">Número de Teléfono</label>
+                          <div class="d-flex">
+                            <!-- Campo para el código de país -->
+                            <div class="col-3 p-0">
+                              <select
+                                class="form-control"
+                                name="personalData.paisCode"
+                                id="paisCode"
+                              >
+                                <option value="">+0</option>
+                              </select>
+                            </div>
+                            <!-- Campo para el número de teléfono -->
+                            <div class="col-9 p-0">
+                              <input
+                                type="number"
+                                class="form-control"
+                                placeholder="Número de Teléfono"
+                                name="personalData.phone"
+                              />
                             </div>
                           </div>
-                          <div class="col-md-6">
-                            <label class="labels">Ciudad de Residencia</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Ciudad de Residencia"
-                              name="personalData.currentCity"
-                            />
-                          </div>
                         </div>
-                        <div class="row mt-3">
-                          <div class="col-md-6">
-                            <label class="labels">Nacionalidad</label>
-                            <select
-                              id="nationalitySelect"
-                              class="form-control"
-                              name="personalData.nationality"
-                            >
-                              <!-- Las opciones se cargarán dinámicamente -->
-                            </select>
-                          </div>
-
-                          <div class="col-md-6">
-                            <label class="labels">Nacionalidad Adicional</label>
-                            <select
-                              id="additionalCitizenshipSelect"
-                              class="form-control"
-                              name="personalData.additionalCitizenship"
-                            >
-                              <!-- Las opciones se cargarán dinámicamente -->
-                            </select>
-                          </div>
+                        <div class="col-md-6">
+                          <label class="labels">Ciudad de Residencia</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Ciudad de Residencia"
+                            name="personalData.currentCity"
+                          />
                         </div>
-
-                        <!-- INFO ACADEMICA -->
-                        <hr class="filter-divider w-100 my-4" />
-
-                        <div
-                          class="d-flex justify-content-between align-items-center mt-2"
-                        >
-                          <h5 class="text-right mb-0">Educación</h5>
-                          <span
-                            class="icon-plus"
-                            id="openEducationModal"
-                          ></span>
-                        </div>
-                        <div id="educacion"></div>
-
-                        <!-- IDIOMAS -->
-                        <hr class="filter-divider w-100 my-4" />
-
-                        <div
-                          class="d-flex justify-content-between align-items-center mt-2"
-                        >
-                          <h5 class="text-right mb-0">Idiomas</h5>
-                          <span class="icon-plus" id="openLanguageModal"></span>
-                        </div>
-                        <div id="language"></div>
-
-                        <!-- REDES SOCIALES -->
-                        <hr class="filter-divider w-100 my-4" />
-
-                        <div
-                          class="d-flex justify-content-between align-items-center mt-2"
-                        >
-                          <h5 class="text-right">Redes Sociales</h5>
-                        </div>
-                        <div class="row mt-1 align-items-center">
-                          <div class="col-auto pr-0">
-                            <span class="icon-instagram"></span>
-                          </div>
-                          <div class="col">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="https://www.instagram.com/tu_usuario"
-                              name="socialMedia.instagram"
-                            />
-                          </div>
-                        </div>
-                        <div class="row mt-1 align-items-center">
-                          <div class="col-auto pr-0">
-                            <span class="icon-twitter"></span>
-                          </div>
-                          <div class="col">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="https://twitter.com/tu_usuario"
-                              name="socialMedia.twitter"
-                            />
-                          </div>
-                        </div>
-                        <div class="row mt-1 align-items-center">
-                          <div class="col-auto pr-0">
-                            <span class="icon-linkedin"></span>
-                          </div>
-                          <div class="col">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="https://www.linkedin.com/in/tu_usuario"
-                              name="socialMedia.linkedin"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="mt-5 text-center">
-                          <button
-                            id="profile-button"
-                            class="btn btn-primary profile-button"
-                            type="submit"
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md-6">
+                          <label class="labels">Nacionalidad</label>
+                          <select
+                            id="nationalitySelect"
+                            class="form-control"
+                            name="personalData.nationality"
                           >
-                            Guardar cambios
-                          </button>
+                            <!-- Las opciones se cargarán dinámicamente -->
+                          </select>
                         </div>
+
+                        <div class="col-md-6">
+                          <label class="labels">Nacionalidad Adicional</label>
+                          <select
+                            id="additionalCitizenshipSelect"
+                            class="form-control"
+                            name="personalData.additionalCitizenship"
+                          >
+                            <!-- Las opciones se cargarán dinámicamente -->
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- INFO ACADEMICA -->
+                      <hr class="filter-divider w-100 my-4" />
+
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-2"
+                      >
+                        <h5 class="text-right mb-0">Educación</h5>
+                        <span class="icon-plus" id="openEducationModal"></span>
+                      </div>
+                      <div id="educacion"></div>
+
+                      <!-- IDIOMAS -->
+                      <hr class="filter-divider w-100 my-4" />
+
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-2"
+                      >
+                        <h5 class="text-right mb-0">Idiomas</h5>
+                        <span class="icon-plus" id="openLanguageModal"></span>
+                      </div>
+                      <div id="language"></div>
+
+                      <!-- REDES SOCIALES -->
+                      <hr class="filter-divider w-100 my-4" />
+
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-2"
+                      >
+                        <h5 class="text-right">Redes Sociales</h5>
+                      </div>
+                      <div class="row mt-1 align-items-center">
+                        <div class="col-auto pr-0">
+                          <span class="icon-instagram"></span>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="https://www.instagram.com/tu_usuario"
+                            name="socialMedia.instagram"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mt-1 align-items-center">
+                        <div class="col-auto pr-0">
+                          <span class="icon-twitter"></span>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="https://twitter.com/tu_usuario"
+                            name="socialMedia.twitter"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mt-1 align-items-center">
+                        <div class="col-auto pr-0">
+                          <span class="icon-linkedin"></span>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="https://www.linkedin.com/in/tu_usuario"
+                            name="socialMedia.linkedin"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="mt-5 text-center">
+                        <button
+                          id="profile-button"
+                          class="btn btn-primary profile-button"
+                          type="submit"
+                        >
+                          Guardar cambios
+                        </button>
                       </div>
                     </div>
                   </div>
