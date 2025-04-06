@@ -70,20 +70,18 @@
                   class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
                 >
                   <li>
-                    <a href="#home-section"
-                      ><div
-                        class="btn btn-primary py-3 px-5 btn-block btn-pill"
-                      >
-                        Informe de País
-                      </div></a
-                    >
+                    <a href=""><div class="">Quienes somos</div></a>
+                  </li>
+                  <li>
+                    <a href=""><div class="">Informes de paises</div></a>
+                  </li>
+                  <li>
+                    <a href=""><div class="">FAQ</div></a>
                   </li>
                   <li>
                     <a href="#contact-section"
-                      ><div
-                        class="btn btn-primary py-3 px-5 btn-block btn-pill"
-                      >
-                        Quiero Asesoramiento
+                      ><div class="font-weight-bold text-success">
+                        Contacto
                       </div></a
                     >
                   </li>
@@ -109,13 +107,20 @@
           <div class="site-section" id="map-section">
             <div class="row justify-content-center" data-aos="fade-up">
               <div class="col-lg-11 text-center pt-5 px-5">
-                <h2 class="text-primary font-weight-bold">
-                  ¡El mundo es tu campus!
-                </h2>
-                <p class="text-primary">
-                  Tu próximo destino de estudios está a un click de distancia.
-                  ¡Descubrilo!
-                </p>
+                <div class="container text-center">
+                  <div class="mx-auto w-75">
+                    <h2 class="text-primary font-weight-bold">
+                      ¡El portal de becas para estudiantes latinoamericanos!
+                    </h2>
+                    <p class="text-primary">
+                      Encontrá oportunidades para estudiar en el exterior en un
+                      solo lugar. Accedé a convocatorias actualizadas y
+                      herramientas que te acercan a tu próximo destino
+                      académico.
+                    </p>
+                  </div>
+                </div>
+
                 <div id="map" class="rounded">
                   <!-- Loader de la Tierra -->
                   <div class="row justify-content-center pl-5">
@@ -189,10 +194,10 @@
             Destacadas <span class="flecha icon-arrow-down"></span>
           </button>
           <button id="btnOrdenDificultad" class="btn btn-primary btn-pill">
-            Dificultad <span class="flecha icon-arrow-down"></span>
+            Competencia <span class="flecha icon-arrow-down"></span>
           </button>
           <button id="btnOrdenVencimiento" class="btn btn-primary btn-pill">
-            Vencimiento <span class="flecha icon-arrow-down"></span>
+            Deadline <span class="flecha icon-arrow-down"></span>
           </button>
         </div>
       </div>
@@ -211,7 +216,7 @@
             <h4 class="">Filtrar Busqueda</h4>
             <div class="dropdown-container">
               <div class="dropdown">
-                <label for="select-pais">Filtrar por paises</label>
+                <label for="select-pais">Filtrar por país de destino</label>
 
                 <div class="dropdown">
                   <button
@@ -248,7 +253,9 @@
             <div id="filtro" class="fuera-de-foco">
               <div class="dropdown-container">
                 <div class="dropdown">
-                  <label for="select-region">Filtrar por región</label>
+                  <label for="select-region"
+                    >Filtrar por región de destino</label
+                  >
 
                   <div class="dropdown">
                     <button
@@ -323,7 +330,7 @@
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Seleccionar nacionalidad
+                      Seleccionar area
                     </button>
                     <div
                       class="dropdown-menu"
@@ -469,32 +476,24 @@
 
       <footer class="footer-section bg-white">
         <div class="container">
-          <div class="row">
-            <div class="col-md-4">
+          <div class="row col-12 justify-content-between">
+            <div class="col-md-7">
               <h3>Sobre TodoBeca.com</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-                consectetur ut hic ipsum et veritatis corrupti. Itaque eius
-                soluta optio dolorum temporibus in, atque, quos fugit sunt sit
-                quaerat dicta.
+                Publicamos oportunidades académicas para estudiar en el exterior
+                o en tu país, con información clara, filtros útiles y
+                convocatorias actualizadas. Además, ofrecemos asesoramiento
+                personalizado para ayudarte a preparar tu postulación: desde la
+                elección de becas hasta la revisión de cartas de motivación,
+                armado de CV y orientación en el proceso completo.
               </p>
-            </div>
-
-            <div class="col-md-3 ml-auto">
-              <h3>Links</h3>
-              <ul class="list-unstyled footer-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Becas</a></li>
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-              </ul>
             </div>
 
             <div class="col-md-4">
               <h3>Subscribite</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Nesciunt incidunt iure iusto architecto? Numquam, natus?
+                Subscribite a nuestro newsletter para enterarte de las últimas
+                noticias.
               </p>
               <form action="#" class="footer-subscribe">
                 <div class="d-flex mb-5">

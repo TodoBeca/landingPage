@@ -1,7 +1,5 @@
 const isLoggedIn = estaLogueado();
 
-// Función para obtener la descripción de la dificultad
-// Función para obtener la descripción de la dificultad (compartida)
 function obtenerDescripcionDificultad(dificultad) {
   if (!dificultad) return "No especificado";
 
@@ -30,25 +28,25 @@ const cardBeca = (beca, ReqMeet) => {
           <div class="cardBeca-image" style="background-image: url('${
             beca.imagen || "./images/becaAlemania.jpg"
           }');"></div>
-          <div class="row justify-content-between align-items-center px-3">
-            <span class="cardBeca-badge">Vence: ${
+          <div class="row justify-content-between align-items-end px-3">
+            <span class="cardBeca-badge">Deadline: ${
               formatearFecha(beca.fechaFinAplicacion) || "No disponible"
             }</span>
             ${
               beca.destacada ? '<span class="cardBeca-destacada">⭐</span>' : ""
             }
           </div>
-          <h6 class="card-country text-secondary m-0 mt-2">${
+          <p class="card-country text-secondary font-weight-bold m-0 mt-2">${
             beca.paisDestino
-          } - ${beca.regionDestino}</h6>
+          } - ${beca.regionDestino}</p>
           <h5 class="card-title text-primary m-0 mt-2">${beca.nombreBeca}</h5>
-          <p class="card-type text-secondary m-0">${
+          <p class="card-type text-secondary m-0 mt-2 font-weight-bold">${
             beca.tipoBeca || "No especificado"
           }</p>
           <p class="card-difficulty m-0 mt-2"><span class="difficulty-icons">${
             dificultadInfo.iconos
           }</span>
-                <span class="difficulty-text">Dificultad ${
+                <span class="difficulty-text">Competencia ${
                   dificultadInfo.texto
                 }</span></p>
         </div>

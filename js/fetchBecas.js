@@ -8,7 +8,7 @@ let ordenVencimiento = null; // null, "asc", "desc"
 
 // Variables para paginación
 let paginaActual = 1;
-const becasPorPagina = 6;
+const becasPorPagina = 8;
 
 function estaLogueado() {
   return (
@@ -64,12 +64,12 @@ function filtrarPorPaisDesdeMapa(pais) {
 const leyendaFiltro = document.getElementById("leyenda-filtro");
 const filtro = document.getElementById("filtro");
 if (estaLogueado()) {
-  filtro.classList.remove("fuera-de-foco");
+  filtro.classList.remove("fuera-de-foco-filtro");
   filtro.classList.add("normal");
   leyendaFiltro.style.display = "none";
 } else {
   filtro.classList.remove("normal");
-  filtro.classList.add("fuera-de-foco");
+  filtro.classList.add("fuera-de-foco-filtro");
   leyendaFiltro.style.display = "block";
 }
 

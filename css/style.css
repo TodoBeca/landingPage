@@ -413,7 +413,7 @@ h5,
 
 .site-logo img {
   width: auto;
-  height: 70px;
+  height: 50px;
 }
 .site-logo a {
   color: #050f45;
@@ -450,9 +450,16 @@ h5,
   text-decoration: none !important;
   display: inline-block;
 }
+
 .site-navbar .site-navigation .site-menu > li {
   display: inline-block;
 }
+
+.site-navbar .site-navigation .site-menu .navBtn {
+  padding: 5px;
+  padding-inline: 10px;
+}
+
 .site-navbar .site-navigation .site-menu > li > a {
   padding: 5px 20px;
   color: #050f45;
@@ -1533,18 +1540,6 @@ h5,
 }
 
 /*BECAS*/
-#becas-container {
-  display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas pasen a una nueva línea */
-  justify-content: center; /* Centra las tarjetas */
-}
-
-.course {
-  /* Asegura que las tarjetas ocupen el 33.33% del ancho */
-  width: calc(25%); /* 3 tarjetas por fila con espacio entre ellas */
-  max-width: 320px; /* Tamaño máximo para evitar tarjetas muy grandes */
-  box-sizing: border-box; /* Evita que padding afecte el tamaño */
-}
 
 /* FILTER */
 .filter-container {
@@ -1898,6 +1893,11 @@ input:checked ~ .slider {
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
+.fuera-de-foco-filtro {
+  filter: blur(30px);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
 .normal {
   opacity: 1;
   filter: blur(0);
@@ -1961,10 +1961,22 @@ input:checked ~ .slider {
 }
 
 /* CARD BECA */
+#becas-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas pasen a una nueva línea */
+  justify-content: center; /* Centra las tarjetas */
+}
+
+.course {
+  width: calc(25%); /* 3 tarjetas por fila con espacio entre ellas */
+  max-width: 240px; /* Tamaño máximo para evitar tarjetas muy grandes */
+  box-sizing: border-box; /* Evita que padding afecte el tamaño */
+}
+
 .cardBeca {
   position: relative;
   flex: 1 1 calc(25% - 16px);
-  max-width: 320px;
+  max-width: 240px;
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -1984,7 +1996,7 @@ input:checked ~ .slider {
   inset: 0;
   left: -3px;
   margin: auto;
-  width: 326px;
+  width: 246px;
   height: 406px;
   border-radius: 5px;
   background: linear-gradient(-45deg, #a00f0f 0%, #050f45 100%);
@@ -2023,15 +2035,23 @@ input:checked ~ .slider {
 }
 
 .cardBeca:hover::before {
-  transform: rotate(-90deg) scaleX(1.3) scaleY(0.75);
+  transform: rotate(-90deg) scaleX(1.7) scaleY(0.55);
 }
 
 .cardBeca-image {
   width: 100%;
-  height: 150px;
+  height: 100px;
   background-size: cover;
   background-position: center;
   border-radius: 8px;
+}
+.cardBeca-badge {
+  background: #a00f0f;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-top: 10px;
 }
 
 .becaTemplate-image {
@@ -2040,15 +2060,6 @@ input:checked ~ .slider {
   object-fit: cover;
   background-position: center;
   border-radius: 8px;
-}
-
-.cardBeca-badge {
-  background: #a00f0f;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  margin-top: 10px;
 }
 
 /* ORDENADORES */
