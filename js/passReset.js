@@ -4,7 +4,7 @@ document
     e.preventDefault();
 
     const form = this;
-    const newPassword = document.getElementById("newPassword").value;
+    const newPassword = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const resetError = document.getElementById("resetError");
     const resetButton = form.querySelector("button[type='submit']");
@@ -29,7 +29,7 @@ document
 
     resetButton.disabled = true;
     resetButton.innerHTML =
-      '<span class="spinner-border spinner-border-sm"></span> Enviando...';
+      '<span class="spinner-border spinner-border-sm"></span> Actualizando...';
 
     try {
       const response = await fetch(CONFIG.API_URL_POST_PASSRESET, {
