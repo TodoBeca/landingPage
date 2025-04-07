@@ -3,14 +3,23 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
     const form = this;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const resetError = document.getElementById("resetError");
     const resetButton = form.querySelector("button[type='submit']");
 
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    // Validación inicial del token
+    if (!token) {
+      alert("Token inválido o expirado.");
+      window.location.href = "/recover.html";
+      return;
+    }
+
+    // Validación de contraseñas
     if (newPassword !== confirmPassword) {
       resetError.style.display = "block";
       return;
@@ -21,18 +30,6 @@ document
     resetButton.disabled = true;
     resetButton.innerHTML =
       '<span class="spinner-border spinner-border-sm"></span> Enviando...';
-
-    if (token) {
-      sessionStorage.setItem("resetToken", token);
-    } else {
-      alert("Token inválido o expirado.");
-      window.location.href = "/recover.html";
-    }
-
-    if (!token) {
-      alert("Token no encontrado. Por favor volvé a iniciar el proceso.");
-      return;
-    }
 
     try {
       const response = await fetch(CONFIG.API_URL_POST_PASSRESET, {
@@ -50,9 +47,13 @@ document
         window.location.href = "/login.html";
       } else {
         alert(result.msg);
+        resetButton.disabled = false;
+        resetButton.innerHTML = "Actualizar contraseña";
       }
     } catch (error) {
       console.error("Error al actualizar la contraseña:", error);
       alert("Error al restablecer la contraseña.");
+      resetButton.disabled = false;
+      resetButton.innerHTML = "Actualizar contraseña";
     }
   });
