@@ -48,9 +48,11 @@
         <div class="container-fluid">
           <div class="d-flex align-items-center">
             <div class="site-logo mr-auto w-25">
-              <a href="index.html">TodoBeca.com</a>
+              <a href="index.html"
+                ><img
+                  src="https://res.cloudinary.com/didtocmoz/image/upload/v1743888185/IsoLogoX_fwdgf4.png"
+              /></a>
             </div>
-
             <div class="mx-auto text-center">
               <nav
                 class="site-navigation position-relative text-right"
@@ -59,169 +61,140 @@
                 <ul
                   class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
                 >
-                  <li><a href="#home-section" class="nav-link">Inicio</a></li>
                   <li>
-                    <a href="#courses-section" class="nav-link">Becas</a>
-                  </li>
-                  <li>
-                    <a href="#programs-section" class="nav-link"
-                      >Sobre Nosotros</a
+                    <a href="/index.html"
+                      ><div class="">Volver a inicio</div></a
                     >
                   </li>
-                  <li>
-                    <a href="#contact-section" class="nav-link">Contacto</a>
-                  </li>
                 </ul>
               </nav>
-            </div>
-
-            <div class="ml-auto w-25">
-              <nav
-                class="site-navigation position-relative text-right"
-                role="navigation"
-              >
-                <ul
-                  class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0"
-                >
-                  <li class="cta">
-                    <a href="" class="nav-link"><span>Iniciar Sesión</span></a>
-                  </li>
-                </ul>
-              </nav>
-              <a
-                href="#"
-                class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"
-                ><span class="icon-menu h3"></span
-              ></a>
             </div>
           </div>
         </div>
       </header>
 
       <div class="intro-section-register" id="home-section">
-        <div
-          class="slide-1"
-          style="background-image: url('images/hero_1.jpg')"
-          data-stellar-background-ratio="0.5"
-        >
-          <div class="container">
-            <div
-              class="row align-items-center justify-content-center register-card"
-            >
-              <div class="col-md-8" data-aos="fade-up" data-aos-delay="500">
-                <div class="card p-4 shadow-lg bg-white rounded">
-                  <h2 class="text-center mb-4">Registro</h2>
+        <div class="future-blobs">
+          <div class="blob_2">
+            <img src="images/blob_2.svg" alt="Image" />
+          </div>
+          <div class="blob_1">
+            <img src="images/blob_1.svg" alt="Image" />
+          </div>
+        </div>
+        <div class="container">
+          <div
+            class="row align-items-center justify-content-center register-card"
+          >
+            <div class="col-md-8" data-aos="fade-up" data-aos-delay="500">
+              <div class="card p-4 shadow-lg bg-white rounded">
+                <h2 class="text-center mb-4">Registro</h2>
 
-                  <form
-                    action="/register"
-                    method="POST"
-                    id="simpleRegisterForm"
+                <form action="/register" method="POST" id="simpleRegisterForm">
+                  <div class="row align-items-center justify-content-around">
+                    <div class="form-group w-50 px-2">
+                      <label>Nombre *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="firstName"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group w-50 px-2">
+                      <label>Apellido *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lastName"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center justify-content-around">
+                    <div class="form-group w-50 px-2">
+                      <label>Correo Electrónico *</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group w-50 px-2">
+                      <label>Confirmar Correo Electrónico *</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="confirmEmail"
+                        id="confirmEmail"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    id="emailError"
+                    class="text-danger mb-3"
+                    style="display: none"
                   >
-                    <div class="row align-items-center justify-content-around">
-                      <div class="form-group w-50 px-2">
-                        <label>Nombre *</label>
+                    ⚠️ Los correos electrónicos no coinciden.
+                  </div>
+
+                  <div class="row align-items-center justify-content-around">
+                    <div class="form-group w-50 px-2 position-relative">
+                      <label>Contraseña *</label>
+                      <div class="input-group">
                         <input
-                          type="text"
-                          class="form-control"
-                          name="firstName"
+                          type="password"
+                          class="form-control password-input"
+                          name="password"
+                          id="password"
                           required
                         />
+                        <span
+                          class="toggle-password icon-eye"
+                          data-target="password"
+                        ></span>
                       </div>
+                    </div>
 
-                      <div class="form-group w-50 px-2">
-                        <label>Apellido *</label>
+                    <div class="form-group w-50 px-2 position-relative">
+                      <label>Confirmar Contraseña *</label>
+                      <div class="input-group">
                         <input
-                          type="text"
-                          class="form-control"
-                          name="lastName"
+                          type="password"
+                          class="form-control password-input"
+                          name="confirmPassword"
+                          id="confirmPassword"
                           required
                         />
+                        <span
+                          class="toggle-password icon-eye"
+                          data-target="confirmPassword"
+                        ></span>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="row align-items-center justify-content-around">
-                      <div class="form-group w-50 px-2">
-                        <label>Correo Electrónico *</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          name="email"
-                          id="email"
-                          required
-                        />
-                      </div>
+                  <div
+                    id="passwordError"
+                    class="text-danger mb-3"
+                    style="display: none"
+                  >
+                    ⚠️ Las contraseñas no coinciden.
+                  </div>
 
-                      <div class="form-group w-50 px-2">
-                        <label>Confirmar Correo Electrónico *</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          name="confirmEmail"
-                          id="confirmEmail"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      id="emailError"
-                      class="text-danger mb-3"
-                      style="display: none"
-                    >
-                      ⚠️ Los correos electrónicos no coinciden.
-                    </div>
-
-                    <div class="row align-items-center justify-content-around">
-                      <div class="form-group w-50 px-2 position-relative">
-                        <label>Contraseña *</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control password-input"
-                            name="password"
-                            id="password"
-                            required
-                          />
-                          <span
-                            class="toggle-password icon-eye"
-                            data-target="password"
-                          ></span>
-                        </div>
-                      </div>
-
-                      <div class="form-group w-50 px-2 position-relative">
-                        <label>Confirmar Contraseña *</label>
-                        <div class="input-group">
-                          <input
-                            type="password"
-                            class="form-control password-input"
-                            name="confirmPassword"
-                            id="confirmPassword"
-                            required
-                          />
-                          <span
-                            class="toggle-password icon-eye"
-                            data-target="confirmPassword"
-                          ></span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      id="passwordError"
-                      class="text-danger mb-3"
-                      style="display: none"
-                    >
-                      ⚠️ Las contraseñas no coinciden.
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary btn-lg">
-                        Registrar
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      Registrar
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
