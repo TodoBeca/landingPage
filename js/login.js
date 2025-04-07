@@ -73,13 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
             sessionStorage.setItem("usuario", JSON.stringify(usuarioData));
           }
 
-          // Redirigir a la página anterior o a index si no hay referencia
-          const paginaAnterior =
-            document.referrer && document.referrer !== window.location.href
-              ? document.referrer
-              : "/index.html";
-
-          window.location.href = paginaAnterior;
+          const referrer = document.referrer || "";
+          if (referrer.includes("reset-password.html")) {
+            window.location.href = "/index.html";
+          } else if (referrer !== "") {
+            window.location.href = referrer;
+          } else {
+            window.location.href = "/index.html";
+          }
         } else {
           alert(data.msg);
         }
