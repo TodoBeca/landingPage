@@ -6,7 +6,7 @@ document
     const form = this;
     const newPassword = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const resetError = document.getElementById("resetError");
+    const passwordError = document.getElementById("passwordError");
     const resetButton = form.querySelector("button[type='submit']");
 
     const params = new URLSearchParams(window.location.search);
@@ -21,10 +21,10 @@ document
 
     // Validación de contraseñas
     if (newPassword !== confirmPassword) {
-      resetError.style.display = "block";
+      passwordError.style.display = "block";
       return;
     } else {
-      resetError.style.display = "none";
+      passwordError.style.display = "none";
     }
 
     resetButton.disabled = true;
