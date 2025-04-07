@@ -3,11 +3,13 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
     const form = this;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const resetError = document.getElementById("resetError");
-    const submitButton = form.querySelector("button[type='submit']");
+    const resetButton = form.querySelector("button[type='submit']");
 
     if (newPassword !== confirmPassword) {
       resetError.style.display = "block";
@@ -16,11 +18,16 @@ document
       resetError.style.display = "none";
     }
 
-    submitButton.disabled = true;
-    submitButton.innerHTML =
+    resetButton.disabled = true;
+    resetButton.innerHTML =
       '<span class="spinner-border spinner-border-sm"></span> Enviando...';
 
-    const token = sessionStorage.getItem("resetToken");
+    if (token) {
+      sessionStorage.setItem("resetToken", token);
+    } else {
+      alert("Token inválido o expirado.");
+      window.location.href = "/recover.html";
+    }
 
     if (!token) {
       alert("Token no encontrado. Por favor volvé a iniciar el proceso.");
@@ -40,7 +47,6 @@ document
 
       if (response.ok) {
         alert(result.msg);
-        // Redirigir si querés:
         window.location.href = "/login.html";
       } else {
         alert(result.msg);

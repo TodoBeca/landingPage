@@ -32,6 +32,8 @@ document
       const result = await response.json();
       if (response.ok) {
         alert(result.msg); // o mostrar mensaje en el DOM
+        form.reset();
+        window.location.href = "/index.html";
       } else {
         alert(result.msg);
       }
