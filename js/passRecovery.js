@@ -3,6 +3,7 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const form = this;
     const email = document.getElementById("email").value;
     const confirmEmail = document.getElementById("confirmEmail").value;
     const emailError = document.getElementById("emailError");

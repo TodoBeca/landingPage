@@ -3,6 +3,7 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    const form = this;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const resetError = document.getElementById("resetError");
