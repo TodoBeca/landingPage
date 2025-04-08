@@ -32,7 +32,7 @@ function actualizarUI() {
                 ${iniciales}
             </button>
             <div class="dropdown-menu dropdown-menu-auto" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/profile.html">Panel de Control</a>
+                <a class="dropdown-item" href="/profile.html">Mi Perfil</a>
                 <a class="dropdown-item" href="#" id="logoutButton">Cerrar Sesión</a>
             </div>
         </div>
