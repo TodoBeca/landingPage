@@ -1957,7 +1957,9 @@ input:checked ~ .slider {
   padding: 50px;
   text-align: center;
   font-weight: bold;
+  font-size: small;
   z-index: 99;
+  text-transform: uppercase;
 }
 
 #map {
