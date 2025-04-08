@@ -1923,7 +1923,7 @@ input:checked ~ .slider {
   padding: 10px 20px;
   border-radius: 5px;
   text-align: center;
-  z-index: 1000;
+  z-index: 99;
 }
 
 .leyenda-fuera-de-foco-resumen {
@@ -1934,7 +1934,7 @@ input:checked ~ .slider {
   padding: 10px 20px;
   border-radius: 5px;
   text-align: center;
-  z-index: 1000;
+  z-index: 99;
 }
 
 .leyenda-card {
@@ -1945,7 +1945,7 @@ input:checked ~ .slider {
   padding: 10px 20px;
   border-radius: 5px;
   text-align: center;
-  z-index: 1000;
+  z-index: 99;
 }
 
 .leyenda-filtro {
@@ -1957,7 +1957,7 @@ input:checked ~ .slider {
   padding: 50px;
   text-align: center;
   font-weight: bold;
-  z-index: 1000;
+  z-index: 99;
 }
 
 #map {
