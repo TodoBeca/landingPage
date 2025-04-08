@@ -81,6 +81,63 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             window.location.href = "/index.html";
           }
+        } else if (response.status === 401) {
+          // Mostrar modal de verificación
+          const verificationModal = document.createElement("div");
+          verificationModal.className = "modal fade";
+          verificationModal.id = "verificationModal";
+          verificationModal.style.zIndex = "1050";
+          verificationModal.innerHTML = `
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Verificación de Email Requerida</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Por favor, verifica tu email antes de iniciar sesión. Revisa tu bandeja de entrada y spam.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" id="resendVerification">Reenviar Email de Verificación</button>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(verificationModal);
+
+          const modal = new bootstrap.Modal(verificationModal);
+          modal.show();
+
+          // Agregar evento al botón de reenvío
+          document
+            .getElementById("resendVerification")
+            .addEventListener("click", async () => {
+              try {
+                const response = await fetch(
+                  CONFIG.API_URL_RESEND_VERIFICATION,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email: email }),
+                  }
+                );
+
+                const data = await response.json();
+                if (response.ok) {
+                  alert("Email de verificación reenviado correctamente.");
+                } else {
+                  alert(
+                    data.msg || "Error al reenviar el email de verificación."
+                  );
+                }
+              } catch (error) {
+                console.error("Error:", error);
+                alert("Error al conectar con el servidor.");
+              }
+            });
         } else {
           alert(data.msg);
         }
