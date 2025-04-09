@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="css/aos.css" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <div class="site-wrap">
@@ -46,25 +50,55 @@
         role="banner"
       >
         <div class="container-fluid">
-          <div class="d-flex align-items-center">
-            <div class="site-logo mr-auto w-25">
-              <a href="index.html"
-                ><img
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="site-logo">
+              <a href="index.html">
+                <img
                   src="https://res.cloudinary.com/didtocmoz/image/upload/v1743888185/IsoLogoX_fwdgf4.png"
-              /></a>
+                />
+              </a>
             </div>
-            <div class="ml-auto">
-              <nav
-                class="site-navigation position-relative text-right"
-                role="navigation"
-              >
+
+            <div class="text-center">
+              <nav class="site-navigation position-relative" role="navigation">
                 <ul
-                  class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
+                  class="site-menu main-menu js-clone-nav d-none d-lg-block m-0 p-0"
                 >
                   <li>
-                    <a href="/index.html"
-                      ><div class="">Volver a inicio</div></a
-                    >
+                    <a class="p-1" href="/About.html">
+                      <div class="btn-bis btn-secondary">Quienes somos</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="p-1" href="/Informes.html">
+                      <div class="btn-bis btn-secondary">
+                        Informes de paises
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="p-1" href="/FAQ.html">
+                      <div class="btn-bis btn-secondary px-4">FAQ</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="p-1" href="index.html#contact-section">
+                      <div class="btn-bis btn-secondary contact">Contacto</div>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <div>
+              <nav class="site-navigation position-relative" role="navigation">
+                <ul
+                  class="site-menu main-menu js-clone-nav d-none d-lg-block m-0 p-0"
+                >
+                  <li>
+                    <a href="/index.html">
+                      <div>Volver a inicio</div>
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -93,23 +127,31 @@
             >
               <div class="card p-5 shadow-lg bg-white rounded text-center">
                 <h2 class="mb-3">¿Quiénes somos?</h2>
-                <p class="text-secondary m-0 text-justify w-100">
+                <p class="text-secondary m-0 text-justify w-100 mb-3">
                   <strong class="font-weight-bold">todobeca.com</strong> es una
                   plataforma que nace con la misión de hacer más fácil y
                   accesible la búsqueda y postulación a becas internacionales,
                   conectando a estudiantes con oportunidades que se adaptan a
-                  sus metas académicas y profesionales. Sabemos que para muchos
-                  jóvenes de América Latina, estudiar en el exterior no solo es
-                  un sueño, sino también una herramienta de transformación
-                  personal y social. Sin embargo, el acceso a estas
-                  oportunidades sigue siendo desigual: la información está
+                  sus metas académicas y profesionales.
+                </p>
+                <p class="text-secondary m-0 text-justify w-100 mb-3">
+                  Sabemos que para muchos jóvenes de América Latina, estudiar en
+                  el exterior no solo es un sueño, sino también una herramienta
+                  de transformación personal y social. Sin embargo, el acceso a
+                  estas oportunidades sigue siendo desigual: la información está
                   dispersa, los procesos son complejos, y muchas veces faltan
-                  recursos, tiempo o acompañamiento. Por eso creamos un espacio
-                  pensado especialmente para estudiantes latinoamericanos, que
-                  simplifica el camino con herramientas claras, alertas
-                  personalizadas, asesoramiento estratégico y un portal diseñado
-                  para que cada persona encuentre su beca ideal. En
-                  <strong class="font-weight-bold">todobeca.com</strong>,
+                  recursos, tiempo o acompañamiento.
+                </p>
+
+                <p class="text-secondary m-0 text-justify w-100 mb-3">
+                  Por eso creamos un espacio pensado especialmente para
+                  estudiantes latinoamericanos, que simplifica el camino con
+                  herramientas claras, alertas personalizadas, asesoramiento
+                  estratégico y un portal diseñado para que cada persona
+                  encuentre su beca ideal.
+                </p>
+                <p class="text-secondary m-0 text-justify w-100 mb-3">
+                  En <strong class="font-weight-bold">todobeca.com</strong>,
                   creemos que el talento está en todas partes, pero las
                   oportunidades no. Trabajamos para cambiar eso.
                 </p>
@@ -149,6 +191,76 @@
           </div>
         </div>
       </div>
+      <footer class="footer-section bg-white">
+        <div class="container">
+          <div class="row col-12 justify-content-between">
+            <div class="col-md-7">
+              <h3 class="text-primary">Sobre TodoBeca.com</h3>
+              <p class="text-secondary">
+                Publicamos oportunidades académicas para estudiar en el exterior
+                o en tu país, con información clara, filtros útiles y
+                convocatorias actualizadas. Además, ofrecemos asesoramiento
+                personalizado para ayudarte a preparar tu postulación: desde la
+                elección de becas hasta la revisión de cartas de motivación,
+                armado de CV y orientación en el proceso completo.
+              </p>
+            </div>
+
+            <div class="col-md-4">
+              <h3 class="text-primary">Subscribite</h3>
+              <p class="text-secondary">
+                Subscribite a nuestro newsletter para enterarte de las últimas
+                noticias.
+              </p>
+              <form action="#" class="footer-subscribe">
+                <div class="d-flex mb-4">
+                  <input
+                    type="text"
+                    class="form-control rounded-0"
+                    placeholder="Correo Electrónico"
+                  />
+                  <input
+                    type="submit"
+                    class="btn btn-primary rounded-0"
+                    value="Subscribe"
+                  />
+                </div>
+              </form>
+
+              <!-- Redes sociales -->
+              <div class="social-icons text-left">
+                <h3 class="mb-2 text-primary">Seguinos en nuestras redes</h3>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-facebook fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-twitter fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-instagram fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-linkedin fa-lg"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+                <p>
+                  Copyright &copy;
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  Todos los derechos reservados | TodoBeca.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
