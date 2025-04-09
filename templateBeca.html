@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="css/aos.css" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <div class="site-wrap">
@@ -63,17 +67,25 @@
                   class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
                 >
                   <li>
-                    <a href=""><div class="">Quienes somos</div></a>
+                    <a class="p-1" href="/About.html"
+                      ><div class="btn-bis btn-secondary">Quienes somos</div></a
+                    >
                   </li>
                   <li>
-                    <a href=""><div class="">Informes de paises</div></a>
+                    <a class="p-1" href="/Informes.html"
+                      ><div class="btn-bis btn-secondary">
+                        Informes de paises
+                      </div></a
+                    >
                   </li>
                   <li>
-                    <a href=""><div class="">FAQ</div></a>
+                    <a class="p-1" href="/FAQ.html"
+                      ><div class="btn-bis btn-secondary px-4">FAQ</div></a
+                    >
                   </li>
                   <li>
-                    <a href="index.html#Contact-section"
-                      ><div class="font-weight-bold text-success">
+                    <a class="p-1" href="index.html"
+                      ><div class="btn-bis btn-secondary contact">
                         Contacto
                       </div></a
                     >
@@ -103,9 +115,6 @@
           <div class="col-md-11" data-aos="fade-up" data-aos-delay="500">
             <div class="card shadow-lg bg-white rounded">
               <div class="rounded bg-white">
-                <div class="d-flex justify-content-end pr-4 my-1">
-                  <a href="/index.html" class="">Volver a inicio</a>
-                </div>
                 <div class="col-md-12 mb-5">
                   <div class="col-md-12">
                     <div class="becaTemplate-image" id="beca-imagen"></div>
@@ -455,6 +464,9 @@
                       />
                     </div>
                   </div>
+                  <div class="d-flex justify-content-center mt-3">
+                    <a href="/index.html" class="">Volver a inicio</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -464,35 +476,27 @@
 
       <footer class="footer-section bg-white">
         <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <h3>Sobre TodoBeca.com</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-                consectetur ut hic ipsum et veritatis corrupti. Itaque eius
-                soluta optio dolorum temporibus in, atque, quos fugit sunt sit
-                quaerat dicta.
+          <div class="row col-12 justify-content-between">
+            <div class="col-md-7">
+              <h3 class="text-primary">Sobre TodoBeca.com</h3>
+              <p class="text-secondary">
+                Publicamos oportunidades académicas para estudiar en el exterior
+                o en tu país, con información clara, filtros útiles y
+                convocatorias actualizadas. Además, ofrecemos asesoramiento
+                personalizado para ayudarte a preparar tu postulación: desde la
+                elección de becas hasta la revisión de cartas de motivación,
+                armado de CV y orientación en el proceso completo.
               </p>
             </div>
 
-            <div class="col-md-3 ml-auto">
-              <h3>Links</h3>
-              <ul class="list-unstyled footer-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Becas</a></li>
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-              </ul>
-            </div>
-
             <div class="col-md-4">
-              <h3>Subscribite</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Nesciunt incidunt iure iusto architecto? Numquam, natus?
+              <h3 class="text-primary">Subscribite</h3>
+              <p class="text-secondary">
+                Subscribite a nuestro newsletter para enterarte de las últimas
+                noticias.
               </p>
               <form action="#" class="footer-subscribe">
-                <div class="d-flex mb-5">
+                <div class="d-flex mb-4">
                   <input
                     type="text"
                     class="form-control rounded-0"
@@ -505,6 +509,23 @@
                   />
                 </div>
               </form>
+
+              <!-- Redes sociales -->
+              <div class="social-icons text-left">
+                <h3 class="mb-2 text-primary">Seguinos en nuestras redes</h3>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-facebook fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-twitter fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-instagram fa-lg"></i
+                ></a>
+                <a href="#" class="mr-3 text-secondary"
+                  ><i class="fab fa-linkedin fa-lg"></i
+                ></a>
+              </div>
             </div>
           </div>
 
@@ -512,13 +533,11 @@
             <div class="col-md-12">
               <div class="border-top pt-5">
                 <p>
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                   Copyright &copy;
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
                   Todos los derechos reservados | TodoBeca.com
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
             </div>

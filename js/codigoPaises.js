@@ -27,7 +27,7 @@ async function fetchCountryCodes() {
         country.idd.root +
         (country.idd.suffixes ? country.idd.suffixes[0] : "");
       option.value = countryCode; // Código de país (ej: +51)
-      option.textContent = `${country.name.common} (${countryCode})`; // Formato: "País (Código)"
+      option.textContent = `(${countryCode}) ${country.name.common} `; // Formato: "País (Código)"
       countryCodeSelect.appendChild(option);
     });
 
