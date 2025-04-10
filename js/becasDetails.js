@@ -103,6 +103,9 @@ async function fetchBecaDetails(becaId) {
         return "Fecha no válida";
       }
 
+      // Ajustar la fecha sumando un día
+      fechaObj.setDate(fechaObj.getDate() + 1);
+
       const opciones = {
         weekday: "long",
         day: "numeric",
