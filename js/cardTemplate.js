@@ -39,7 +39,7 @@ const cardBeca = (beca, ReqMeet) => {
           <p class="card-country text-secondary font-weight-bold m-0 mt-2">${
             beca.paisDestino
           } - ${beca.regionDestino}</p>
-          <h5 class="card-title text-primary m-0 mt-2">${beca.nombreBeca}</h5>
+          <h6 class="card-title text-primary m-0 mt-2">${beca.nombreBeca}</h6>
           <p class="card-type text-secondary m-0 mt-2 font-weight-bold">${
             beca.tipoBeca || "No especificado"
           }</p>
