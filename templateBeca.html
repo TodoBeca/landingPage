@@ -142,27 +142,24 @@
                         <p class="text-secondary">-</p>
                         &nbsp;
                         <p class="text-secondary" id="beca-region-destino"></p>
-                        <img
-                          src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                          alt="Destino"
-                          style="width: 16px; height: 16px; margin-right: 5px"
-                        />
                       </div>
 
-                      <div class="d-flex">
-                        <p class="text-secondary font-weight-bold">
+                      <div class="d-flex flex-wrap">
+                        <p class="text-secondary font-weight-bold m-0">
                           Paises aplicantes:
                         </p>
                         &nbsp;
                         <p
-                          class="text-secondary"
+                          class="text-secondary text-justify m-0"
                           id="beca-paises-aplicantes"
                         ></p>
-                        <img
-                          src="https://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                          alt="Aplicantes"
-                          style="width: 16px; height: 16px; margin-right: 5px"
-                        />
+                      </div>
+                      <div
+                        class="d-flex"
+                        id="paises-container"
+                        style="display: none"
+                      >
+                        <p class="text-secondary" id="paises-list"></p>
                       </div>
                       <div class="d-flex">
                         <p class="text-secondary font-weight-bold">
@@ -235,36 +232,27 @@
                       </div>
                     </div>
                     <div class="col-lg-5">
-                      <div class="row mb-5">
-                        <div class="col-lg-12 pr-0">
+                      <div class="d-flex col-lg-12">
+                        <div class="col-lg-12">
+                          <h4 class="text-primary font-weight-bold">
+                            Descripición
+                          </h4>
                           <div
-                            class="rounded"
-                            id="map"
-                            style="height: 400px; width: 100%"
-                          ></div>
+                            id="leyenda-descripcion"
+                            class="leyenda-fuera-de-foco"
+                          >
+                            <p class="text-danger">
+                              Para acceder a más información, por favor, inicie
+                              sesión
+                            </p>
+                          </div>
+                          <div id="descripcion">
+                            <p
+                              class="text-secondary text-justify"
+                              id="beca-descripcion"
+                            ></p>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <hr class="filter-divider w-100 my-4" />
-
-                  <div class="d-flex col-lg-12">
-                    <div class="col-lg-12">
-                      <h4 class="text-primary font-weight-bold">
-                        Descripición
-                      </h4>
-                      <div
-                        id="leyenda-descripcion"
-                        class="leyenda-fuera-de-foco"
-                      >
-                        <p class="text-danger">
-                          Para acceder a más información, por favor, inicie
-                          sesión
-                        </p>
-                      </div>
-                      <div id="descripcion">
-                        <p class="text-secondary" id="beca-descripcion"></p>
                       </div>
                     </div>
                   </div>
@@ -460,12 +448,16 @@
                         type="submit"
                         id="btn-asesoramiento"
                         class="btn btn-primary py-3 px-5 btn-block btn-pill"
-                        value="Quiero asesoramiento "
+                        value="Quiero asesoramiento"
                       />
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-center mt-3">
-                    <a href="/index.html" class="">Volver a inicio</a>
+                    <div class="col-md-3 d-flex justify-content-center">
+                      <a
+                        href="/index.html"
+                        class="btn btn-secondary py-3 px-5 btn-block btn-pill"
+                        >Volver a inicio</a
+                      >
+                    </div>
                   </div>
                 </div>
               </div>

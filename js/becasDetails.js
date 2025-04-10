@@ -172,9 +172,10 @@ async function fetchBecaDetails(becaId) {
     document.getElementById(
       "beca-nivel-minimo-req"
     ).textContent = `Titulo de ${beca.requisitos.nivelAcademicoMin}`;
-    document.getElementById(
-      "beca-edad-req"
-    ).textContent = `${beca.requisitos.edadMax} años`;
+    document.getElementById("beca-edad-req").textContent = beca.requisitos
+      .edadMax
+      ? `${beca.requisitos.edadMax} años`
+      : "No hay límite de edad";
     document.getElementById("beca-carta-req").textContent = beca.requisitos
       .cartaRecomendacion
       ? "Sí"
@@ -187,13 +188,15 @@ async function fetchBecaDetails(becaId) {
       .avalUnivDestino
       ? "Sí"
       : "No";
-    document.getElementById("beca-promedio-req").textContent =
-      beca.requisitos.promedioMin;
+    document.getElementById("beca-promedio-req").textContent = beca.requisitos
+      .promedioMin
+      ? beca.requisitos.promedioMin
+      : "No hay promedio mínimo";
     const examenesRequeridos =
       Array.isArray(beca.requisitos.examenesRequeridos) &&
       beca.requisitos.examenesRequeridos.length > 0
         ? beca.requisitos.examenesRequeridos.join(", ")
-        : "No hay exámenes disponibles";
+        : "No hay requerimiento de exámenes";
     document.getElementById("beca-examenes-req").textContent =
       examenesRequeridos;
 
@@ -218,15 +221,53 @@ async function fetchBecaDetails(becaId) {
       .cobertura.alojamiento
       ? "Sí"
       : "No";
-    document.getElementById(
-      "beca-cobertura-monto"
-    ).textContent = `$${beca.cobertura.montoMensualMin} - $${beca.cobertura.montoMensualMax}`;
+    const { montoMensualMin, montoMensualMax } = beca.cobertura;
+    if (montoMensualMin && !montoMensualMax) {
+      document.getElementById(
+        "beca-cobertura-monto"
+      ).textContent = `Desde $${montoMensualMin}`;
+    } else if (!montoMensualMin && montoMensualMax) {
+      document.getElementById(
+        "beca-cobertura-monto"
+      ).textContent = `Hasta $${montoMensualMax}`;
+    } else if (montoMensualMin && montoMensualMax) {
+      document.getElementById(
+        "beca-cobertura-monto"
+      ).textContent = `$${montoMensualMin} - $${montoMensualMax}`;
+    } else {
+      document.getElementById("beca-cobertura-monto").textContent =
+        "Sin cobertura monetaria";
+    }
 
     const descripcion = `
-    La beca ofrecida por ${beca.institucionPublicadora} está dirigida a estudiantes que deseen realizar estudios en ${beca.universidadDestino}. 
-    El área de estudio es ${beca.areaEstudio}, y se ofrecen ${beca.cantCupos} cupos disponibles. 
-    La edad máxima para aplicar es de ${beca.requisitos.edadMax} años y se requiere un nivel académico mínimo de ${beca.requisitos.nivelAcademicoMin}.
-    El monto mensual de cobertura de la beca oscila entre $${beca.cobertura.montoMensualMin} y $${beca.cobertura.montoMensualMax}, dependiendo del perfil del estudiante.
+    La beca ofrecida por ${
+      beca.entidadBecaria
+    } está dirigida a estudiantes que deseen realizar estudios en ${
+      beca.universidadDestino
+    }. 
+    El área de estudio es ${beca.areaEstudio}, y se ofrecen ${
+      beca.cantCupos ? beca.cantCupos : "cupos ilimitados"
+    } cupos disponibles. 
+    ${
+      beca.requisitos.edadMax
+        ? "La edad máxima para aplicar es de " +
+          beca.requisitos.edadMax +
+          " años"
+        : "No hay límite de edad"
+    } y se requiere un nivel académico mínimo de ${
+      beca.requisitos.nivelAcademicoMin
+    }.
+    ${
+      beca.cobertura.montoMensualMin
+        ? "El monto mensual de cobertura va desde mínimo $" +
+          beca.cobertura.montoMensualMin +
+          " dependiendo del perfil del estudiante."
+        : beca.cobertura.montoMensualMax
+        ? "El monto mensual de cobertura va hasta $" +
+          beca.cobertura.montoMensualMax +
+          " dependiendo del perfil del estudiante."
+        : `El monto mensual de cobertura oscila entre $${beca.cobertura.montoMensualMin} y $${beca.cobertura.montoMensualMax}, dependiendo del perfil del estudiante.`
+    }
 `;
 
     document.getElementById("beca-descripcion").textContent = descripcion;
