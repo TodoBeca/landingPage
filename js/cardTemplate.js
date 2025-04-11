@@ -36,13 +36,20 @@ const cardBeca = (beca, ReqMeet) => {
               beca.destacada ? '<span class="cardBeca-destacada">⭐</span>' : ""
             }
           </div>
-          <p class="card-country text-secondary font-weight-bold m-0 mt-2">${
-            Array.isArray(beca.paisDestino) && beca.paisDestino.length > 1
-              ? "Multiples destinos"
-              : Array.isArray(beca.paisDestino)
-              ? beca.paisDestino[0]
-              : beca.paisDestino
-          } - ${
+          <p class="card-country text-secondary font-weight-bold m-0 ${
+            Array.isArray(beca.paisDestino) &&
+            beca.paisDestino.length > 1 &&
+            Array.isArray(beca.regionDestino) &&
+            beca.regionDestino.length > 1
+              ? "mt-1"
+              : "mt-2"
+          }">${
+    Array.isArray(beca.paisDestino) && beca.paisDestino.length > 1
+      ? "Multiples destinos"
+      : Array.isArray(beca.paisDestino)
+      ? beca.paisDestino[0]
+      : beca.paisDestino
+  } - ${
     Array.isArray(beca.regionDestino) && beca.regionDestino.length > 1
       ? "Multiples regiones"
       : Array.isArray(beca.regionDestino)
