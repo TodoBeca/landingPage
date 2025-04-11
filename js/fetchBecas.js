@@ -319,6 +319,9 @@ function actualizarDropdownPaises(paises) {
     return;
   }
 
+  // Ordenar los países alfabéticamente
+  paises.sort((a, b) => a.localeCompare(b));
+
   paises.forEach((pais) => {
     const dropdownItem = document.createElement("a");
     dropdownItem.classList.add("dropdown-item");
@@ -361,9 +364,17 @@ function filtrarBecas() {
   becas.forEach((beca) => {
     if (
       selectedRegion.length === 0 ||
-      selectedRegion.includes(beca.regionDestino)
+      selectedRegion.some((region) =>
+        Array.isArray(beca.regionDestino)
+          ? beca.regionDestino.includes(region)
+          : beca.regionDestino === region
+      )
     ) {
-      paisesDisponibles.add(beca.paisDestino);
+      if (Array.isArray(beca.paisDestino)) {
+        beca.paisDestino.forEach((pais) => paisesDisponibles.add(pais));
+      } else {
+        paisesDisponibles.add(beca.paisDestino);
+      }
     }
   });
 
@@ -372,14 +383,22 @@ function filtrarBecas() {
   becasFiltradas = becas.filter((beca) => {
     if (
       selectedRegion.length > 0 &&
-      !selectedRegion.includes(beca.regionDestino)
+      !selectedRegion.some((region) =>
+        Array.isArray(beca.regionDestino)
+          ? beca.regionDestino.includes(region)
+          : beca.regionDestino === region
+      )
     ) {
       return false;
     }
 
     if (
       selectedPaises.length > 0 &&
-      !selectedPaises.includes(beca.paisDestino)
+      !selectedPaises.some((pais) =>
+        Array.isArray(beca.paisDestino)
+          ? beca.paisDestino.includes(pais)
+          : beca.paisDestino === pais
+      )
     ) {
       return false;
     }
@@ -532,12 +551,28 @@ async function fetchBecas() {
     }
 
     const regiones = [
-      ...new Set(becas.map((beca) => beca.regionDestino).filter(Boolean)),
-    ];
+      ...new Set(
+        becas
+          .flatMap((beca) =>
+            Array.isArray(beca.regionDestino)
+              ? beca.regionDestino
+              : [beca.regionDestino]
+          )
+          .filter(Boolean)
+      ),
+    ].sort((a, b) => a.localeCompare(b));
 
     const paises = [
-      ...new Set(becas.map((beca) => beca.paisDestino).filter(Boolean)),
-    ];
+      ...new Set(
+        becas
+          .flatMap((beca) =>
+            Array.isArray(beca.paisDestino)
+              ? beca.paisDestino
+              : [beca.paisDestino]
+          )
+          .filter(Boolean)
+      ),
+    ].sort((a, b) => a.localeCompare(b));
 
     const nacionalidades = [
       ...new Set(

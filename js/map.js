@@ -39,10 +39,14 @@ async function obtenerCantBecas() {
 
   // Contar becas por país
   return becasVigentes.reduce((contador, beca) => {
-    const pais = beca.paisDestino;
-    if (pais) {
-      contador[pais] = (contador[pais] || 0) + 1;
-    }
+    const paises = Array.isArray(beca.paisDestino)
+      ? beca.paisDestino
+      : [beca.paisDestino];
+    paises.forEach((pais) => {
+      if (pais) {
+        contador[pais] = (contador[pais] || 0) + 1;
+      }
+    });
     return contador;
   }, {});
 }

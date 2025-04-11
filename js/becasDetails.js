@@ -103,17 +103,11 @@ async function fetchBecaDetails(becaId) {
         return "Fecha no válida";
       }
 
-      // Ajustar la fecha sumando un día
-      fechaObj.setDate(fechaObj.getDate() + 1);
+      const dia = String(fechaObj.getDate()).padStart(2, "0");
+      const mes = String(fechaObj.getMonth() + 1).padStart(2, "0"); // Los meses son 0-indexados
+      const anio = fechaObj.getFullYear();
 
-      const opciones = {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      };
-
-      return fechaObj.toLocaleDateString("es-ES", opciones);
+      return `${dia}/${mes}/${anio}`;
     }
 
     // Mostrar los detalles de la beca siempre
@@ -143,9 +137,20 @@ async function fetchBecaDetails(becaId) {
         </div>
       `;
     }
-    document.getElementById("beca-pais-destino").textContent = beca.paisDestino;
+
+    const paisesDestino =
+      Array.isArray(beca.paisDestino) && beca.paisDestino.length > 0
+        ? beca.paisDestino.join(", ")
+        : "No hay países disponibles";
+
+    const regionesDestino =
+      Array.isArray(beca.regionDestino) && beca.regionDestino.length > 0
+        ? beca.regionDestino.join(", ")
+        : "No hay regiones disponibles";
+
+    document.getElementById("beca-pais-destino").textContent = paisesDestino;
     document.getElementById("beca-region-destino").textContent =
-      beca.regionDestino;
+      regionesDestino;
     document.getElementById("beca-area-estudio").textContent = beca.areaEstudio;
     document.getElementById("beca-fecha-limite").textContent = formatearFecha(
       beca.fechaFinAplicacion
@@ -167,9 +172,23 @@ async function fetchBecaDetails(becaId) {
     document.getElementById("beca-universidad-destino").textContent =
       beca.universidadDestino;
     document.getElementById("beca-tipo").textContent = beca.tipoBeca;
-    document.getElementById(
-      "beca-duracion"
-    ).textContent = `${beca.duracion.duracionMinima} - ${beca.duracion.duracionMaxima} ${beca.duracion.duracionUnidad}`;
+    const { duracionMinima, duracionMaxima, duracionUnidad } = beca.duracion;
+    if (duracionMinima && duracionMaxima) {
+      document.getElementById(
+        "beca-duracion"
+      ).textContent = `${duracionMinima} - ${duracionMaxima} ${duracionUnidad}`;
+    } else if (duracionMinima) {
+      document.getElementById(
+        "beca-duracion"
+      ).textContent = `${duracionMinima} ${duracionUnidad}`;
+    } else if (duracionMaxima) {
+      document.getElementById(
+        "beca-duracion"
+      ).textContent = `${duracionMaxima} ${duracionUnidad}`;
+    } else {
+      document.getElementById("beca-duracion").textContent =
+        "Duración no disponible";
+    }
 
     //Requerimientos
     document.getElementById(
@@ -224,23 +243,23 @@ async function fetchBecaDetails(becaId) {
       .cobertura.alojamiento
       ? "Sí"
       : "No";
-    const { montoMensualMin, montoMensualMax } = beca.cobertura;
-    if (montoMensualMin && !montoMensualMax) {
-      document.getElementById(
-        "beca-cobertura-monto"
-      ).textContent = `Desde $${montoMensualMin}`;
-    } else if (!montoMensualMin && montoMensualMax) {
-      document.getElementById(
-        "beca-cobertura-monto"
-      ).textContent = `Hasta $${montoMensualMax}`;
-    } else if (montoMensualMin && montoMensualMax) {
-      document.getElementById(
-        "beca-cobertura-monto"
-      ).textContent = `$${montoMensualMin} - $${montoMensualMax}`;
-    } else {
-      document.getElementById("beca-cobertura-monto").textContent =
-        "Sin cobertura monetaria";
-    }
+    // const { montoMensualMin, montoMensualMax } = beca.cobertura;
+    // if (montoMensualMin && !montoMensualMax) {
+    //   document.getElementById(
+    //     "beca-cobertura-monto"
+    //   ).textContent = `Desde $${montoMensualMin}`;
+    // } else if (!montoMensualMin && montoMensualMax) {
+    //   document.getElementById(
+    //     "beca-cobertura-monto"
+    //   ).textContent = `Hasta $${montoMensualMax}`;
+    // } else if (montoMensualMin && montoMensualMax) {
+    //   document.getElementById(
+    //     "beca-cobertura-monto"
+    //   ).textContent = `$${montoMensualMin} - $${montoMensualMax}`;
+    // } else {
+    //   document.getElementById("beca-cobertura-monto").textContent =
+    //     "Sin cobertura monetaria";
+    // }
 
     const descripcion = `
     La beca ofrecida por ${
@@ -259,20 +278,18 @@ async function fetchBecaDetails(becaId) {
         : "No hay límite de edad"
     } y se requiere un nivel académico mínimo de ${
       beca.requisitos.nivelAcademicoMin
-    }.
-    ${
-      beca.cobertura.montoMensualMin
-        ? "El monto mensual de cobertura va desde mínimo $" +
-          beca.cobertura.montoMensualMin +
-          " dependiendo del perfil del estudiante."
-        : beca.cobertura.montoMensualMax
-        ? "El monto mensual de cobertura va hasta $" +
-          beca.cobertura.montoMensualMax +
-          " dependiendo del perfil del estudiante."
-        : `El monto mensual de cobertura oscila entre $${beca.cobertura.montoMensualMin} y $${beca.cobertura.montoMensualMax}, dependiendo del perfil del estudiante.`
-    }
-`;
-
+    }.`;
+    // ${
+    //   beca.cobertura.montoMensualMin
+    //     ? "El monto mensual de cobertura va desde mínimo $" +
+    //       beca.cobertura.montoMensualMin +
+    //       " dependiendo del perfil del estudiante."
+    //     : beca.cobertura.montoMensualMax
+    //     ? "El monto mensual de cobertura va hasta $" +
+    //       beca.cobertura.montoMensualMax +
+    //       " dependiendo del perfil del estudiante."
+    //     : `El monto mensual de cobertura oscila entre $${beca.cobertura.montoMensualMin} y $${beca.cobertura.montoMensualMax}, dependiendo del perfil del estudiante.`
+    // }
     document.getElementById("beca-descripcion").textContent = descripcion;
 
     const idiomasRequeridos =
@@ -344,96 +361,4 @@ function formatearFecha(fecha) {
 
   const [anio, mes, dia] = fecha.split("-");
   return `${dia}/${mes}/${anio}`;
-}
-
-// Función para obtener coordenadas de un país desde locations.js o OpenStreetMap
-async function obtenerCoordenadas(pais) {
-  // Si el país está en locations.js, usar sus coordenadas
-  if (coordenadasPredefinidas[pais]) {
-    return coordenadasPredefinidas[pais];
-  }
-
-  // Si no está en la base local, buscarlo en OpenStreetMap
-  console.warn(
-    `Coordenadas de ${pais} no encontradas en locations.js, buscando en OSM...`
-  );
-  try {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-        pais
-      )}`
-    );
-    const data = await response.json();
-    if (data.length > 0) {
-      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
-    }
-  } catch (error) {
-    console.error(`Error obteniendo coordenadas de ${pais} desde OSM:`, error);
-  }
-  return null;
-}
-
-// Función para inicializar el mapa con los países postulantes y el país destino
-async function initMap(paisesPostulantes, paisDestino) {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 3, // Nivel de zoom inicial (se ajustará automáticamente)
-    center: { lat: 0, lng: 0 }, // Centro inicial (se ajustará automáticamente)
-  });
-
-  const bounds = new google.maps.LatLngBounds();
-
-  // Iconos personalizados
-  const iconoPostulante = {
-    url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // Icono rojo
-    scaledSize: new google.maps.Size(32, 32),
-  };
-
-  const iconoDestino = {
-    url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Icono azul
-    scaledSize: new google.maps.Size(32, 32),
-  };
-
-  // 📌 Agregar marcador para el país de destino (azul)
-  if (paisDestino) {
-    const coordenadasDestino = await obtenerCoordenadas(paisDestino);
-    if (coordenadasDestino) {
-      new google.maps.Marker({
-        position: coordenadasDestino,
-        map: map,
-        title: `Destino: ${paisDestino}`,
-        icon: iconoDestino,
-      });
-
-      bounds.extend(coordenadasDestino);
-    }
-  }
-
-  // 📍 Agregar marcadores para los países postulantes (rojo)
-  if (Array.isArray(paisesPostulantes)) {
-    for (const pais of paisesPostulantes) {
-      const coordenadas = await obtenerCoordenadas(pais);
-      if (coordenadas) {
-        new google.maps.Marker({
-          position: coordenadas,
-          map: map,
-          title: `Postulante: ${pais}`,
-          icon: iconoPostulante,
-        });
-
-        bounds.extend(coordenadas);
-      }
-    }
-  }
-
-  // 🔄 Ajustar el mapa para que todos los marcadores sean visibles
-  if (!bounds.isEmpty()) {
-    map.fitBounds(bounds);
-
-    // Opcional: Establecer un nivel de zoom máximo para evitar que el zoom sea demasiado alejado
-    google.maps.event.addListenerOnce(map, "bounds_changed", function () {
-      if (map.getZoom() > 4) {
-        map.setZoom(4);
-      }
-    });
-  }
 }
