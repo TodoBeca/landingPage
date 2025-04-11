@@ -45,7 +45,7 @@ function actualizarUI() {
   } else {
     // Si no hay usuario, mostrar el botón de "Iniciar Sesión"
     document.getElementById("authContainer").innerHTML = `
-          <button class="btn btn-primary w-50 btn-pill" onclick="window.location.href='/login.html'">
+          <button id="btn-auth" class="btn btn-primary w-50 btn-pill" onclick="window.location.href='/login.html'">
             Iniciar Sesión
           </button>
         `;

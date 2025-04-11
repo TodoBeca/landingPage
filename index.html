@@ -131,7 +131,7 @@
                   </div>
                 </div>
 
-                <div id="map" class="rounded">
+                <div id="map" class="rounded d-xl-block" style="display: none">
                   <!-- Loader de la Tierra -->
                   <div class="row justify-content-center pl-5">
                     <div class="earth">
@@ -193,12 +193,14 @@
     <div class="site-section">
       <div
         id="contador-becas"
-        class="row align-self-center col-12 justify-content-center mb-3"
+        class="row align-self-center col-12 justify-content-center mb-3 mt-lg-5"
       >
         <h3><span id="total-becas">0</span> becas disponibles</h3>
       </div>
       <div class="row col-9 justify-content-center">
-        <h3 class="text-primary col-3 pl-5 pt-2">Ordenar por:</h3>
+        <h3 id="orden-title" class="text-primary col-3 pl-5 pt-2">
+          Ordenar por:
+        </h3>
         <div id="filtros-ordenamiento" class="mb-5 justify-content-center row">
           <button id="btnOrdenDestacadas" class="btn btn-primary btn-pill">
             Destacadas <span class="flecha icon-arrow-down"></span>
@@ -212,7 +214,7 @@
         </div>
       </div>
       <div class="row p-0">
-        <div class="col-9">
+        <div class="col-lg-8 col-xl-9">
           <div class="px-4">
             <div class="d-flex" id="becas-container"></div>
             <div
@@ -221,7 +223,7 @@
             ></div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-lg-4 col-xl-3">
           <div class="filter-container">
             <h4 class="">Filtrar Busqueda</h4>
             <div class="dropdown-container">

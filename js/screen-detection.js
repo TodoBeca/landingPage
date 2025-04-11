@@ -1,19 +1,27 @@
-// Función para detectar si es un dispositivo móvil
+// Función para detectar si es un dispositivo móvil basado solo en el ancho de pantalla
 function isMobileDevice() {
-  return (
-    window.innerWidth <= 768 ||
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  );
+  // Usar window.screen.width para obtener el ancho real de la pantalla
+  const screenWidth = window.screen.width;
+  console.log("Screen width:", screenWidth);
+  return screenWidth <= 992;
 }
 
 // Función para redirigir a la página móvil
 function redirectToMobile() {
   const currentPath = window.location.pathname;
-  // Verificar si estamos en la página principal
+  const isMobile = isMobileDevice();
+
+  console.log("Redirect check:", {
+    currentPath,
+    isMobile,
+    screenWidth: window.screen.width,
+    innerWidth: window.innerWidth,
+    devicePixelRatio: window.devicePixelRatio,
+  });
+
+  // Verificar si estamos en la página principal y el ancho es menor o igual a 768px
   if (
-    isMobileDevice() &&
+    isMobile &&
     (currentPath === "/" ||
       currentPath === "" ||
       currentPath.endsWith("index.html") ||

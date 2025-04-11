@@ -151,6 +151,15 @@ h5,
   font-weight: 900;
   padding: 14px 15px;
   border-radius: 30px;
+  border-color: #050f45;
+}
+
+.btn-template {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 14px 15px;
+  border-radius: 30px;
 }
 
 .btn-bis.btn-secondary.contact {
@@ -935,6 +944,14 @@ h5,
   height: 100vh;
   min-height: 700px;
   padding: 0;
+}
+
+#map {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .img-absolute {
@@ -1963,14 +1980,6 @@ input:checked ~ .slider {
   font-weight: 900;
 }
 
-#map {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
 .main-logo {
   height: 40px;
 }
@@ -2015,7 +2024,7 @@ input:checked ~ .slider {
   height: 406px;
   border-radius: 5px;
   background: linear-gradient(-45deg, #a00f0f 0%, #050f45 100%);
-  z-index: -10;
+  z-index: -1;
   pointer-events: none;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -2284,5 +2293,107 @@ input:checked ~ .slider {
     left: 5em;
     opacity: 100%;
     transform: skewX(0deg) rotate(0deg);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1199px) {
+  .map-section {
+    height: 40vh;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  #map {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+
+  .btn-bis {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+  }
+
+  .btn-template {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #btnOrdenDestacadas,
+  #btnOrdenDificultad,
+  #btnOrdenVencimiento {
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+  }
+
+  #btn-auth {
+    font-size: 10px;
+    padding: 14px 15px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #orden-title {
+    font-size: 18px;
+  }
+
+  #beca-nombre {
+    font-size: 28px;
+  }
+
+  #info-container p {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .btn-bis {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+  }
+
+  #btnOrdenDestacadas,
+  #btnOrdenDificultad,
+  #btnOrdenVencimiento {
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+  }
+
+  .btn-template {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 14px 15px;
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #btn-auth {
+    font-size: 10px;
+    padding: 14px 15px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #orden-title {
+    font-size: 24px;
   }
 }
