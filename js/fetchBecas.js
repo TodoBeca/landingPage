@@ -356,6 +356,14 @@ function filtrarBecas() {
     document.querySelectorAll("#selected-area .badge-item")
   ).map((badge) => badge.getAttribute("data-area"));
 
+  const selectedTipoBeca = Array.from(
+    document.querySelectorAll("#selected-tipoBeca .badge-item")
+  ).map((badge) => badge.getAttribute("data-tipo"));
+
+  const selectedNivelAcademico = Array.from(
+    document.querySelectorAll("#selected-nivelAcademico .badge-item")
+  ).map((badge) => badge.getAttribute("data-nivel"));
+
   const filtroCumpleRequisitos = document.getElementById(
     "filtroCumpleRequisitos"
   ).checked;
@@ -415,6 +423,20 @@ function filtrarBecas() {
     }
 
     if (selectedArea.length > 0 && !selectedArea.includes(beca.areaEstudio)) {
+      return false;
+    }
+
+    if (
+      selectedTipoBeca.length > 0 &&
+      !selectedTipoBeca.includes(beca.tipoBeca)
+    ) {
+      return false;
+    }
+
+    if (
+      selectedNivelAcademico.length > 0 &&
+      !selectedNivelAcademico.includes(beca.nivelAcademico)
+    ) {
       return false;
     }
 
@@ -534,6 +556,15 @@ async function fetchBecas() {
     );
     const dropdownArea = document.getElementById("dropdownArea");
     const selectedAreaContainer = document.getElementById("selected-area");
+    const dropdownTipoBeca = document.getElementById("dropdownTipoBeca");
+    const selectedTipoBecaContainer =
+      document.getElementById("selected-tipoBeca");
+    const dropdownNivelAcademico = document.getElementById(
+      "dropdownNivelAcademico"
+    );
+    const selectedNivelAcademicoContainer = document.getElementById(
+      "selected-nivelAcademico"
+    );
 
     container.innerHTML = "";
     dropdownRegion.innerHTML = "";
@@ -544,6 +575,10 @@ async function fetchBecas() {
     selectedNacPostulanteContainer.innerHTML = "";
     dropdownArea.innerHTML = "";
     selectedAreaContainer.innerHTML = "";
+    dropdownTipoBeca.innerHTML = "";
+    selectedTipoBecaContainer.innerHTML = "";
+    dropdownNivelAcademico.innerHTML = "";
+    selectedNivelAcademicoContainer.innerHTML = "";
 
     if (becas.length === 0) {
       container.innerHTML = "<p>No se encontraron becas.</p>";
@@ -589,6 +624,14 @@ async function fetchBecas() {
     const Areas = [
       ...new Set(becas.map((beca) => beca.areaEstudio).filter(Boolean)),
     ];
+
+    const tiposBeca = [
+      ...new Set(becas.map((beca) => beca.tipoBeca).filter(Boolean)),
+    ].sort((a, b) => a.localeCompare(b));
+
+    const nivelesAcademicos = [
+      ...new Set(becas.map((beca) => beca.nivelAcademico).filter(Boolean)),
+    ].sort((a, b) => a.localeCompare(b));
 
     regiones.forEach((region) => {
       const dropdownItem = document.createElement("a");
@@ -648,6 +691,34 @@ async function fetchBecas() {
       });
 
       dropdownArea.appendChild(dropdownItem);
+    });
+
+    tiposBeca.forEach((tipo) => {
+      const dropdownItem = document.createElement("a");
+      dropdownItem.classList.add("dropdown-item");
+      dropdownItem.href = "#";
+      dropdownItem.textContent = tipo;
+
+      dropdownItem.addEventListener("click", function (e) {
+        e.preventDefault();
+        agregarBadge(tipo, selectedTipoBecaContainer, "tipo");
+      });
+
+      dropdownTipoBeca.appendChild(dropdownItem);
+    });
+
+    nivelesAcademicos.forEach((nivel) => {
+      const dropdownItem = document.createElement("a");
+      dropdownItem.classList.add("dropdown-item");
+      dropdownItem.href = "#";
+      dropdownItem.textContent = nivel;
+
+      dropdownItem.addEventListener("click", function (e) {
+        e.preventDefault();
+        agregarBadge(nivel, selectedNivelAcademicoContainer, "nivel");
+      });
+
+      dropdownNivelAcademico.appendChild(dropdownItem);
     });
 
     mostrarBecasFiltradas();

@@ -125,7 +125,7 @@ async function fetchBecaDetails(becaId) {
     dificultadElement.innerHTML = `
       <div class="d-flex align-items-center ${dificultadInfo.clase}">
         <span class="difficulty-text">${dificultadInfo.texto}</span>
-        <span class="difficulty-icons me-2">${dificultadInfo.iconos}</span>
+        <span class="difficulty-icons ml-2">${dificultadInfo.iconos}</span>
       </div>
     `;
     if (beca.destacada) {
@@ -213,7 +213,7 @@ async function fetchBecaDetails(becaId) {
     document.getElementById("beca-promedio-req").textContent = beca.requisitos
       .promedioMin
       ? beca.requisitos.promedioMin
-      : "No hay promedio mínimo";
+      : "No hay requerimientos de promedio mínimo";
     const examenesRequeridos =
       Array.isArray(beca.requisitos.examenesRequeridos) &&
       beca.requisitos.examenesRequeridos.length > 0
@@ -298,7 +298,7 @@ async function fetchBecaDetails(becaId) {
         ? beca.requisitos.idiomasRequeridos
             .map((idioma) => `${idioma.idioma} (${idioma.nivelIdioma})`)
             .join(", ")
-        : "No hay idiomas disponibles";
+        : "No hay requerimientos de idiomas";
 
     document.getElementById("beca-idiomas-req").textContent = idiomasRequeridos;
 
@@ -336,7 +336,7 @@ function calcularDuracion(duracion) {
     const maxMeses = convertirAMeses(duracion.duracionMaxima, unidad);
     return `${maxMeses} meses`;
   } else {
-    return "duracion no disponible";
+    return "Duracion no disponible";
   }
 }
 

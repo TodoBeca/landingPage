@@ -1987,42 +1987,40 @@ input:checked ~ .slider {
 /* CARD BECA */
 #becas-container {
   display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas pasen a una nueva línea */
-  justify-content: center; /* Centra las tarjetas */
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .course {
-  width: calc(25%); /* 3 tarjetas por fila con espacio entre ellas */
-  max-width: 240px; /* Tamaño máximo para evitar tarjetas muy grandes */
-  box-sizing: border-box; /* Evita que padding afecte el tamaño */
+  width: calc(25%);
+  max-width: 240px;
+  box-sizing: border-box;
+  border-radius: 21px !important;
 }
 
 .cardBeca {
+  font-family: Arial, sans-serif;
   position: relative;
   flex: 1 1 calc(25% - 16px);
   max-width: 240px;
   height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 25px !important ;
   flex-direction: column;
   justify-content: flex-start;
   cursor: pointer;
   color: white;
-  box-sizing: border-box;
 }
 
 .cardBeca::before {
   content: "";
   position: absolute;
   inset: 0;
-  left: -3px;
+  left: -4px;
   margin: auto;
-  width: 246px;
-  height: 406px;
-  border-radius: 5px;
+  width: 248px;
+  height: 408px;
+  border-radius: 25px;
   background: linear-gradient(-45deg, #a00f0f 0%, #050f45 100%);
   z-index: -1;
   pointer-events: none;

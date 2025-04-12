@@ -36,7 +36,7 @@ const cardBeca = (beca, ReqMeet) => {
               beca.destacada ? '<span class="cardBeca-destacada">⭐</span>' : ""
             }
           </div>
-          <p class="card-country text-secondary font-weight-bold m-0 ${
+          <p class="card-country text-secondary m-0 ${
             Array.isArray(beca.paisDestino) &&
             beca.paisDestino.length > 1 &&
             Array.isArray(beca.regionDestino) &&
@@ -56,7 +56,9 @@ const cardBeca = (beca, ReqMeet) => {
       ? beca.regionDestino[0]
       : beca.regionDestino
   }</p>
-          <h6 class="card-title text-primary m-0 mt-2">${beca.nombreBeca}</h6>
+          <h6 class="card-title text-primary  font-weight-bold m-0 mt-2">${
+            beca.nombreBeca
+          }</h6>
           <p class="card-type text-secondary m-0 mt-2 font-weight-bold">${
             beca.tipoBeca || "No especificado"
           }</p>
@@ -79,10 +81,7 @@ const cardBeca = (beca, ReqMeet) => {
                 : `<div style="display: flex; align-items: center;">
                       <p class="text-danger mt-2">No cumple con los requisitos</p>
                      </div>`
-              : `<p class="card-info font-weight-light text-primary m-0">
-                  Para saber si cumplís con los requisitos, 
-                  <a class="font-weight-bold" href="login.html">inicia sesión.</a>
-                 </p>`
+              : `<p class="card-info font-weight-light text-primary m-0"><a  href="login.html">Para saber si cumplís con los requisitos, inicia sesión.</a></p>`
           }
         </div>
       </div>
