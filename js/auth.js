@@ -22,7 +22,7 @@ function actualizarUI() {
       usuario.personalData.lastName.charAt(0).toUpperCase();
     document.getElementById("authContainer").innerHTML = `
         <div class="dropdown d-flex">
-            <button class="btn btn-primary btn-pill dropdown-toggle d-flex align-items-center justify-content-center ml-auto"
+            <button class="btn btn-auth btn-pill dropdown-toggle d-flex align-items-center justify-content-center ml-auto"
             type="button"
             id="userDropdown"
             data-toggle="dropdown"
@@ -45,7 +45,7 @@ function actualizarUI() {
   } else {
     // Si no hay usuario, mostrar el botón de "Iniciar Sesión"
     document.getElementById("authContainer").innerHTML = `
-          <button id="btn-auth" class="btn btn-primary w-50 btn-pill" onclick="window.location.href='/login.html'">
+          <button id="btn-auth" class="btn btn-auth w-50 btn-pill" onclick="window.location.href='/login.html'">
             Iniciar Sesión
           </button>
         `;

@@ -152,6 +152,24 @@ h5,
   padding: 14px 15px;
   border-radius: 30px;
   border-color: #050f45;
+  border-width: 0px;
+}
+
+.btn-logout {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 14px 15px;
+  border-radius: 30px;
+  border-color: #050f45;
+  border-width: 0px;
+}
+
+.btn-logout:hover {
+  background-color: #68d5c0;
+  color: #050f45;
+  border-width: 2px;
+  border-color: #050f45;
 }
 
 .btn-template {
@@ -160,10 +178,26 @@ h5,
   font-weight: 900;
   padding: 14px 15px;
   border-radius: 30px;
+  border-width: 0px;
 }
 
-.btn-bis.btn-secondary.contact {
+.btn-auth {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border-width: 2px;
+  border-color: #050f45;
+  background-color: #68d5c0;
+}
+
+.btn-bis.btn-primary.contact {
   color: #68d5c0;
+}
+
+.btn-bis.btn-primary.contact:hover {
+  color: #050f45;
 }
 
 .line-height-1 {
@@ -1572,14 +1606,12 @@ h5,
 
 /* FILTER */
 .filter-container {
-  background-color: rgb(216, 216, 216);
   width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
 .filter-container h4 {
-  padding-top: 10px;
   padding-inline: 20px;
   color: #050f45;
   font-weight: bold;
@@ -2074,7 +2106,7 @@ input:checked ~ .slider {
 }
 .cardBeca-badge {
   background: #68d5c0;
-  color: white;
+  color: #050f45;
   padding: 3px 6px;
   border-radius: 15px;
   font-size: 0.8rem;
