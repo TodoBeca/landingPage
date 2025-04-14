@@ -1797,7 +1797,7 @@ input:checked ~ .slider {
 }
 
 .dropdown-menu-auto {
-  width: auto;
+  width: auto !important;
   min-width: unset;
 }
 
