@@ -15,6 +15,7 @@ function obtenerDescripcionDificultad(dificultad) {
 }
 
 const cardBeca = (beca, ReqMeet) => {
+  console.log(ReqMeet);
   const dificultadInfo = obtenerDescripcionDificultad(beca.dificultad);
 
   return `
@@ -71,20 +72,27 @@ const cardBeca = (beca, ReqMeet) => {
         </div>
       </div>
       <div class="card-back">
-        <div class="card-content">
-          ${
-            isLoggedIn
-              ? ReqMeet
-                ? `<div style="display: flex; align-items: center;">
-                      <p class="cardBeca-badge-ok">Cumple con los requisitos</p>
-                     </div>`
-                : `<div style="display: flex; align-items: center;">
-                      <p class="cardBeca-badge-danger">No cumple con los requisitos</p>
-                     </div>`
-              : `<p class="card-info font-weight-light text-primary m-0"><a  href="login.html">Para saber si cumplís con los requisitos, inicia sesión.</a></p>`
-          }
-        </div>
-      </div>
+  <div class="card-content">
+    ${
+      isLoggedIn
+        ? ReqMeet === true
+          ? `<div style="display: flex; align-items: center;">
+                <p class="cardBeca-badge-ok">Cumple con los requisitos</p>
+             </div>`
+          : ReqMeet === "Faltan Datos"
+          ? `<div style="display: flex; align-items: center;">
+                  <p class="cardBeca-badge-warning">Faltan datos en el perfil</p>
+               </div>`
+          : `<div style="display: flex; align-items: center;">
+                  <p class="cardBeca-badge-danger">No cumple con los requisitos</p>
+               </div>`
+        : `<p class="card-info font-weight-light text-primary m-0">
+             <a href="login.html">Para saber si cumplís con los requisitos, inicia sesión.</a>
+           </p>`
+    }
+  </div>
+</div>
+
     </div>
   </div>
 </a>

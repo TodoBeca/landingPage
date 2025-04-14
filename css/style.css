@@ -2127,6 +2127,15 @@ input:checked ~ .slider {
   margin-top: 10px;
 }
 
+.cardBeca-badge-warning {
+  background-color: #ffc107;
+  color: #000 !important;
+  padding: 3px 6px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
 .cardBeca-badge-danger {
   background: #f5aeae;
   color: #000 !important;

@@ -14,6 +14,29 @@ function calcularEdad(birthDate) {
   return edad;
 }
 
+function usuarioTieneInformacionCompleta(usuario) {
+  if (
+    !usuario ||
+    !usuario.personalData ||
+    !usuario.personalData.birthDate ||
+    !usuario.personalData.nationality ||
+    !Array.isArray(usuario.academicData) ||
+    usuario.academicData.length === 0 ||
+    !Array.isArray(usuario.languages) ||
+    usuario.languages.length === 0
+  ) {
+    return false;
+  }
+
+  const academicoInvalido = usuario.academicData.some((item) => !item.degree);
+
+  const idiomaInvalido = usuario.languages.some(
+    (idioma) => !idioma.language || !idioma.level
+  );
+
+  return !academicoInvalido && !idiomaInvalido;
+}
+
 function obtenerNivelAcademicoMaximo(academicData) {
   const niveles = {
     Secundario: 0,
@@ -52,7 +75,10 @@ function cumpleNivelIdioma(nivelUsuario, nivelRequerido) {
 }
 
 function cumpleRequisitos(usuario, beca) {
-  // Verificar edad máxima si es requerida
+  if (!usuarioTieneInformacionCompleta(usuario)) {
+    return "Faltan Datos";
+  }
+
   if (beca.requisitos && beca.requisitos.edadMax) {
     const edadUsuario = calcularEdad(usuario.personalData.birthDate);
 
@@ -70,11 +96,8 @@ function cumpleRequisitos(usuario, beca) {
 
   // Verificar nivel académico mínimo
   if (beca.requisitos && beca.requisitos.nivelAcademicoMin) {
-    const nivelUsuario = obtenerNivelAcademicoMaximo(usuario.academicData);
-
-    if (!nivelUsuario) {
-      return false;
-    }
+    const nivelUsuario =
+      obtenerNivelAcademicoMaximo(usuario.academicData) || "Secundario";
 
     const niveles = {
       Secundario: 0,
@@ -90,9 +113,6 @@ function cumpleRequisitos(usuario, beca) {
     ) {
       return false;
     }
-
-    console.log("Nivel", nivelUsuario);
-    console.log("requisito", beca.requisitos.nivelAcademicoMin);
 
     if (niveles[nivelUsuario] < niveles[beca.requisitos.nivelAcademicoMin]) {
       return false;
@@ -122,6 +142,5 @@ function cumpleRequisitos(usuario, beca) {
     }
   }
 
-  console.log("cumpleRequisitos: El usuario cumple con todos los requisitos.");
   return true;
 }
