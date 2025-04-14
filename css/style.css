@@ -1973,6 +1973,8 @@ input:checked ~ .slider {
   border-radius: 5px;
   text-align: center;
   z-index: 99;
+  text-transform: uppercase;
+  font-weight: 900;
 }
 
 .leyenda-fuera-de-foco-resumen {
@@ -1984,6 +1986,8 @@ input:checked ~ .slider {
   border-radius: 5px;
   text-align: center;
   z-index: 99;
+  text-transform: uppercase;
+  font-weight: 900;
 }
 
 .leyenda-card {
