@@ -76,10 +76,10 @@ const cardBeca = (beca, ReqMeet) => {
             isLoggedIn
               ? ReqMeet
                 ? `<div style="display: flex; align-items: center;">
-                      <p class="text-success mt-2">Cumple con los requisitos</p>
+                      <p class="cardBeca-badge-ok">Cumple con los requisitos</p>
                      </div>`
                 : `<div style="display: flex; align-items: center;">
-                      <p class="text-danger mt-2">No cumple con los requisitos</p>
+                      <p class="cardBeca-badge-danger">No cumple con los requisitos</p>
                      </div>`
               : `<p class="card-info font-weight-light text-primary m-0"><a  href="login.html">Para saber si cumplís con los requisitos, inicia sesión.</a></p>`
           }

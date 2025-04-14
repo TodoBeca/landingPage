@@ -104,7 +104,7 @@ async function fetchBecaDetails(becaId) {
       }
 
       const dia = String(fechaObj.getDate()).padStart(2, "0");
-      const mes = String(fechaObj.getMonth() + 1).padStart(2, "0"); // Los meses son 0-indexados
+      const mes = String(fechaObj.getMonth() + 1).padStart(2, "0");
       const anio = fechaObj.getFullYear();
 
       return `${dia}/${mes}/${anio}`;
@@ -155,6 +155,8 @@ async function fetchBecaDetails(becaId) {
     document.getElementById("beca-fecha-limite").textContent = formatearFecha(
       beca.fechaFinAplicacion
     );
+    document.getElementById("beca-fecha-inicio-programa").textContent =
+      formatearFecha(beca.fechaInicioPrograma);
     const paisesAplicantes =
       Array.isArray(beca.paisPostulante) && beca.paisPostulante.length > 0
         ? beca.paisPostulante.join(", ")
@@ -243,23 +245,6 @@ async function fetchBecaDetails(becaId) {
       .cobertura.alojamiento
       ? "Sí"
       : "No";
-    // const { montoMensualMin, montoMensualMax } = beca.cobertura;
-    // if (montoMensualMin && !montoMensualMax) {
-    //   document.getElementById(
-    //     "beca-cobertura-monto"
-    //   ).textContent = `Desde $${montoMensualMin}`;
-    // } else if (!montoMensualMin && montoMensualMax) {
-    //   document.getElementById(
-    //     "beca-cobertura-monto"
-    //   ).textContent = `Hasta $${montoMensualMax}`;
-    // } else if (montoMensualMin && montoMensualMax) {
-    //   document.getElementById(
-    //     "beca-cobertura-monto"
-    //   ).textContent = `$${montoMensualMin} - $${montoMensualMax}`;
-    // } else {
-    //   document.getElementById("beca-cobertura-monto").textContent =
-    //     "Sin cobertura monetaria";
-    // }
 
     const descripcion = `
     La beca ofrecida por ${
@@ -279,17 +264,7 @@ async function fetchBecaDetails(becaId) {
     } y se requiere un nivel académico mínimo de ${
       beca.requisitos.nivelAcademicoMin
     }.`;
-    // ${
-    //   beca.cobertura.montoMensualMin
-    //     ? "El monto mensual de cobertura va desde mínimo $" +
-    //       beca.cobertura.montoMensualMin +
-    //       " dependiendo del perfil del estudiante."
-    //     : beca.cobertura.montoMensualMax
-    //     ? "El monto mensual de cobertura va hasta $" +
-    //       beca.cobertura.montoMensualMax +
-    //       " dependiendo del perfil del estudiante."
-    //     : `El monto mensual de cobertura oscila entre $${beca.cobertura.montoMensualMin} y $${beca.cobertura.montoMensualMax}, dependiendo del perfil del estudiante.`
-    // }
+
     document.getElementById("beca-descripcion").textContent = descripcion;
 
     const idiomasRequeridos =

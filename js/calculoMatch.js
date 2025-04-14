@@ -16,6 +16,7 @@ function calcularEdad(birthDate) {
 
 function obtenerNivelAcademicoMaximo(academicData) {
   const niveles = {
+    Secundario: 0,
     Grado: 1,
     Licenciatura: 2,
     Maestría: 3,
@@ -76,11 +77,22 @@ function cumpleRequisitos(usuario, beca) {
     }
 
     const niveles = {
+      Secundario: 0,
       Grado: 1,
       Licenciatura: 2,
       Maestría: 3,
       Doctorado: 4,
     };
+
+    if (
+      niveles[nivelUsuario] > 0 &&
+      beca.requisitos.nivelAcademicoMin === "Secundario"
+    ) {
+      return false;
+    }
+
+    console.log("Nivel", nivelUsuario);
+    console.log("requisito", beca.requisitos.nivelAcademicoMin);
 
     if (niveles[nivelUsuario] < niveles[beca.requisitos.nivelAcademicoMin]) {
       return false;

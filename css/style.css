@@ -2108,9 +2108,28 @@ input:checked ~ .slider {
   background-position: center;
   border-radius: 8px;
 }
+
 .cardBeca-badge {
   background: #68d5c0;
   color: #050f45;
+  padding: 3px 6px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.cardBeca-badge-ok {
+  background: #8bc34a;
+  color: #000 !important;
+  padding: 3px 6px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.cardBeca-badge-danger {
+  background: #f5aeae;
+  color: #000 !important;
   padding: 3px 6px;
   border-radius: 15px;
   font-size: 0.8rem;
