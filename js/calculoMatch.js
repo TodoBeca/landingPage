@@ -14,27 +14,37 @@ function calcularEdad(birthDate) {
   return edad;
 }
 
-function usuarioTieneInformacionCompleta(usuario) {
+function usuarioTieneInformacionCompleta(usuario, requiereIdioma = false) {
   if (
     !usuario ||
     !usuario.personalData ||
     !usuario.personalData.birthDate ||
     !usuario.personalData.nationality ||
     !Array.isArray(usuario.academicData) ||
-    usuario.academicData.length === 0 ||
-    !Array.isArray(usuario.languages) ||
-    usuario.languages.length === 0
+    usuario.academicData.length === 0
   ) {
-    return false;
+    return "Faltan Datos";
   }
 
   const academicoInvalido = usuario.academicData.some((item) => !item.degree);
+  if (academicoInvalido) {
+    return "Faltan Datos";
+  }
 
-  const idiomaInvalido = usuario.languages.some(
-    (idioma) => !idioma.language || !idioma.level
-  );
+  if (requiereIdioma) {
+    if (!Array.isArray(usuario.languages) || usuario.languages.length === 0) {
+      return "Faltan Datos";
+    }
 
-  return !academicoInvalido && !idiomaInvalido;
+    const idiomaInvalido = usuario.languages.some(
+      (idioma) => !idioma.language || !idioma.level
+    );
+    if (idiomaInvalido) {
+      return "Faltan Datos";
+    }
+  }
+
+  return true;
 }
 
 function obtenerNivelAcademicoMaximo(academicData) {
@@ -75,7 +85,11 @@ function cumpleNivelIdioma(nivelUsuario, nivelRequerido) {
 }
 
 function cumpleRequisitos(usuario, beca) {
-  if (!usuarioTieneInformacionCompleta(usuario)) {
+  const idiomasRequeridos = beca.requisitos?.idiomasRequeridos || [];
+  const requiereIdioma = idiomasRequeridos.length > 0;
+
+  const validacion = usuarioTieneInformacionCompleta(usuario, requiereIdioma);
+  if (validacion !== true) {
     return "Faltan Datos";
   }
 
