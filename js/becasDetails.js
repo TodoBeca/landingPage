@@ -103,7 +103,10 @@ async function fetchBecaDetails(becaId) {
         return "Fecha no válida";
       }
 
-      const dia = String(fechaObj.getDate() + 1).padStart(2, "0");
+      // Ajustar la fecha para evitar que se muestre un día antes
+      fechaObj.setDate(fechaObj.getDate() + 1);
+
+      const dia = String(fechaObj.getDate()).padStart(2, "0");
       const mes = String(fechaObj.getMonth() + 1).padStart(2, "0");
       const anio = fechaObj.getFullYear();
 
