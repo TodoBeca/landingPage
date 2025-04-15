@@ -152,8 +152,7 @@ async function fetchBecaDetails(becaId) {
         : "No hay regiones disponibles";
 
     document.getElementById("beca-pais-destino").textContent = paisesDestino;
-    document.getElementById("beca-region-destino").textContent =
-      regionesDestino;
+
     document.getElementById("beca-area-estudio").textContent = beca.areaEstudio;
     document.getElementById("beca-fecha-limite").textContent = formatearFecha(
       beca.fechaFinAplicacion
