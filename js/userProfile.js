@@ -508,7 +508,10 @@ document.addEventListener("DOMContentLoaded", function () {
         10
       );
       const endMonth = parseInt(document.getElementById("end-month").value, 10);
-      const endYear = parseInt(document.getElementById("end-year").value, 10);
+      const endYear = Math.min(
+        parseInt(document.getElementById("end-year").value, 10),
+        new Date().getFullYear() + 10
+      );
 
       const editIndex = educationModal.getAttribute("data-edit-index");
       const usuario =
