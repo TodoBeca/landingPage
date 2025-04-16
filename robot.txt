@@ -1,0 +1,23 @@
+# Archivo robots.txt para TodoBeca.com
+User-agent: *
+
+# Permitir acceso al contenido principal
+Allow: /
+Allow: /login.html
+
+# Bloquear rutas sensibles o irrelevantes para el SEO
+Disallow: /admin/
+Disallow: /recover.html
+Disallow: /confirmacion.html
+Disallow: /js/
+Disallow: /css/w
+Disallow: /fonts/
+Disallow: /config.js
+
+# Permitir acceso a recursos estáticos esenciales
+Allow: /images/
+Allow: /css/*.css
+Allow: /js/*.js
+
+# Ubicación del mapa del sitio
+Sitemap: https://todobeca.com/sitemap.xml
