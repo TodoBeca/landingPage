@@ -194,7 +194,7 @@ function fillYearSelectors() {
   startYearSelect.innerHTML = '<option value="">Año de inicio</option>';
   endYearSelect.innerHTML = '<option value="">Año de fin</option>';
 
-  for (let year = currentYear; year >= 1900; year--) {
+  for (let year = currentYear + 10; year >= 1900; year--) {
     const optionStart = document.createElement("option");
     optionStart.value = year;
     optionStart.textContent = year;
@@ -340,10 +340,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Actualizar el perfil del usuario
     const userFullNameElement = document.getElementById("userFullName");
     const userEmailElement = document.getElementById("userEmail");
+    const profilePhotoElement = document.getElementById("profilePhoto");
 
     if (userFullNameElement && userEmailElement) {
       userFullNameElement.textContent = `${usuario.personalData.firstName} ${usuario.personalData.lastName}`;
       userEmailElement.textContent = usuario.email;
+    }
+
+    // Actualizar la foto de perfil si existe
+    if (profilePhotoElement && usuario.imagen) {
+      profilePhotoElement.src = usuario.imagen;
     }
 
     // Rellenar los campos del formulario
@@ -741,5 +747,112 @@ institutionInput.addEventListener("input", function () {
 document.addEventListener("click", function (event) {
   if (!suggestionsContainer.contains(event.target)) {
     suggestionsContainer.style.display = "none";
+  }
+});
+
+// Función para manejar la subida de foto de perfil
+document.addEventListener("DOMContentLoaded", function () {
+  const photoInput = document.getElementById("photoInput");
+  const profilePhoto = document.getElementById("profilePhoto");
+
+  if (photoInput && profilePhoto) {
+    photoInput.addEventListener("change", async function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        // Validar el tipo de archivo
+        if (!file.type.match("image.*")) {
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Por favor, selecciona un archivo de imagen válido",
+          });
+          return;
+        }
+
+        // Validar el tamaño del archivo (máximo 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La imagen no debe superar los 5MB",
+          });
+          return;
+        }
+
+        // Mostrar vista previa
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profilePhoto.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        // Subir la imagen a Cloudinary
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "Beca_Perfiles");
+          formData.append("cloud_name", "didtocmoz");
+
+          const response = await fetch(
+            `https://api.cloudinary.com/v1_1/didtocmoz/image/upload`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al subir la foto a Cloudinary");
+          }
+
+          const result = await response.json();
+
+          // Actualizar la URL de la foto en el objeto de usuario
+          const usuario =
+            JSON.parse(localStorage.getItem("usuario")) ||
+            JSON.parse(sessionStorage.getItem("usuario"));
+
+          // Actualizar la imagen en la base de datos
+          const updateResponse = await fetch(
+            `${CONFIG.API_URL_UPDATE_USER}/${usuario._id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${usuario.token}`,
+              },
+              body: JSON.stringify({ imagen: result.secure_url }),
+            }
+          );
+
+          if (!updateResponse.ok) {
+            throw new Error("Error al actualizar la foto en la base de datos");
+          }
+
+          const updatedUser = await updateResponse.json();
+
+          // Actualizar el usuario en el almacenamiento local
+          usuario.imagen = result.secure_url;
+          if (localStorage.getItem("usuario")) {
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+          } else if (sessionStorage.getItem("usuario")) {
+            sessionStorage.setItem("usuario", JSON.stringify(usuario));
+          }
+
+          await Swal.fire({
+            icon: "success",
+            title: "¡Éxito!",
+            text: "Foto de perfil actualizada correctamente",
+          });
+        } catch (error) {
+          console.error("Error al subir la foto:", error);
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error al subir la foto de perfil",
+          });
+        }
+      }
+    });
   }
 });
