@@ -476,7 +476,7 @@ h5,
 
 .site-navbar {
   margin-bottom: 0px;
-  z-index: 1999;
+  z-index: 999;
   position: absolute;
   width: 100%;
 }
@@ -1732,7 +1732,7 @@ h5,
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f5aeae;
+  background-color: #b4eae0;
   transition: 0.4s;
   border-radius: 30px;
 }
@@ -1759,11 +1759,11 @@ h5,
 }
 
 .slider-card-front {
-  background-color: #a00f0f;
+  background-color: #68d5c0;
 }
 
 .slider-card-back {
-  background-color: #050f45;
+  background-color: #346b60;
   transform: rotateY(180deg);
 }
 
@@ -1780,7 +1780,7 @@ input:checked ~ .slider-card {
 }
 
 input:checked ~ .slider {
-  background-color: #9c9eb4;
+  background-color: #53aa9a;
 }
 
 /*LOGIN*/
