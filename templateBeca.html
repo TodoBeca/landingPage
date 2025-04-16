@@ -558,10 +558,20 @@
     <script src="js/locations.js"></script>
     <script src="js/becasDetails.js"></script>
     <script src="js/asesoramiento.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABO0Gvhjp_M92xa5heT1dTnKEhB7GXqHM&callback=initMap"
-      async
-      defer
-    ></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "TodoBeca",
+        "url": "https://todobeca.com",
+        "logo": "https://todobeca.com/images/Favicon.png",
+        "sameAs": [
+          "https://www.facebook.com/...",
+          "https://www.instagram.com/...",
+          "https://www.linkedin.com/company/..."
+        ],
+        "description": "Portal de becas para estudiantes latinoamericanos. Asesoramiento y oportunidades actualizadas."
+      }
+    </script>
   </body>
 </html>

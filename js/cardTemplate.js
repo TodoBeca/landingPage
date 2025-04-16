@@ -27,8 +27,8 @@ const cardBeca = (beca, ReqMeet) => {
       <div class="card-front">
         <div class="card-content">
           <div class="cardBeca-image" style="background-image: url('${
-            beca.imagen || "./images/becaAlemania.jpg"
-          }');"></div>
+            beca.imagen || ""
+          }');" alt="Estudiantes latinoamericanos accediendo a becas internacionales"></div>
           <div class="row justify-content-between align-items-end px-3">
             <span class="cardBeca-badge">Deadline: ${
               formatearFecha(beca.fechaFinAplicacion) || "No disponible"
