@@ -360,9 +360,9 @@ function filtrarBecas() {
     document.querySelectorAll("#selected-tipoBeca .badge-item")
   ).map((badge) => badge.getAttribute("data-tipo"));
 
-  const selectedNivelAcademico = Array.from(
-    document.querySelectorAll("#selected-nivelAcademico .badge-item")
-  ).map((badge) => badge.getAttribute("data-nivel"));
+  // const selectedNivelAcademico = Array.from(
+  //   document.querySelectorAll("#selected-nivelAcademico .badge-item")
+  // ).map((badge) => badge.getAttribute("data-nivel"));
 
   const filtroCumpleRequisitos = document.getElementById(
     "filtroCumpleRequisitos"
@@ -577,8 +577,8 @@ async function fetchBecas() {
     selectedAreaContainer.innerHTML = "";
     dropdownTipoBeca.innerHTML = "";
     selectedTipoBecaContainer.innerHTML = "";
-    dropdownNivelAcademico.innerHTML = "";
-    selectedNivelAcademicoContainer.innerHTML = "";
+    // dropdownNivelAcademico.innerHTML = "";
+    // selectedNivelAcademicoContainer.innerHTML = "";
 
     if (becas.length === 0) {
       container.innerHTML = "<p>No se encontraron becas.</p>";
@@ -707,19 +707,19 @@ async function fetchBecas() {
       dropdownTipoBeca.appendChild(dropdownItem);
     });
 
-    nivelesAcademicos.forEach((nivel) => {
-      const dropdownItem = document.createElement("a");
-      dropdownItem.classList.add("dropdown-item");
-      dropdownItem.href = "#";
-      dropdownItem.textContent = nivel;
+    // nivelesAcademicos.forEach((nivel) => {
+    //   const dropdownItem = document.createElement("a");
+    //   dropdownItem.classList.add("dropdown-item");
+    //   dropdownItem.href = "#";
+    //   dropdownItem.textContent = nivel;
 
-      dropdownItem.addEventListener("click", function (e) {
-        e.preventDefault();
-        agregarBadge(nivel, selectedNivelAcademicoContainer, "nivel");
-      });
+    //   dropdownItem.addEventListener("click", function (e) {
+    //     e.preventDefault();
+    //     agregarBadge(nivel, selectedNivelAcademicoContainer, "nivel");
+    //   });
 
-      dropdownNivelAcademico.appendChild(dropdownItem);
-    });
+    //   dropdownNivelAcademico.appendChild(dropdownItem);
+    // });
 
     mostrarBecasFiltradas();
 
