@@ -1,23 +1,20 @@
-# Archivo robots.txt para TodoBeca.com
 User-agent: *
 
-# Permitir acceso al contenido principal
-Allow: /
-Allow: /login.html
-
-# Bloquear rutas sensibles o irrelevantes para el SEO
+# Bloquear rutas sensibles o irrelevantes para SEO
 Disallow: /admin/
+Disallow: /login.html
 Disallow: /recover.html
 Disallow: /confirmacion.html
-Disallow: /js/
-Disallow: /css/w
-Disallow: /fonts/
 Disallow: /config.js
 
-# Permitir acceso a recursos estáticos esenciales
-Allow: /images/
-Allow: /css/*.css
-Allow: /js/*.js
+# Bloqueos generales a carpetas de recursos que no deben indexarse
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
 
-# Ubicación del mapa del sitio
-Sitemap: https://todobeca.com/sitemap.xml
+# Permitir recursos esenciales con rutas explícitas (si es necesario)
+# Esto es útil si querés permitir recursos puntuales dentro de carpetas bloqueadas,
+# pero podés evitarlo si reorganizás los recursos o no tenés conflictos.
+
+# Ubicación del sitemap (válido para Google y Bing)
+Sitemap: https://backend-8vsm.onrender.com/sitemap.xml
