@@ -1,89 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const becaId = urlParams.get("id");
-
-  if (becaId) {
-    fetchBecaDetails(becaId);
-  } else {
-    document.getElementById("beca-details-section").innerHTML =
-      "<p>Beca no encontrada.</p>";
-  }
-});
-
-function obtenerDescripcionDificultad(dificultad) {
-  if (!dificultad || dificultad < 1 || dificultad > 5) {
-    return {
-      texto: "No especificado",
-      iconos: "",
-      clase: "difficulty-unknown",
-    };
-  }
-
-  const niveles = [
-    { texto: "Muy baja", iconos: "🟢", clase: "difficulty-very-easy" },
-    { texto: "Baja", iconos: "🟢🟢", clase: "difficulty-easy" },
-    { texto: "Media", iconos: "🟡🟡🟡", clase: "difficulty-medium" },
-    { texto: "Alta", iconos: "🔴🔴🔴🔴", clase: "difficulty-hard" },
-    { texto: "Muy alta", iconos: "🔴🔴🔴🔴🔴", clase: "difficulty-very-hard" },
-  ];
-
-  return niveles[dificultad - 1];
-}
-
-function estaLogueado() {
-  return (
-    localStorage.getItem("token") || sessionStorage.getItem("token") !== null
-  );
-}
-
-const leyendaResumen = document.getElementById("leyenda-resumen");
-const resumenDiv = document.getElementById("resumen");
-if (estaLogueado()) {
-  resumenDiv.classList.remove("fuera-de-foco");
-  resumenDiv.classList.add("normal");
-  leyendaResumen.style.display = "none";
-} else {
-  resumenDiv.classList.remove("normal");
-  resumenDiv.classList.add("fuera-de-foco");
-  leyendaResumen.style.display = "block";
-}
-
-const leyendaDescripcion = document.getElementById("leyenda-descripcion");
-const descripcionDiv = document.getElementById("descripcion");
-if (estaLogueado()) {
-  descripcionDiv.classList.remove("fuera-de-foco");
-  descripcionDiv.classList.add("normal");
-  leyendaDescripcion.style.display = "none";
-} else {
-  descripcionDiv.classList.remove("normal");
-  descripcionDiv.classList.add("fuera-de-foco");
-  leyendaDescripcion.style.display = "block";
-}
-
-const leyendaRequisitos = document.getElementById("leyenda-requisitos");
-const requisitosDiv = document.getElementById("requisitos");
-if (estaLogueado()) {
-  requisitosDiv.classList.remove("fuera-de-foco");
-  requisitosDiv.classList.add("normal");
-  leyendaRequisitos.style.display = "none";
-} else {
-  requisitosDiv.classList.remove("normal");
-  requisitosDiv.classList.add("fuera-de-foco");
-  leyendaRequisitos.style.display = "block";
-}
-
-const leyendaCobertura = document.getElementById("leyenda-cobertura");
-const coberturaDiv = document.getElementById("cobertura");
-if (estaLogueado()) {
-  coberturaDiv.classList.remove("fuera-de-foco");
-  coberturaDiv.classList.add("normal");
-  leyendaCobertura.style.display = "none";
-} else {
-  coberturaDiv.classList.remove("normal");
-  coberturaDiv.classList.add("fuera-de-foco");
-  leyendaCobertura.style.display = "block";
-}
-
 async function fetchBecaDetails(becaId) {
   try {
     const response = await fetch(`${CONFIG.API_URL_GET_BECA_ID}/${becaId}`);
@@ -279,13 +193,109 @@ async function fetchBecaDetails(becaId) {
 
     document.getElementById("beca-idiomas-req").textContent = idiomasRequeridos;
 
-    // Inicializar el mapa con los países aplicantes
-    initMap(beca.paisPostulante, beca.paisDestino);
+    return beca;
   } catch (error) {
-    console.error("Error al obtener los detalles de la beca:", error);
+    console.error("Error en fetchBecaDetails:", error);
+    document.getElementById("beca-details-section").innerHTML =
+      "<p>Error al cargar los detalles de la beca.</p>";
+    throw error;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const becaId = urlParams.get("id");
+    const pathname = window.location.pathname;
+    const beca = await fetchBecaDetails(becaId);
+
+    if (beca?.slug) {
+      const baseUrl = window.location.origin;
+      const newUrl = `${baseUrl}/${beca.slug}`;
+      window.history.replaceState({}, "", newUrl);
+    } else {
+      document.getElementById("beca-details-section").innerHTML =
+        "<p>Beca no encontrada.</p>";
+    }
+  } catch (error) {
+    console.error("Error en el event listener:", error);
     document.getElementById("beca-details-section").innerHTML =
       "<p>Error al cargar los detalles de la beca.</p>";
   }
+});
+
+function obtenerDescripcionDificultad(dificultad) {
+  if (!dificultad || dificultad < 1 || dificultad > 5) {
+    return {
+      texto: "No especificado",
+      iconos: "",
+      clase: "difficulty-unknown",
+    };
+  }
+
+  const niveles = [
+    { texto: "Muy baja", iconos: "🟢", clase: "difficulty-very-easy" },
+    { texto: "Baja", iconos: "🟢🟢", clase: "difficulty-easy" },
+    { texto: "Media", iconos: "🟡🟡🟡", clase: "difficulty-medium" },
+    { texto: "Alta", iconos: "🔴🔴🔴🔴", clase: "difficulty-hard" },
+    { texto: "Muy alta", iconos: "🔴🔴🔴🔴🔴", clase: "difficulty-very-hard" },
+  ];
+
+  return niveles[dificultad - 1];
+}
+
+function estaLogueado() {
+  return (
+    localStorage.getItem("token") || sessionStorage.getItem("token") !== null
+  );
+}
+
+const leyendaResumen = document.getElementById("leyenda-resumen");
+const resumenDiv = document.getElementById("resumen");
+if (estaLogueado()) {
+  resumenDiv.classList.remove("fuera-de-foco");
+  resumenDiv.classList.add("normal");
+  leyendaResumen.style.display = "none";
+} else {
+  resumenDiv.classList.remove("normal");
+  resumenDiv.classList.add("fuera-de-foco");
+  leyendaResumen.style.display = "block";
+}
+
+const leyendaDescripcion = document.getElementById("leyenda-descripcion");
+const descripcionDiv = document.getElementById("descripcion");
+if (estaLogueado()) {
+  descripcionDiv.classList.remove("fuera-de-foco");
+  descripcionDiv.classList.add("normal");
+  leyendaDescripcion.style.display = "none";
+} else {
+  descripcionDiv.classList.remove("normal");
+  descripcionDiv.classList.add("fuera-de-foco");
+  leyendaDescripcion.style.display = "block";
+}
+
+const leyendaRequisitos = document.getElementById("leyenda-requisitos");
+const requisitosDiv = document.getElementById("requisitos");
+if (estaLogueado()) {
+  requisitosDiv.classList.remove("fuera-de-foco");
+  requisitosDiv.classList.add("normal");
+  leyendaRequisitos.style.display = "none";
+} else {
+  requisitosDiv.classList.remove("normal");
+  requisitosDiv.classList.add("fuera-de-foco");
+  leyendaRequisitos.style.display = "block";
+}
+
+const leyendaCobertura = document.getElementById("leyenda-cobertura");
+const coberturaDiv = document.getElementById("cobertura");
+if (estaLogueado()) {
+  coberturaDiv.classList.remove("fuera-de-foco");
+  coberturaDiv.classList.add("normal");
+  leyendaCobertura.style.display = "none";
+} else {
+  coberturaDiv.classList.remove("normal");
+  coberturaDiv.classList.add("fuera-de-foco");
+  leyendaCobertura.style.display = "block";
 }
 
 function calcularDuracion(duracion) {

@@ -19,7 +19,7 @@ const cardBeca = (beca, ReqMeet) => {
   const dificultadInfo = obtenerDescripcionDificultad(beca.dificultad);
 
   return `
-<a href="templateBeca.html?id=${
+<a href="/templateBeca.html?id=${
     beca._id
   }" class="d-block text-decoration-none text-dark">
   <div class="cardBeca">
