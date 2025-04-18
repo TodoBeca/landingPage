@@ -433,12 +433,12 @@ function filtrarBecas() {
       return false;
     }
 
-    if (
-      selectedNivelAcademico.length > 0 &&
-      !selectedNivelAcademico.includes(beca.nivelAcademico)
-    ) {
-      return false;
-    }
+    // if (
+    //   selectedNivelAcademico.length > 0 &&
+    //   !selectedNivelAcademico.includes(beca.nivelAcademico)
+    // ) {
+    //   return false;
+    // }
 
     if (filtroCumpleRequisitos && usuario) {
       if (!cumpleRequisitos(usuario, beca)) {

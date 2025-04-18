@@ -4,6 +4,30 @@ AOS.init({
   once: false,
 });
 
+/**
+ * Verifica si el perfil del usuario está completo según el esquema
+ * @param {Object} userData - Datos del usuario
+ * @returns {boolean} - true si falta algún dato requerido, false si está completo
+ */
+function verificarPerfilIncompleto(userData) {
+  const personalDataIncompleto =
+    !userData.personalData?.birthDate || !userData.personalData?.nationality;
+
+  const academicDataIncompleto =
+    !userData.academicData ||
+    !Array.isArray(userData.academicData) ||
+    userData.academicData.length === 0;
+
+  const languagesIncompleto =
+    !userData.languages ||
+    !Array.isArray(userData.languages) ||
+    userData.languages.length === 0;
+
+  return (
+    personalDataIncompleto || academicDataIncompleto || languagesIncompleto
+  );
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginFormOne");
   const loginButton = loginForm?.querySelector("button[type='submit']"); // Botón de login
@@ -49,6 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
           }
 
+          // Verificar si el perfil está incompleto
+          const perfilIncompleto = verificarPerfilIncompleto(userData);
+
           // Guardar los datos en localStorage o sessionStorage
           const usuarioData = {
             _id: userData._id,
@@ -62,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             socialMedia: userData.socialMedia,
             scholarshipProfile: userData.scholarshipProfile,
             role: userData.role,
+            perfilIncompleto: perfilIncompleto,
           };
 
           const rememberMe = document.getElementById("rememberMe");
@@ -98,8 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-
-                  <button type="button" class="btn btn-primary" id="resendVerification">Reenviar Email de Verificación</button>
+                  <button type="button" class="btn btn-primary" id="resendVerification">
+                    <span id="resendText">Reenviar Email de Verificación</span>
+                    <span id="sendingText" style="display: none;">Enviando mail...</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -119,6 +149,16 @@ document.addEventListener("DOMContentLoaded", function () {
           document
             .getElementById("resendVerification")
             .addEventListener("click", async () => {
+              const resendButton =
+                document.getElementById("resendVerification");
+              const resendText = document.getElementById("resendText");
+              const sendingText = document.getElementById("sendingText");
+
+              // Mostrar "Enviando mail..."
+              resendText.style.display = "none";
+              sendingText.style.display = "inline";
+              resendButton.disabled = true;
+
               try {
                 const response = await fetch(
                   CONFIG.API_URL_RESEND_VERIFICATION,
@@ -134,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const data = await response.json();
                 if (response.ok) {
                   alert("Email de verificación reenviado correctamente.");
+                  modal.hide();
                 } else {
                   alert(
                     data.msg || "Error al reenviar el email de verificación."
@@ -142,6 +183,11 @@ document.addEventListener("DOMContentLoaded", function () {
               } catch (error) {
                 console.error("Error:", error);
                 alert("Error al conectar con el servidor.");
+              } finally {
+                // Restaurar el estado del botón
+                resendText.style.display = "inline";
+                sendingText.style.display = "none";
+                resendButton.disabled = false;
               }
             });
         } else {

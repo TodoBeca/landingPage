@@ -206,44 +206,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   const urlParams = new URLSearchParams(window.location.search);
   const becaId = urlParams.get("id");
   const pathname = window.location.pathname;
-  const slug = pathname.split("/").pop(); // Obtener el último segmento de la URL
+  const slug = pathname.split("/").pop();
 
   try {
     if (becaId) {
-      // Caso 1: Acceso por ID
       const beca = await fetchBecaDetails(becaId);
       if (beca?.slug) {
         const baseUrl = window.location.origin;
         const newUrl = `${baseUrl}/${beca.slug}`;
         window.history.replaceState({}, "", newUrl);
-      }
-    } else if (slug) {
-      // Caso 2: Acceso por slug
-      // Primero intentamos obtener el ID usando el slug
-      const response = await fetch(`${CONFIG.API_URL_GET_BECA_SLUG}/${slug}`);
-      if (!response.ok) {
-        throw new Error(`Error en la petición: ${response.status}`);
-      }
-      const becas = await response.json();
-
-      // Si hay múltiples becas con el mismo slug, usamos el ID de la URL
-      const idFromUrl = urlParams.get("id");
-      let beca;
-
-      if (idFromUrl) {
-        // Si tenemos un ID en la URL, buscamos esa beca específica
-        beca = becas.find((b) => b._id === idFromUrl);
-      } else if (becas.length > 0) {
-        // Si no hay ID, tomamos la primera beca
-        beca = becas[0];
-      }
-
-      if (beca?._id) {
-        // Si encontramos la beca, cargamos sus detalles
-        await fetchBecaDetails(beca._id);
-      } else {
-        document.getElementById("beca-details-section").innerHTML =
-          "<p>Beca no encontrada.</p>";
       }
     } else {
       document.getElementById("beca-details-section").innerHTML =

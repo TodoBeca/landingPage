@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "Usuario registrado con éxito. Verifica tu correo electrónico para activar tu cuenta."
         );
         form.reset();
-        window.location.href = "/";
+        window.location.href = "/login.html";
       } else {
         alert(result.msg || "Error en el registro");
       }

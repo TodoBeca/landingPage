@@ -51,22 +51,33 @@ function obtenerNivelAcademicoMaximo(academicData) {
   const niveles = {
     Secundario: 0,
     Grado: 1,
-    Licenciatura: 2,
+    Posgrado: 2,
     Maestría: 3,
     Doctorado: 4,
+    Posdoctorado: 5,
   };
 
   if (!academicData || academicData.length === 0) {
     return null;
   }
 
-  const maxDegree = academicData.reduce((maxDegree, item, index) => {
+  const añoActual = new Date().getFullYear();
+
+  const titulosCompletados = academicData.filter(
+    (item) => item.endYear && item.endYear < añoActual
+  );
+
+  if (titulosCompletados.length === 0) {
+    return null;
+  }
+
+  const maxDegree = titulosCompletados.reduce((maxDegree, item, index) => {
     if (index === 0) {
       return item.degree;
     }
 
     return niveles[item.degree] > niveles[maxDegree] ? item.degree : maxDegree;
-  }, academicData[0].degree);
+  }, titulosCompletados[0].degree);
 
   return maxDegree;
 }
@@ -116,9 +127,10 @@ function cumpleRequisitos(usuario, beca) {
     const niveles = {
       Secundario: 0,
       Grado: 1,
-      Licenciatura: 2,
+      Posgrado: 2,
       Maestría: 3,
       Doctorado: 4,
+      Posdoctorado: 5,
     };
 
     if (
