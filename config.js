@@ -18,4 +18,5 @@ const CONFIG = {
     "https://backend-8vsm.onrender.com/auth/deleteEducationRecord",
   API_URL_UNIVERSITIES:
     "https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json",
+  API_URL_CHAT: "https://backend-8vsm.onrender.com/chat/chat",
 };
