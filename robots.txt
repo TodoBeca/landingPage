@@ -1,20 +1,13 @@
 User-agent: *
 
-# Bloquear rutas sensibles o irrelevantes para SEO
 Disallow: /admin/
 Disallow: /login.html
 Disallow: /recover.html
 Disallow: /confirmacion.html
 Disallow: /config.js
 
-# Bloqueos generales a carpetas de recursos que no deben indexarse
-Disallow: /js/
-Disallow: /css/
-Disallow: /fonts/
+Allow: /js/
+Allow: /css/
+Allow: /fonts/
 
-# Permitir recursos esenciales con rutas explícitas (si es necesario)
-# Esto es útil si querés permitir recursos puntuales dentro de carpetas bloqueadas,
-# pero podés evitarlo si reorganizás los recursos o no tenés conflictos.
-
-# Ubicación del sitemap (válido para Google y Bing)
-Sitemap: https://backend-8vsm.onrender.com/sitemap.xml
+Sitemap: https://todobeca.com/sitemap.xml
