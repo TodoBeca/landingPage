@@ -9,10 +9,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mostrar mensaje de bienvenida solo la primera vez que se abre
     if (!chatAbierto) {
-      chatMessages.innerHTML += `
+      const usuario =
+        JSON.parse(localStorage.getItem("usuario")) ||
+        JSON.parse(sessionStorage.getItem("usuario"));
+
+      if (usuario) {
+        // Usuario logueado
+        const nombre = usuario.personalData.firstName;
+        chatMessages.innerHTML += `
+          <div class="message bot">
+            <strong>TodoBeca:</strong> ¡Hola ${nombre}! Me alegro de verte de nuevo. ¿En qué puedo ayudarte hoy? 
+            Puedo buscar becas que se ajusten a tu perfil académico y personal.
+          </div>`;
+      } else {
+        // Usuario no logueado
+        chatMessages.innerHTML += `
           <div class="message bot">
             <strong>TodoBeca:</strong> ¡Hola! Soy tu asistente virtual personal. ¿En qué puedo ayudarte hoy?
+            <br><br>
+            <small>Para obtener recomendaciones personalizadas de becas, te sugiero <a href="/login.html">iniciar sesión</a> o <a href="/register.html">crear una cuenta</a>.</small>
           </div>`;
+      }
       chatMessages.scrollTop = chatMessages.scrollHeight;
       chatAbierto = true;
     }
@@ -39,14 +56,28 @@ async function enviarMensaje() {
   chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
+    const usuario =
+      JSON.parse(localStorage.getItem("usuario")) ||
+      JSON.parse(sessionStorage.getItem("usuario"));
+    const requestBody = {
+      message: mensaje,
+      userData: usuario
+        ? {
+            academicData: usuario.academicData,
+            personalData: usuario.personalData,
+            languages: usuario.languages,
+          }
+        : null,
+    };
+
     const response = await fetch(`${CONFIG.API_URL_CHAT}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: mensaje }),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await response.json();
-    chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${data.response}</div>`;
+    chatBox.innerHTML += `<div class="message bot"><strong>TodoBeca:</strong> ${data.response}</div>`;
   } catch (error) {
     chatBox.innerHTML += `<div class="message bot"><strong>Error:</strong> No se pudo conectar con el asistente.</div>`;
     console.error("Error:", error);
