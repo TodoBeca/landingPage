@@ -52,7 +52,10 @@ function mostrarPopupPerfilIncompleto() {
         También vas a acceder a filtros avanzados y recomendaciones personalizadas que se ajustan a tus estudios, idioma y objetivos.
         Cuanto más completo esté tu perfil, más precisa será la experiencia. 🎯
       </p>
+      <div>
       <a href="/profile.html" class="btn btn-primary btn-pill">Ir a mi perfil</a>
+      <a onclick="document.getElementById('popupOverlay').remove(); document.getElementById('popupPerfilIncompleto').remove()" class="btn btn-secondary btn-pill text-white">Ver becas</a>
+      </div>
     `;
 
   // Agregar al DOM
