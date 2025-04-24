@@ -15,7 +15,6 @@ function obtenerDescripcionDificultad(dificultad) {
 }
 
 const cardBeca = (beca, ReqMeet) => {
-  console.log(ReqMeet);
   const dificultadInfo = obtenerDescripcionDificultad(beca.dificultad);
 
   return `
@@ -81,7 +80,7 @@ const cardBeca = (beca, ReqMeet) => {
              </div>`
           : ReqMeet === "Faltan Datos"
           ? `<div style="display: flex; align-items: center;">
-                  <p class="cardBeca-badge-warning">Faltan datos en el perfil</p>
+                  <p class="cardBeca-badge-warning">Cargar perfil para determinar si cumple los requisitos</p>
                </div>`
           : `<div style="display: flex; align-items: center;">
                   <p class="cardBeca-badge-danger">No cumple con los requisitos</p>

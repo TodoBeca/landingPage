@@ -168,7 +168,7 @@ async function fetchBecaDetails(becaId) {
     } está dirigida a estudiantes que deseen realizar estudios en ${
       beca.universidadDestino
     }. 
-    El área de estudio es ${beca.areaEstudio}, y se ofrecen ${
+    El área de estudio es ${beca.areaEstudio} y se ofrecen ${
       beca.cantCupos ? beca.cantCupos : "cupos ilimitados"
     } cupos disponibles. 
     ${

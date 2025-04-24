@@ -619,11 +619,11 @@ async function fetchBecas() {
           )
           .filter(Boolean)
       ),
-    ];
+    ].sort((a, b) => a.localeCompare(b));
 
     const Areas = [
       ...new Set(becas.map((beca) => beca.areaEstudio).filter(Boolean)),
-    ];
+    ].sort((a, b) => a.localeCompare(b));
 
     const tiposBeca = [
       ...new Set(becas.map((beca) => beca.tipoBeca).filter(Boolean)),
