@@ -8,7 +8,7 @@ let ordenVencimiento = null; // null, "asc", "desc"
 
 // Variables para paginación
 let paginaActual = 1;
-const becasPorPagina = 8;
+const becasPorPagina = window.innerWidth < 1835 ? 8 : 10;
 
 function estaLogueado() {
   return (
