@@ -80,7 +80,7 @@ const cardBeca = (beca, ReqMeet) => {
              </div>`
           : ReqMeet === "Faltan Datos"
           ? `<div style="display: flex; align-items: center;">
-                  <p class="cardBeca-badge-warning">Cargar perfil para determinar si cumple los requisitos</p>
+                  <p class="cardBeca-badge-warning">Cargar perfil para determinar si cumplís con los requisitos</p>
                </div>`
           : `<div style="display: flex; align-items: center;">
                   <p class="cardBeca-badge-danger">No cumple con los requisitos</p>
