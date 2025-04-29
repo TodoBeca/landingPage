@@ -2,10 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatIcon = document.getElementById("chat-icon");
   const chatContainer = document.getElementById("chat-container");
   const chatMessages = document.getElementById("chat-messages");
+  const tooltip = chatIcon.querySelector(".tooltip");
   let chatAbierto = false;
 
   chatIcon.addEventListener("click", () => {
     chatContainer.classList.toggle("visible");
+
+    // Ocultar tooltip al abrir chat
+    if (tooltip) {
+      tooltip.style.opacity = "0";
+      setTimeout(() => {
+        tooltip.style.display = "none";
+      }, 200); // coincide con el transition-duration de tu CSS (0.2s)
+    }
 
     // Mostrar mensaje de bienvenida solo la primera vez que se abre
     if (!chatAbierto) {
