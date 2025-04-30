@@ -2602,6 +2602,7 @@ input:checked ~ .slider {
   border-radius: 5px;
   display: flex;
   align-items: center;
+  background-color: #fff;
   justify-content: center;
   transition-duration: 0.2s;
   pointer-events: none;
