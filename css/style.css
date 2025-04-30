@@ -2607,7 +2607,7 @@ input:checked ~ .slider {
   transition-duration: 0.2s;
   pointer-events: none;
   letter-spacing: 0.5px;
-  box-shadow: 2px -2px 4px rgba(5, 15, 69, 0.3);
+  box-shadow: 2px 2px 4px rgba(5, 15, 69, 0.3);
 }
 
 .tooltip::before {
