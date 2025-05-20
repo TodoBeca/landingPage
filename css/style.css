@@ -2682,6 +2682,12 @@ input:checked ~ .slider {
     justify-content: center;
   }
 
+  .no-madding-top {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
   #becas-container {
     margin: 0 !important;
     padding: 0 !important;
