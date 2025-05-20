@@ -95,6 +95,7 @@
             </div>
             <div class="ml-auto w-50 text-right">
               <button
+                id="logout-btn-profile"
                 class="btn-logout btn-primary w-25 btn-pill"
                 onclick="cerrarSesionProfile()"
               >
@@ -116,18 +117,19 @@
         </div>
         <div
           class="row align-items-center justify-content-center profile-card w-100"
+          id="profile-detail-section"
         >
           <div
-            class="col-lg-11 col-xl-10"
+            class="col-lg-11 col-xl-10 no-madding"
             data-aos="fade-up"
             data-aos-delay="500"
           >
             <div class="card shadow-lg bg-white rounded">
-              <div class="container rounded bg-white p-5">
+              <div class="container rounded bg-white p-5 no-madding">
                 <div class="row">
-                  <div class="col-lg-4 col-xl-3 border-right">
+                  <div class="col-lg-4 col-xl-3 border-right no-border">
                     <div
-                      class="d-flex flex-column justify-content-center align-items-center text-center"
+                      class="d-flex flex-column justify-content-center align-items-center text-center no-madding"
                     >
                       <div class="position-relative mb-3">
                         <div class="profile-photo-container">
@@ -372,7 +374,7 @@
           <span class="close" id="closeEducationModal">&times;</span>
         </div>
         <form>
-          <div class="form-group dropdown mb-1">
+          <div class="form-group dropdown mb-1 no-madding">
             <label for="institution" class="labels mb-0 mt-1"
               >Institución educativa*</label
             >
@@ -414,7 +416,7 @@
             >Fecha de inicio*</label
           >
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-2">
               <select id="start-month" class="form-control" required>
                 <option value="">Mes</option>
                 <option value="1">Enero</option>
@@ -442,7 +444,7 @@
             >Fecha de finalización (o fecha prevista)*</label
           >
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-2">
               <select id="end-month" class="form-control" required>
                 <option value="">Mes</option>
                 <option value="1">Enero</option>

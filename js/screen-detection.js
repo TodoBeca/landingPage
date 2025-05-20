@@ -1,13 +1,49 @@
-// Función para detectar si es un dispositivo móvil basado solo en el ancho de pantalla
 function isMobileDevice() {
-  // Usar window.screen.width para obtener el ancho real de la pantalla
   const screenWidth = window.screen.width;
-  console.log("Screen width:", screenWidth);
   return screenWidth <= 992;
 }
 
-// Función para redirigir a la página móvil
-function redirectToMobile() {
+function showMobilePopup() {
+  // Evitar duplicación del popup
+  if (document.getElementById("popupOverlay")) return;
+
+  // Crear overlay
+  const overlay = document.createElement("div");
+  overlay.id = "popupOverlay";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  overlay.style.zIndex = "9999";
+  overlay.style.display = "flex";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.padding = "20px";
+  overlay.style.overflowY = "auto";
+
+  // Crear popup HTML
+  overlay.innerHTML = `
+    <div class="row align-items-center justify-content-center register-card" style="width: 100%;">
+      <div class="col-md-8 mx-auto" data-aos="fade-up" data-aos-delay="500">
+        <div class="card p-5 shadow-lg bg-white rounded text-center">
+          <h2 class="mb-3">Bienvenido a TodoBeca.com</h2>
+          <p class="text-primary mb-4">
+            Para una mejor experiencia, por favor, abre nuestra página web en una computadora o tablet.
+          </p>
+          <p class="text-primary font-weight-bold mb-4" style="cursor: pointer;" onclick="document.getElementById('popupOverlay').remove();">
+            ¡Seguir de todos modos!
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+}
+
+function handleMobileBehavior() {
   const currentPath = window.location.pathname;
   const isMobile = isMobileDevice();
 
@@ -16,10 +52,8 @@ function redirectToMobile() {
     isMobile,
     screenWidth: window.screen.width,
     innerWidth: window.innerWidth,
-    devicePixelRatio: window.devicePixelRatio,
   });
 
-  // Verificar si estamos en la página principal y el ancho es menor o igual a 768px
   if (
     isMobile &&
     (currentPath === "/" ||
@@ -27,17 +61,13 @@ function redirectToMobile() {
       currentPath.endsWith("index.html") ||
       currentPath === "/index")
   ) {
-    window.location.href = "mobile.html";
+    showMobilePopup();
   }
 }
 
-// Ejecutar la detección cuando se carga la página
-window.addEventListener("load", redirectToMobile);
+window.addEventListener("load", handleMobileBehavior);
+window.addEventListener("resize", handleMobileBehavior);
 
-// También ejecutar cuando se redimensiona la ventana
-window.addEventListener("resize", redirectToMobile);
-
-// Agregar log para debugging en producción
 console.log("Device detection:", {
   isMobile: isMobileDevice(),
   path: window.location.pathname,

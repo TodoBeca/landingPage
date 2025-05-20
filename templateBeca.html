@@ -112,21 +112,27 @@
           class="row align-items-center justify-content-center profile-card w-100"
           id="becas-detail-section"
         >
-          <div class="col-md-11" data-aos="fade-up" data-aos-delay="500">
+          <div
+            class="col-md-11"
+            id="card-container"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
             <div class="card shadow-lg bg-white rounded">
               <div class="rounded bg-white">
                 <div class="col-md-12 mb-5" id="info-container">
-                  <div class="col-md-12 mt-4">
+                  <div class="col-md-12 mt-4 no-madding-center">
                     <div class="becaTemplate-image" id="beca-imagen"></div>
                     <div
+                      id="title-section"
                       class="row col-lg-12 justify-content-between align-items-center mt-2"
                     >
                       <h1 class="text-primary col-10" id="beca-nombre"></h1>
                       <div class="col-2" id="beca-destacada"></div>
                     </div>
                   </div>
-                  <div class="d-flex col-lg-12">
-                    <div class="col-lg-6">
+                  <div id="info-block" class="d-flex col-lg-12">
+                    <div class="col-lg-6 no-madding">
                       <div class="d-flex">
                         <p class="text-secondary font-weight-bold">
                           Competencia:
@@ -189,7 +195,7 @@
                       <div>
                         <div
                           id="leyenda-resumen"
-                          class="leyenda-fuera-de-foco-resumen"
+                          class="leyenda-fuera-de-foco-resumen leyenda-mobile"
                         >
                           <p class="text-danger">
                             Para acceder a más información, por favor, inicie
@@ -235,9 +241,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-5">
-                      <div class="d-flex col-lg-12">
-                        <div class="col-lg-12">
+                    <hr id="mobile-divider" class="filter-divider w-100 my-4" />
+                    <div class="col-lg-5 no-madding">
+                      <div class="d-flex col-lg-12 no-madding">
+                        <div class="col-lg-12 no-madding">
                           <h4 class="text-primary font-weight-bold">
                             Descripción
                           </h4>
@@ -263,8 +270,8 @@
 
                   <hr class="filter-divider w-100 my-4" />
 
-                  <div class="d-flex col-lg-12">
-                    <div class="col-lg-12">
+                  <div class="d-flex col-lg-12 no-madding">
+                    <div class="col-lg-12 no-madding">
                       <h4 class="text-primary font-weight-bold">Requisitos</h4>
                       <div
                         id="leyenda-requisitos"
@@ -372,8 +379,8 @@
 
                   <hr class="filter-divider w-100 my-4 my-4" />
 
-                  <div class="d-flex col-lg-12">
-                    <div class="col-lg-12">
+                  <div class="d-flex col-lg-12 no-madding">
+                    <div class="col-lg-12 no-madding">
                       <h4 class="text-primary font-weight-bold">Cobertura</h4>
                       <div id="leyenda-cobertura" class="leyenda-fuera-de-foco">
                         <p class="text-danger">
@@ -443,7 +450,7 @@
                   <hr class="filter-divider w-100 my-4" />
 
                   <div class="row justify-content-center">
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-2">
                       <input
                         type="submit"
                         id="btn-asesoramiento"
@@ -451,7 +458,7 @@
                         value="Quiero asesoramiento"
                       />
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-2">
                       <a
                         href="/index.html"
                         class="btn-template btn-secondary btn-block btn-pill text-center"

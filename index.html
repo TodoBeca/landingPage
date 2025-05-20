@@ -75,7 +75,21 @@
             <span class="icon-close2 js-menu-toggle"></span>
           </div>
         </div>
-        <div class="site-mobile-menu-body"></div>
+        <div class="site-mobile-menu-body">
+          <ul class="site-nav-wrap">
+            <li><a href="/About.html" class="nav-link">Quienes somos</a></li>
+            <li>
+              <a href="/Informes.html" class="nav-link">Informes de paises</a>
+            </li>
+            <li><a href="/FAQ.html" class="nav-link">FAQ</a></li>
+            <li>
+              <a href="#contact-section" class="nav-link"
+                >Quiero asesoramiento</a
+              >
+            </li>
+            <div id="mobileAuthContainer"></div>
+          </ul>
+        </div>
       </div>
 
       <header
@@ -97,7 +111,7 @@
                 role="navigation"
               >
                 <ul
-                  class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0"
+                  class="site-menu main-menu mx-auto d-none d-lg-block m-0 p-0"
                 >
                   <li>
                     <a class="p-1" href="/About.html"
@@ -126,8 +140,17 @@
                 </ul>
               </nav>
             </div>
+            <div
+              id="authContainer"
+              class="ml-auto w-lg-25 text-right desktop-auth-container"
+            ></div>
 
-            <div id="authContainer" class="ml-auto w-lg-25 text-right"></div>
+            <!-- Mobile menu toggle button -->
+            <div class="d-inline-block d-lg-none ml-auto">
+              <a href="#" class="site-menu-toggle js-menu-toggle text-black">
+                <span class="icon-menu h3"></span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -144,10 +167,10 @@
         <div class="col-12">
           <div class="site-section" id="map-section">
             <div class="row justify-content-center" data-aos="fade-up">
-              <div class="col-lg-11 text-center pt-5 px-5">
+              <div id="index-container" class="col-lg-11 text-center pt-5 px-5">
                 <div class="container text-center">
-                  <div class="mx-auto w-75">
-                    <h1 class="text-primary">
+                  <div id="title-section" class="mx-auto w-75">
+                    <h1 id="index-title" class="text-primary">
                       El portal de becas para estudiantes latinoamericanos
                     </h1>
 
@@ -223,12 +246,11 @@
 
     <section id="site-section">
       <div
-        id="contador-becas"
-        class="row align-self-center col-12 justify-content-center mb-3 mt-lg-5"
+        class="row align-self-center col-12 justify-content-center mb-3 mt-lg-5 no-madding-center"
       >
         <h3><span id="total-becas">0</span> becas disponibles</h3>
       </div>
-      <div class="row col-9 justify-content-center">
+      <div id="orden-container" class="row col-9 justify-content-center">
         <h3 id="orden-title" class="text-primary col-3 pl-5 pt-2">
           Ordenar por:
         </h3>
@@ -244,9 +266,43 @@
           </button>
         </div>
       </div>
-      <div class="row p-0">
+      <div>
+        <div class="mobile-list" style="display: none">
+          <div class="dropdown-container">
+            <div class="dropdown">
+              <label for="select-pais-mobile"
+                >Elegí el pais en el que te gustaría estudiar</label
+              >
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle btn-pill w-100"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Seleccionar país
+                </button>
+                <div
+                  class="dropdown-menu"
+                  id="dropdownPaisesMobile"
+                  aria-labelledby="dropdownMenuButton"
+                ></div>
+              </div>
+
+              <div
+                id="selected-paises-mobile"
+                class="selected-items-container"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="card-container" class="row p-0">
         <div class="col-lg-8 col-xl-9">
-          <div class="px-4">
+          <div class="px-md-4">
             <div class="d-flex" id="becas-container"></div>
             <div
               id="pagination-container"
@@ -254,7 +310,7 @@
             ></div>
           </div>
         </div>
-        <div class="col-lg-4 col-xl-3">
+        <div id="filter-container-1" class="col-lg-4 col-xl-3">
           <div class="filter-container">
             <h4 class="">Filtrar Busqueda</h4>
             <div class="dropdown-container">

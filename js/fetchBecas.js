@@ -141,7 +141,7 @@ function mostrarBecasFiltradas() {
       "mb-4",
       "w-100",
       "rounded",
-      "ml-4"
+      "ml-md-4"
     );
 
     card.innerHTML = cardBeca(beca, ReqMeet);
@@ -337,6 +337,34 @@ function actualizarDropdownPaises(paises) {
   });
 }
 
+function actualizarDropdownPaisesMobile(paises) {
+  const dropdownPaisesMobile = document.getElementById("dropdownPaisesMobile");
+  dropdownPaisesMobile.innerHTML = "";
+
+  if (paises.length === 0) {
+    dropdownPaisesMobile.innerHTML =
+      "<p class='dropdown-item'>No hay países disponibles</p>";
+    return;
+  }
+
+  // Ordenar los países alfabéticamente
+  paises.sort((a, b) => a.localeCompare(b));
+
+  paises.forEach((pais) => {
+    const dropdownItem = document.createElement("a");
+    dropdownItem.classList.add("dropdown-item");
+    dropdownItem.href = "#";
+    dropdownItem.textContent = pais;
+
+    dropdownItem.addEventListener("click", function (e) {
+      e.preventDefault();
+      agregarBadge(pais, selectedPaisesContainerMobile, "pais");
+    });
+
+    dropdownPaisesMobile.appendChild(dropdownItem);
+  });
+}
+
 function filtrarBecas() {
   paginaActual = 1;
 
@@ -346,6 +374,10 @@ function filtrarBecas() {
 
   const selectedPaises = Array.from(
     document.querySelectorAll("#selected-paises .badge-item")
+  ).map((badge) => badge.getAttribute("data-pais"));
+
+  const selectedPaisesMobile = Array.from(
+    document.querySelectorAll("#selected-paises-mobile .badge-item")
   ).map((badge) => badge.getAttribute("data-pais"));
 
   const selectedNacPostulante = Array.from(
@@ -359,10 +391,6 @@ function filtrarBecas() {
   const selectedTipoBeca = Array.from(
     document.querySelectorAll("#selected-tipoBeca .badge-item")
   ).map((badge) => badge.getAttribute("data-tipo"));
-
-  // const selectedNivelAcademico = Array.from(
-  //   document.querySelectorAll("#selected-nivelAcademico .badge-item")
-  // ).map((badge) => badge.getAttribute("data-nivel"));
 
   const filtroCumpleRequisitos = document.getElementById(
     "filtroCumpleRequisitos"
@@ -412,6 +440,17 @@ function filtrarBecas() {
     }
 
     if (
+      selectedPaisesMobile.length > 0 &&
+      !selectedPaisesMobile.some((pais) =>
+        Array.isArray(beca.paisDestino)
+          ? beca.paisDestino.includes(pais)
+          : beca.paisDestino === pais
+      )
+    ) {
+      return false;
+    }
+
+    if (
       selectedNacPostulante.length > 0 &&
       !selectedNacPostulante.some((nac) =>
         Array.isArray(beca.paisPostulante)
@@ -432,13 +471,6 @@ function filtrarBecas() {
     ) {
       return false;
     }
-
-    // if (
-    //   selectedNivelAcademico.length > 0 &&
-    //   !selectedNivelAcademico.includes(beca.nivelAcademico)
-    // ) {
-    //   return false;
-    // }
 
     if (filtroCumpleRequisitos && usuario) {
       if (!cumpleRequisitos(usuario, beca)) {
@@ -548,6 +580,12 @@ async function fetchBecas() {
     const selectedRegionContainer = document.getElementById("selected-region");
     const dropdownPaises = document.getElementById("dropdownPaises");
     const selectedPaisesContainer = document.getElementById("selected-paises");
+    const dropdownPaisesMobile = document.getElementById(
+      "dropdownPaisesMobile"
+    );
+    const selectedPaisesContainerMobile = document.getElementById(
+      "selected-paises-mobile"
+    );
     const dropdownNacPostulante = document.getElementById(
       "dropdownNacPostulante"
     );
@@ -559,26 +597,20 @@ async function fetchBecas() {
     const dropdownTipoBeca = document.getElementById("dropdownTipoBeca");
     const selectedTipoBecaContainer =
       document.getElementById("selected-tipoBeca");
-    const dropdownNivelAcademico = document.getElementById(
-      "dropdownNivelAcademico"
-    );
-    const selectedNivelAcademicoContainer = document.getElementById(
-      "selected-nivelAcademico"
-    );
 
     container.innerHTML = "";
     dropdownRegion.innerHTML = "";
     selectedRegionContainer.innerHTML = "";
     dropdownPaises.innerHTML = "";
     selectedPaisesContainer.innerHTML = "";
+    dropdownPaisesMobile.innerHTML = "";
+    selectedPaisesContainerMobile.innerHTML = "";
     dropdownNacPostulante.innerHTML = "";
     selectedNacPostulanteContainer.innerHTML = "";
     dropdownArea.innerHTML = "";
     selectedAreaContainer.innerHTML = "";
     dropdownTipoBeca.innerHTML = "";
     selectedTipoBecaContainer.innerHTML = "";
-    // dropdownNivelAcademico.innerHTML = "";
-    // selectedNivelAcademicoContainer.innerHTML = "";
 
     if (becas.length === 0) {
       container.innerHTML = "<p>No se encontraron becas.</p>";
@@ -629,10 +661,6 @@ async function fetchBecas() {
       ...new Set(becas.map((beca) => beca.tipoBeca).filter(Boolean)),
     ].sort((a, b) => a.localeCompare(b));
 
-    const nivelesAcademicos = [
-      ...new Set(becas.map((beca) => beca.nivelAcademico).filter(Boolean)),
-    ].sort((a, b) => a.localeCompare(b));
-
     regiones.forEach((region) => {
       const dropdownItem = document.createElement("a");
       dropdownItem.classList.add("dropdown-item");
@@ -659,6 +687,20 @@ async function fetchBecas() {
       });
 
       dropdownPaises.appendChild(dropdownItem);
+    });
+
+    paises.forEach((pais) => {
+      const dropdownItem = document.createElement("a");
+      dropdownItem.classList.add("dropdown-item");
+      dropdownItem.href = "#";
+      dropdownItem.textContent = pais;
+
+      dropdownItem.addEventListener("click", function (e) {
+        e.preventDefault();
+        agregarBadge(pais, selectedPaisesContainerMobile, "pais");
+      });
+
+      dropdownPaisesMobile.appendChild(dropdownItem);
     });
 
     nacionalidades.forEach((nacionalidad) => {
@@ -706,20 +748,6 @@ async function fetchBecas() {
 
       dropdownTipoBeca.appendChild(dropdownItem);
     });
-
-    // nivelesAcademicos.forEach((nivel) => {
-    //   const dropdownItem = document.createElement("a");
-    //   dropdownItem.classList.add("dropdown-item");
-    //   dropdownItem.href = "#";
-    //   dropdownItem.textContent = nivel;
-
-    //   dropdownItem.addEventListener("click", function (e) {
-    //     e.preventDefault();
-    //     agregarBadge(nivel, selectedNivelAcademicoContainer, "nivel");
-    //   });
-
-    //   dropdownNivelAcademico.appendChild(dropdownItem);
-    // });
 
     mostrarBecasFiltradas();
 

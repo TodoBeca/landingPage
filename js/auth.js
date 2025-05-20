@@ -20,6 +20,8 @@ function actualizarUI() {
     const iniciales =
       usuario.personalData.firstName.charAt(0).toUpperCase() +
       usuario.personalData.lastName.charAt(0).toUpperCase();
+
+    // Actualizar vista desktop
     document.getElementById("authContainer").innerHTML = `
         <div class="dropdown d-flex">
             <button class="btn btn-auth btn-pill dropdown-toggle d-flex align-items-center justify-content-center ml-auto"
@@ -38,10 +40,28 @@ function actualizarUI() {
         </div>
         `;
 
-    // Asignar evento de cerrar sesión dinámicamente
+    // Actualizar vista mobile - mostrar opciones directamente en el menú
+    document.getElementById("mobileAuthContainer").innerHTML = `
+    
+        <li><a href="#" id="mobileProfileLink" class="nav-link">Mi Perfil</a></li>
+        <li><a href="#" id="logoutButtonMobile" class="nav-link">Cerrar Sesión</a></li>
+        `;
+
+    // Asignar eventos de cerrar sesión dinámicamente
     document
       .getElementById("logoutButton")
       .addEventListener("click", cerrarSesion);
+    document
+      .getElementById("logoutButtonMobile")
+      .addEventListener("click", cerrarSesion);
+
+    // Agregar evento de clic para el enlace de perfil móvil
+    document
+      .getElementById("mobileProfileLink")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        window.location.href = "profile.html";
+      });
   } else {
     // Si no hay usuario, mostrar el botón de "Iniciar Sesión"
     document.getElementById("authContainer").innerHTML = `
@@ -49,6 +69,19 @@ function actualizarUI() {
             Iniciar Sesión
           </button>
         `;
+
+    // Actualizar vista mobile - mostrar como enlace normal
+    document.getElementById("mobileAuthContainer").innerHTML = `
+          <li><a href="#" id="mobileLoginLink" class="nav-link font-weight-bold">Iniciar Sesión</a></li>
+        `;
+
+    // Agregar evento de clic para el enlace móvil
+    document
+      .getElementById("mobileLoginLink")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        window.location.href = "login.html";
+      });
   }
 }
 
