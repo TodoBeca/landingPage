@@ -4,10 +4,8 @@ function isMobileDevice() {
 }
 
 function showMobilePopup() {
-  // Evitar duplicación del popup
   if (document.getElementById("popupOverlay")) return;
 
-  // Crear overlay
   const overlay = document.createElement("div");
   overlay.id = "popupOverlay";
   overlay.style.position = "fixed";
@@ -23,7 +21,6 @@ function showMobilePopup() {
   overlay.style.padding = "20px";
   overlay.style.overflowY = "auto";
 
-  // Crear popup HTML
   overlay.innerHTML = `
     <div class="row align-items-center justify-content-center register-card" style="width: 100%;">
       <div class="col-md-8 mx-auto" data-aos="fade-up" data-aos-delay="500">
@@ -41,36 +38,35 @@ function showMobilePopup() {
   `;
 
   document.body.appendChild(overlay);
+
+  // Guardar la hora actual en localStorage
+  const now = new Date().getTime();
+  localStorage.setItem("lastMobilePopupTime", now.toString());
 }
 
 function handleMobileBehavior() {
   const currentPath = window.location.pathname;
   const isMobile = isMobileDevice();
 
-  console.log("Redirect check:", {
-    currentPath,
-    isMobile,
-    screenWidth: window.screen.width,
-    innerWidth: window.innerWidth,
-  });
+  const lastShown = parseInt(
+    localStorage.getItem("lastMobilePopupTime") || "0",
+    10
+  );
+  const now = new Date().getTime();
+  const oneHour = 60 * 60 * 1000;
 
-  if (
+  const shouldShow =
     isMobile &&
     (currentPath === "/" ||
       currentPath === "" ||
       currentPath.endsWith("index.html") ||
-      currentPath === "/index")
-  ) {
+      currentPath === "/index") &&
+    (isNaN(lastShown) || now - lastShown > oneHour);
+
+  if (shouldShow) {
     showMobilePopup();
   }
 }
 
 window.addEventListener("load", handleMobileBehavior);
 window.addEventListener("resize", handleMobileBehavior);
-
-console.log("Device detection:", {
-  isMobile: isMobileDevice(),
-  path: window.location.pathname,
-  userAgent: navigator.userAgent,
-  windowWidth: window.innerWidth,
-});
