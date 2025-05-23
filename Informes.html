@@ -128,24 +128,309 @@
             <img src="images/blob_1.svg" alt="Image" />
           </div>
         </div>
-        <div class="container">
+        <div
+          class="row align-items-center justify-content-center register-card"
+        >
           <div
-            class="row align-items-center justify-content-center register-card"
+            class="col-md-8 mx-auto no-madding"
+            data-aos="fade-up"
+            data-aos-delay="500"
           >
-            <div
-              class="col-md-8 mx-auto"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
-              <div class="card p-5 shadow-lg bg-white rounded text-center">
-                <h2 class="mb-3">¡Lo sentimos!</h2>
-                <p class="text-primary mb-4">
-                  Esta sección está en construcción.
-                </p>
-                <p class="text-muted">
-                  Estamos trabajando para traerte una mejor experiencia. ¡Vuelve
-                  pronto!
-                </p>
+            <div class="card p-3 p-md-5 shadow-lg bg-white rounded">
+              <h2 class="mb-3">Informes de paises</h2>
+              <p class="text-secondary m-0 text-justify w-100 mb-3">
+                En esta sección, te proveemos de información importante sobre
+                los paises donde te gustaría estudiar. Elegí el pais en el
+                buscador para obtener información.
+              </p>
+
+              <!-- Selector de País -->
+              <div class="filter-container text-center mb-4">
+                <div
+                  class="dropdown-container d-flex flex-column align-items-center"
+                >
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-primary dropdown-toggle btn-pill"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Seleccionar país
+                    </button>
+                    <div
+                      class="dropdown-menu text-center"
+                      id="dropdownPaises"
+                      aria-labelledby="dropdownMenuButton"
+                    ></div>
+                  </div>
+
+                  <div
+                    id="selected-paises"
+                    class="selected-items-container mt-3 d-flex flex-wrap justify-content-center gap-2"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Información del País -->
+              <div id="pais-info">
+                <div class="col-md-12 mb-5 pt-3 pt-md-0">
+                  <!-- Ficha General -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">Ficha general</h4>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Capital:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="capital"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">Región:</p>
+                          &nbsp;
+                          <p class="text-secondary" id="region"></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Idiomas oficiales:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="idiomas"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Población total:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="poblacion"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Costo de Vida -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">Costo de vida</h4>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">Moneda:</p>
+                          &nbsp;
+                          <p class="text-secondary" id="moneda"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Tipo de cambio (USD):
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="tipo-cambio"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Residencia universitaria (USD):
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="residencia"></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Supermercado mensual (USD):
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="supermercado"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Transporte público (USD):
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="transporte"></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Seguro médico obligatorio:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="seguro"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Sistema de Educación -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">
+                      Sistema de educación
+                    </h4>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="d-flex flex-wrap">
+                          <p class="text-secondary font-weight-bold">
+                            Descripción general:
+                          </p>
+                          &nbsp;
+                          <p
+                            class="text-secondary text-justify"
+                            id="descripcion-educacion"
+                          ></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Idiomas de instrucción:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="idiomas-educacion"></p>
+                        </div>
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Calendario académico:
+                          </p>
+                          &nbsp;
+                          <p class="text-secondary" id="calendario"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Universidades -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">
+                      Universidades mejor rankeadas
+                    </h4>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <ol
+                          class="text-secondary text-justify p-0"
+                          id="universidades"
+                        ></ol>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Comunidad Estudiantil -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">
+                      Comunidad estudiantil internacional
+                    </h4>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="d-flex">
+                          <p class="text-secondary font-weight-bold">
+                            Porcentaje de estudiantes internacionales:
+                          </p>
+                          &nbsp;
+                          <p
+                            class="text-secondary"
+                            id="porcentaje-internacionales"
+                          ></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Visa y Requisitos -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">
+                      Visa y requisitos migratorios
+                    </h4>
+                    <div>
+                      <div class="d-flex">
+                        <p class="text-secondary font-weight-bold">
+                          Tipo de visa estudiante:
+                        </p>
+                        &nbsp;
+                        <p class="text-secondary" id="tipo-visa"></p>
+                      </div>
+                      <div class="d-flex">
+                        <p class="text-secondary font-weight-bold">
+                          Trabajo con visa de estudiante:
+                        </p>
+                        &nbsp;
+                        <p class="text-secondary" id="trabajo-visa"></p>
+                      </div>
+                      <div class="d-flex flex-wrap">
+                        <p class="text-secondary font-weight-bold">
+                          Documentación necesaria:
+                        </p>
+                        &nbsp;
+                        <p
+                          class="text-secondary text-justify"
+                          id="documentacion"
+                        ></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="filter-divider w-100 my-4" />
+
+                  <!-- Clima y Estilo de Vida -->
+                  <div class="section mb-4">
+                    <h4 class="text-primary font-weight-bold">
+                      Clima y estilo de vida
+                    </h4>
+                    <div class="d-flex">
+                      <p class="text-secondary font-weight-bold">
+                        Clima promedio:
+                      </p>
+                      &nbsp;
+                      <p class="text-secondary" id="clima"></p>
+                    </div>
+                    <div class="d-flex">
+                      <p class="text-secondary font-weight-bold">
+                        Nivel de seguridad:
+                      </p>
+                      &nbsp;
+                      <p class="text-secondary" id="seguridad"></p>
+                    </div>
+                    <div class="d-flex">
+                      <p class="text-secondary font-weight-bold">
+                        Enchufes y voltaje:
+                      </p>
+                      &nbsp;
+                      <p class="text-secondary" id="enchufes"></p>
+                    </div>
+                    <div class="d-flex">
+                      <p class="text-secondary font-weight-bold">
+                        Oferta cultural y recreativa:
+                      </p>
+                      &nbsp;
+                      <p
+                        class="text-secondary text-justify"
+                        id="oferta-cultural"
+                      ></p>
+                    </div>
+                  </div>
+
+                  <div class="row justify-content-center mt-4">
+                    <div class="col-md-3 mb-2">
+                      <a
+                        href="/index.html"
+                        class="btn-template btn-secondary btn-block btn-pill text-center"
+                        >Volver a inicio</a
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -168,6 +453,8 @@
     <script src="js/jquery.sticky.js"></script>
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/fetchPaises.js"></script>
+    <script src="config.js"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

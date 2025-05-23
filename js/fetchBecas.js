@@ -49,15 +49,17 @@ function filtrarPorPaisDesdeMapa(pais) {
 
   // Desplazarse a la sección de resultados
   setTimeout(() => {
-    const element = document.getElementById("contador-becas");
-    const offset = 100; // Pixeles de espacio adicional
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    const becasContainer = document.getElementById("card-container");
+    if (becasContainer) {
+      const offset = 180; // Pixeles de espacio adicional
+      const elementPosition = becasContainer.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   }, 100);
 }
 

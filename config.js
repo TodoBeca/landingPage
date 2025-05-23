@@ -19,4 +19,7 @@ const CONFIG = {
   API_URL_UNIVERSITIES:
     "https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json",
   API_URL_CHAT: "https://backend-8vsm.onrender.com/chat/chat",
+  API_URL_GET_PAISES: "https://backend-8vsm.onrender.com/pais/getPaises",
+  API_URL_GET_PAIS_POR_NOMBRE:
+    "https://backend-8vsm.onrender.com/pais/getPaisByNombre",
 };
