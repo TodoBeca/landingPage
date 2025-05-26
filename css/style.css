@@ -2901,3 +2901,9 @@ input:checked ~ .slider {
     display: none;
   }
 }
+
+.no-dot {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}

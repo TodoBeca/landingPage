@@ -96,26 +96,22 @@ function mostrarInfoPais(nombrePais) {
   document.getElementById("universidades").innerHTML =
     info.universidades_mejor_rankeadas
       ? info.universidades_mejor_rankeadas
-          .sort((a, b) => {
-            // Extraer números del inicio de cada string (si existen)
-            const numA = parseInt(a.match(/^\d+/)?.[0] || "0");
-            const numB = parseInt(b.match(/^\d+/)?.[0] || "0");
-
-            // Si ambos tienen números, ordenar por número
-            if (numA && numB) {
-              return numA - numB; // Orden descendente por número
-            }
-
-            // Si solo uno tiene número, poner primero el que tiene número
-            if (numA && !numB) return -1;
-            if (!numA && numB) return 1;
-
-            // Si ninguno tiene número o son iguales, ordenar alfabéticamente
-            return b.localeCompare(a);
+          .map((ranking) => {
+            const universidadesList = ranking.universidades
+              .sort((a, b) => a.posicion - b.posicion)
+              .map(
+                (uni) =>
+                  `<li class="no-dot">${uni.posicion}° - ${uni.nombre}</li>`
+              )
+              .join("");
+            return `<div class="ranking-section">
+            <h5 class="pt-3 m-0">${ranking.nombreRanking}</h5>
+            <div >${universidadesList}</div>
+          </div>`;
           })
-          .map((uni) => `<ul class="p-0">${uni}</ul>`)
           .join("")
       : "<ul>-</ul>";
+
   document.getElementById("porcentaje-internacionales").textContent = info
     .comunidad_estudiantil_internacional?.porcentaje_estudiantes_internacionales
     ? `${info.comunidad_estudiantil_internacional.porcentaje_estudiantes_internacionales}%`
