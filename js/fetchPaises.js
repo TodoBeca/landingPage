@@ -93,24 +93,39 @@ function mostrarInfoPais(nombrePais) {
   document.getElementById("calendario").textContent =
     edu.calendario_academico || "-";
 
-  document.getElementById("universidades").innerHTML =
-    info.universidades_mejor_rankeadas
-      ? info.universidades_mejor_rankeadas
-          .map((ranking) => {
-            const universidadesList = ranking.universidades
-              .sort((a, b) => a.posicion - b.posicion)
-              .map(
-                (uni) =>
-                  `<li class="no-dot">${uni.posicion}° - ${uni.nombre}</li>`
-              )
-              .join("");
-            return `<div class="ranking-section">
-            <h5 class="pt-3 m-0">${ranking.nombreRanking}</h5>
-            <div >${universidadesList}</div>
-          </div>`;
-          })
-          .join("")
-      : "<ul>-</ul>";
+  // Obtener la sección de universidades por ID
+  const universidadesSection = document.getElementById("ranking-section");
+
+  if (
+    !info.universidades_mejor_rankeadas ||
+    info.universidades_mejor_rankeadas.length === 0
+  ) {
+    // Si no hay universidades, ocultar toda la sección
+    if (universidadesSection) {
+      universidadesSection.style.display = "none";
+    }
+  } else {
+    // Si hay universidades, mostrar la sección y actualizar el contenido
+    if (universidadesSection) {
+      universidadesSection.style.display = "block";
+    }
+    document.getElementById("universidades").innerHTML =
+      info.universidades_mejor_rankeadas
+        .map((ranking) => {
+          const universidadesList = ranking.universidades
+            .sort((a, b) => a.posicion - b.posicion)
+            .map(
+              (uni) =>
+                `<li class="no-dot">${uni.posicion}° - ${uni.nombre}</li>`
+            )
+            .join("");
+          return `<div class="ranking-section">
+        <h5 class="pt-3 m-0">${ranking.nombreRanking}</h5>
+        <div>${universidadesList}</div>
+      </div>`;
+        })
+        .join("");
+  }
 
   document.getElementById("porcentaje-internacionales").textContent = info
     .comunidad_estudiantil_internacional?.porcentaje_estudiantes_internacionales
