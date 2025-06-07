@@ -1,7 +1,10 @@
 // Función para cargar los códigos de países
 async function fetchCountryCodes() {
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=name,idd,translations"
+    );
+
     const countries = await response.json();
 
     // Ordenar países por nombre
@@ -22,12 +25,16 @@ async function fetchCountryCodes() {
 
     // Crear opciones para cada país
     countries.forEach((country) => {
+      const hasCode = country.idd?.root && country.idd?.suffixes?.length > 0;
+      if (!hasCode) return;
+
+      const countryCode = `${country.idd.root}${country.idd.suffixes[0]}`;
+      const countryName =
+        country.translations?.spa?.common || country.name.common;
+
       const option = document.createElement("option");
-      const countryCode =
-        country.idd.root +
-        (country.idd.suffixes ? country.idd.suffixes[0] : "");
-      option.value = countryCode; // Código de país (ej: +51)
-      option.textContent = `(${countryCode}) ${country.name.common} `; // Formato: "País (Código)"
+      option.value = countryCode;
+      option.textContent = `(${countryCode}) ${countryName}`;
       countryCodeSelect.appendChild(option);
     });
 
