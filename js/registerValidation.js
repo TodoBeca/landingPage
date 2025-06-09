@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmEmail = document.getElementById("confirmEmail");
   const passwordError = document.getElementById("passwordError");
   const emailError = document.getElementById("emailError");
+  const termsError = document.getElementById("termsError");
   const togglePasswordIcons = document.querySelectorAll(".toggle-password");
   const registerButton = form.querySelector("button[type='submit']");
 
@@ -30,6 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     } else {
       emailError.style.display = "none";
+    }
+
+    if (!terms.checked) {
+      termsError.style.display = "block";
+      isValid = false;
+    } else {
+      termsError.style.display = "none";
     }
 
     if (!isValid) {
